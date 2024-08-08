@@ -71,8 +71,8 @@ export const AnheloRidersStats = () => {
 
 						<p className="text-green-500">
 							En el siguiente nivel se te habilitarán máximo 5 pedidos por
-							vuelta. Para subir de nivel se toma en cuenta tu velocidad
-							promedio y horas conectado promedio.
+							vuelta. Subir de nivel se logra mejorando tu velocidad promedio y
+							horas conectado promedio.
 						</p>
 					</div>
 				</div>
