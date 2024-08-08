@@ -36,15 +36,28 @@ export const obtenerHoraActual = () => {
 
 export const ReadOrdersForToday = (callback) => {
   const firestore = getFirestore();
-  const todayDateString = obtenerFechaActual(); // Asumiendo que tienes una función obtenerFechaActual() definida en otro lugar
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
 
-  // Obtener el año, mes y día actual
-  const [day, month, year] = todayDateString.split('/');
+  let targetDate;
 
-  // Referencia al documento del día actual dentro de la colección del mes actual
+  // Si la hora actual está entre la medianoche y las 6 a.m., tomar los pedidos del día anterior
+  if (currentHour < 6) {
+    const previousDay = new Date(currentDate);
+    previousDay.setDate(currentDate.getDate() - 1); // Restar un día
+    targetDate = previousDay;
+  } else {
+    targetDate = currentDate;
+  }
+
+  const day = String(targetDate.getDate()).padStart(2, '0');
+  const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+  const year = String(targetDate.getFullYear());
+
+  // Referencia al documento correspondiente (hoy o la noche anterior)
   const ordersDocRef = doc(firestore, 'pedidos', year, month, day);
 
-  // Escuchar cambios en el documento del día actual
+  // Escuchar cambios en el documento del día objetivo
   return onSnapshot(
     ordersDocRef,
     (docSnapshot) => {
