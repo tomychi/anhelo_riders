@@ -16,9 +16,8 @@ const origen = { lat: -33.095809, lng: -64.33412 };
 export const MapOrders = ({ orders }) => {
   return (
     <APIProvider apiKey={APIKEY}>
-      <div className="w-full" style={{ height: '500px' }}>
+      <div className="w-full h-4/6 ">
         <Map
-          style={{ height: '100%', width: '100%' }}
           defaultZoom={13}
           defaultCenter={position}
           mapId={'bf51a910020fa25a'}

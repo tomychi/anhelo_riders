@@ -89,124 +89,124 @@ export const AnheloRiders = () => {
       {/* Parte del mapa */}
       <div className="flex-grow relative">
         <MapOrders orders={pedidosPorEntregar} />
-      </div>
-      {/* Parte de pedidos */}
-      <div className="overflow-y-auto max-h-[40vh] pb-safe">
-        {/* Pedidos por entregar */}
-        <div className="flex flex-col">
-          <button
-            onClick={togglePorEntregar}
-            className="uppercase bg-yellow-400 p-4 font-black font-antonio text-left flex justify-between items-center"
-          >
-            <span>Pedidos por entregar ({pedidosPorEntregar.length})</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-6 w-6 transform transition-transform duration-300 ${
-                isPorEntregarVisible ? 'rotate-180' : ''
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+        {/* Parte de pedidos */}
+        <div className="overflow-y-auto pb-safe">
+          {/* Pedidos por entregar */}
+          <div className="flex flex-col">
+            <button
+              onClick={togglePorEntregar}
+              className="uppercase bg-yellow-400 p-4 font-black font-antonio text-left flex justify-between items-center"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-          <div
-            className={`transition-all duration-500 ease-in-out overflow-hidden ${
-              isPorEntregarVisible ? 'max-h-[1000px]' : 'max-h-0'
-            }`}
-          >
-            {pedidosPorEntregar.map((pedido, index) => (
-              <PedidoCard
-                key={index}
-                {...pedido}
-                isVisible={isPorEntregarVisible}
-                index={index}
-              />
-            ))}
+              <span>Pedidos por entregar ({pedidosPorEntregar.length})</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`h-6 w-6 transform transition-transform duration-300 ${
+                  isPorEntregarVisible ? 'rotate-180' : ''
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            <div
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                isPorEntregarVisible ? 'max-h-[1000px]' : 'max-h-0'
+              }`}
+            >
+              {pedidosPorEntregar.map((pedido, index) => (
+                <PedidoCard
+                  key={index}
+                  {...pedido}
+                  isVisible={isPorEntregarVisible}
+                  index={index}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-        {/* Pedidos entregados */}
-        <div className="flex flex-col">
-          <button
-            onClick={toggleEntregados}
-            className="uppercase bg-green-500 p-4 font-black font-antonio text-left flex justify-between items-center"
-          >
-            <span>Pedidos entregados ({pedidosEntregados.length})</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-6 w-6 transform transition-transform duration-300 ${
-                isEntregadosVisible ? 'rotate-180' : ''
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          {/* Pedidos entregados */}
+          <div className="flex flex-col">
+            <button
+              onClick={toggleEntregados}
+              className="uppercase bg-green-500 p-4 font-black font-antonio text-left flex justify-between items-center"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-          <div
-            className={`transition-all duration-500 ease-in-out overflow-hidden ${
-              isEntregadosVisible ? 'max-h-[1000px]' : 'max-h-0'
-            }`}
-          >
-            {pedidosEntregados.map((pedido, index) => (
-              <PedidoCard
-                key={index}
-                {...pedido}
-                isVisible={isEntregadosVisible}
-                index={index}
-              />
-            ))}
+              <span>Pedidos entregados ({pedidosEntregados.length})</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`h-6 w-6 transform transition-transform duration-300 ${
+                  isEntregadosVisible ? 'rotate-180' : ''
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            <div
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                isEntregadosVisible ? 'max-h-[1000px]' : 'max-h-0'
+              }`}
+            >
+              {pedidosEntregados.map((pedido, index) => (
+                <PedidoCard
+                  key={index}
+                  {...pedido}
+                  isVisible={isEntregadosVisible}
+                  index={index}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-        {/* Pedidos cancelados */}
-        <div className="flex flex-col">
-          <button
-            onClick={toggleCancelados}
-            className="uppercase bg-red-main p-4 font-black font-antonio text-left flex justify-between items-center"
-          >
-            <span>Pedidos cancelados ({pedidosHechos.length})</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-6 w-6 transform transition-transform duration-300 ${
-                isCanceladosVisible ? 'rotate-180' : ''
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          {/* Pedidos cancelados */}
+          <div className="flex flex-col">
+            <button
+              onClick={toggleCancelados}
+              className="uppercase bg-red-main p-4 font-black font-antonio text-left flex justify-between items-center"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-          <div
-            className={`transition-all duration-500 ease-in-out overflow-hidden ${
-              isCanceladosVisible ? 'max-h-[1000px]' : 'max-h-0'
-            }`}
-          >
-            {pedidosHechos.map((pedido, index) => (
-              <PedidoCard
-                key={index}
-                {...pedido}
-                isVisible={isCanceladosVisible}
-                index={index}
-              />
-            ))}
+              <span>Pedidos cancelados ({pedidosHechos.length})</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`h-6 w-6 transform transition-transform duration-300 ${
+                  isCanceladosVisible ? 'rotate-180' : ''
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            <div
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                isCanceladosVisible ? 'max-h-[1000px]' : 'max-h-0'
+              }`}
+            >
+              {pedidosHechos.map((pedido, index) => (
+                <PedidoCard
+                  key={index}
+                  {...pedido}
+                  isVisible={isCanceladosVisible}
+                  index={index}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
