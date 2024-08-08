@@ -13,14 +13,11 @@ export const AnheloRiders = () => {
 		return () => unsubscribe(); // Limpia el suscriptor cuando el componente se desmonte
 	}, []);
 
-	const [isPorEntregarVisible, setIsPorEntregarVisible] = useState(false);
-	const [isEntregadosVisible, setIsEntregadosVisible] = useState(false);
-	const [isCanceladosVisible, setIsCanceladosVisible] = useState(false);
+	const [visibleSection, setVisibleSection] = useState(null);
 
-	const togglePorEntregar = () =>
-		setIsPorEntregarVisible(!isPorEntregarVisible);
-	const toggleEntregados = () => setIsEntregadosVisible(!isEntregadosVisible);
-	const toggleCancelados = () => setIsCanceladosVisible(!isCanceladosVisible);
+	const toggleSection = (section) => {
+		setVisibleSection(visibleSection === section ? null : section);
+	};
 
 	const filteredOrders = orders.sort((a, b) => {
 		const [horaA, minutosA] = a.hora.split(":").map(Number);
@@ -91,7 +88,7 @@ export const AnheloRiders = () => {
 				{/* Pedidos por entregar */}
 				<div className="flex flex-col">
 					<button
-						onClick={togglePorEntregar}
+						onClick={() => toggleSection("porEntregar")}
 						className="uppercase bg-yellow-400 px-4 py-2 font-black font-antonio text-left flex justify-between items-center"
 					>
 						<span className="text-xs">
@@ -100,7 +97,7 @@ export const AnheloRiders = () => {
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className={`h-4 w-4 transform transition-transform duration-300 ${
-								isEntregadosVisible ? "rotate-180" : ""
+								visibleSection === "porEntregar" ? "rotate-180" : ""
 							}`}
 							fill="none"
 							viewBox="0 0 24 24"
@@ -116,14 +113,14 @@ export const AnheloRiders = () => {
 					</button>
 					<div
 						className={`transition-all duration-500 ease-in-out overflow-hidden ${
-							isPorEntregarVisible ? "max-h-[1000px]" : "max-h-0"
+							visibleSection === "porEntregar" ? "max-h-[1000px]" : "max-h-0"
 						}`}
 					>
 						{pedidosPorEntregar.map((pedido, index) => (
 							<PedidoCard
 								key={index}
 								{...pedido}
-								isVisible={isPorEntregarVisible}
+								isVisible={visibleSection === "porEntregar"}
 								index={index}
 							/>
 						))}
@@ -132,7 +129,7 @@ export const AnheloRiders = () => {
 				{/* Pedidos entregados */}
 				<div className="flex flex-col">
 					<button
-						onClick={toggleEntregados}
+						onClick={() => toggleSection("entregados")}
 						className="uppercase bg-green-500 px-4 py-2 font-black font-antonio text-left flex justify-between items-center"
 					>
 						<span className="text-xs">
@@ -141,7 +138,7 @@ export const AnheloRiders = () => {
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className={`h-4 w-4 transform transition-transform duration-300 ${
-								isEntregadosVisible ? "rotate-180" : ""
+								visibleSection === "entregados" ? "rotate-180" : ""
 							}`}
 							fill="none"
 							viewBox="0 0 24 24"
@@ -157,14 +154,14 @@ export const AnheloRiders = () => {
 					</button>
 					<div
 						className={`transition-all duration-500 ease-in-out overflow-hidden ${
-							isEntregadosVisible ? "max-h-[1000px]" : "max-h-0"
+							visibleSection === "entregados" ? "max-h-[1000px]" : "max-h-0"
 						}`}
 					>
 						{pedidosEntregados.map((pedido, index) => (
 							<PedidoCard
 								key={index}
 								{...pedido}
-								isVisible={isEntregadosVisible}
+								isVisible={visibleSection === "entregados"}
 								index={index}
 							/>
 						))}
@@ -173,7 +170,7 @@ export const AnheloRiders = () => {
 				{/* Pedidos cancelados */}
 				<div className="flex flex-col">
 					<button
-						onClick={toggleCancelados}
+						onClick={() => toggleSection("cancelados")}
 						className="uppercase bg-gray-700 px-4 py-2 font-black font-antonio text-left flex justify-between items-center"
 					>
 						<span className="text-xs">
@@ -182,7 +179,7 @@ export const AnheloRiders = () => {
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className={`h-4 w-4 transform transition-transform duration-300 ${
-								isEntregadosVisible ? "rotate-180" : ""
+								visibleSection === "cancelados" ? "rotate-180" : ""
 							}`}
 							fill="none"
 							viewBox="0 0 24 24"
@@ -198,14 +195,14 @@ export const AnheloRiders = () => {
 					</button>
 					<div
 						className={`transition-all duration-500 ease-in-out overflow-hidden ${
-							isCanceladosVisible ? "max-h-[1000px]" : "max-h-0"
+							visibleSection === "cancelados" ? "max-h-[1000px]" : "max-h-0"
 						}`}
 					>
 						{pedidosHechos.map((pedido, index) => (
 							<PedidoCard
 								key={index}
 								{...pedido}
-								isVisible={isCanceladosVisible}
+								isVisible={visibleSection === "cancelados"}
 								index={index}
 							/>
 						))}
