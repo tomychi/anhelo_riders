@@ -55,7 +55,7 @@ export const AnheloRidersStats = () => {
 					<p>
 						Capaz de sacar máximo 4 pedidos por vuelta sin descuidar la entrega.
 					</p>
-					<div className="flex flex-row items-center justify-center border-2 border-green-500 bg-black mt-6 p-4 text-center md:text-left">
+					<div className="flex flex-row items-center justify-center border-2 border-green-500 bg-black mt-6 p-4 text-left gap-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
@@ -71,7 +71,8 @@ export const AnheloRidersStats = () => {
 
 						<p className="text-green-500">
 							En el siguiente nivel se te habilitarán máximo 5 pedidos por
-							vuelta.
+							vuelta. Para subir de nivel se toma en cuenta tu velocidad
+							promedio y horas conectado promedio.
 						</p>
 					</div>
 				</div>
