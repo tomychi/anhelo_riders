@@ -50,9 +50,17 @@ export const AnheloRidersStats = () => {
 				</NavLink>
 
 				<div className="flex flex-col mb-10">
-					<h1 className="text-6xl font-black">NIVEL 2:</h1>
+					<h1
+						className="text-6xl font-black"
+						style={{
+							WebkitTextStroke: "2px #22c55e", // Este es el color para green-500
+							WebkitTextFillColor: "currentColor", // Esto mantendrá el color del texto original
+						}}
+					>
+						NIVEL 2:
+					</h1>
 
-					<p>
+					<p className="font-black uppercase mt-1">
 						Capaz de sacar máximo 4 pedidos por vuelta sin descuidar la entrega.
 					</p>
 					<div className="flex flex-row items-center justify-center border-2 border-green-500 bg-black mt-6 p-4 text-left gap-4">
