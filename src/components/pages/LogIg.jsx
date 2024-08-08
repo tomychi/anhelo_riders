@@ -3,7 +3,7 @@ import userLogin from '../../auth/userLogin';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux/auth/authAction';
-import Sticker from '../../assets/anheloTMblack.png';
+import Sticker from '../../assets/anheloriders.png';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
