@@ -12,6 +12,7 @@ export const PedidoCard = ({
   telefono,
   isVisible,
   entregado,
+  metodoPago,
   index,
 }) => (
   <div
@@ -28,9 +29,9 @@ export const PedidoCard = ({
         Demora: {calcularDemora(hora)}
       </p>
       <p className="text-red-main text-xs font-black font-antonio">
-        {total === 'PAGADO' || total === 'CANCELADO'
-          ? `Cobrar: ${total}`
-          : `Cobrar: ${currencyFormat(total)}`}
+        {metodoPago === 'efectivo'
+          ? `Cobrar: ${currencyFormat(total)}`
+          : `Cobrar: PAGADO`}
       </p>
     </div>
     <div className="flex flex-col justify-between">
@@ -113,4 +114,5 @@ PedidoCard.propTypes = {
   fecha: PropTypes.string,
   id: PropTypes.string,
   telefono: PropTypes.string,
+  metodoPago: PropTypes.string,
 };
