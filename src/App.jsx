@@ -1,10 +1,10 @@
-import { Navigation } from './routes/Navitation';
+import { Navigation } from "./routes/Navigation";
 function App() {
-  return (
-    <>
-      <Navigation />
-    </>
-  );
+	return (
+		<>
+			<Navigation />
+		</>
+	);
 }
 
 export default App;
