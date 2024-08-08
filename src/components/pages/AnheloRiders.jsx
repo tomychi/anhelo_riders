@@ -4,18 +4,35 @@ import { MapOrders } from '../map/MapOrders';
 import { PedidoCard } from '../orders/PedidoCard';
 import { ReadOrdersForToday } from '../../firebase/orders';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { fetchUserNameByUid } from '../../firebase/users';
 
 export const AnheloRiders = () => {
-  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  const [userName, setUserName] = useState(null);
+  const [orders, setOrders] = useState([]);
 
   const [isArrowRotated, setIsArrowRotated] = useState(false);
 
-  const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    // Lee los pedidos para hoy y actualiza el estado
-    const unsubscribe = ReadOrdersForToday(setOrders);
-    return () => unsubscribe(); // Limpia el suscriptor cuando el componente se desmonte
-  }, []);
+    const getUserName = async () => {
+      if (user?.uid) {
+        const name = await fetchUserNameByUid(user.uid);
+        setUserName(name);
+      }
+    };
+
+    getUserName();
+  }, [user?.uid]);
+
+  useEffect(() => {
+    if (userName) {
+      const unsubscribe = ReadOrdersForToday(userName, setOrders);
+      return () => unsubscribe(); // Limpia el suscriptor cuando el componente se desmonte
+    }
+  }, [userName]);
 
   const [visibleSection, setVisibleSection] = useState(null);
 

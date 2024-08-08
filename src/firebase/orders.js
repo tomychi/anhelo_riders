@@ -34,17 +34,16 @@ export const obtenerHoraActual = () => {
   return horaFormateada;
 };
 
-export const ReadOrdersForToday = (callback) => {
+export const ReadOrdersForToday = (userName, callback) => {
   const firestore = getFirestore();
   const currentDate = new Date();
   const currentHour = currentDate.getHours();
 
   let targetDate;
 
-  // Si la hora actual está entre la medianoche y las 6 a.m., tomar los pedidos del día anterior
   if (currentHour < 6) {
     const previousDay = new Date(currentDate);
-    previousDay.setDate(currentDate.getDate() - 1); // Restar un día
+    previousDay.setDate(currentDate.getDate() - 1);
     targetDate = previousDay;
   } else {
     targetDate = currentDate;
@@ -54,20 +53,20 @@ export const ReadOrdersForToday = (callback) => {
   const month = String(targetDate.getMonth() + 1).padStart(2, '0');
   const year = String(targetDate.getFullYear());
 
-  // Referencia al documento correspondiente (hoy o la noche anterior)
   const ordersDocRef = doc(firestore, 'pedidos', year, month, day);
 
-  // Escuchar cambios en el documento del día objetivo
   return onSnapshot(
     ordersDocRef,
     (docSnapshot) => {
       if (docSnapshot.exists()) {
-        // Si el documento existe, obtener el arreglo de pedidos
         const pedidosDelDia = docSnapshot.data()?.pedidos || [];
-        callback(pedidosDelDia); // Llamar a la función de devolución de llamada con los pedidos encontrados
+        // Filtrar los pedidos por nombre del cadete
+        const filteredOrders = pedidosDelDia.filter(
+          (order) => order.cadete === userName
+        );
+        callback(filteredOrders);
       } else {
-        // Si el documento no existe, no hay pedidos para el día actual
-        callback([]); // Llamar a la función de devolución de llamada con un arreglo vacío
+        callback([]);
       }
     },
     (error) => {
