@@ -126,8 +126,7 @@ export const AnheloRidersStats = () => {
 									</svg>
 
 									<p className="text-xs ">
-										Los cadetes nivel 3 andan en promedio a una velocidad de 60
-										km/hr
+										Los cadetes nivel 3 andan en promedio a 60 km/hr
 									</p>
 								</div>
 							</div>
