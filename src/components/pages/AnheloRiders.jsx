@@ -92,13 +92,15 @@ export const AnheloRiders = () => {
 				<div className="flex flex-col">
 					<button
 						onClick={togglePorEntregar}
-						className="uppercase bg-yellow-400 p-4 font-black font-antonio text-left flex justify-between items-center"
+						className="uppercase bg-yellow-400 px-4 py-2 font-black font-antonio text-left flex justify-between items-center"
 					>
-						<span>Pedidos por entregar ({pedidosPorEntregar.length})</span>
+						<span className="text-xs">
+							Pedidos por entregar ({pedidosPorEntregar.length})
+						</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							className={`h-6 w-6 transform transition-transform duration-300 ${
-								isPorEntregarVisible ? "rotate-180" : ""
+							className={`h-4 w-4 transform transition-transform duration-300 ${
+								isEntregadosVisible ? "rotate-180" : ""
 							}`}
 							fill="none"
 							viewBox="0 0 24 24"
@@ -131,12 +133,14 @@ export const AnheloRiders = () => {
 				<div className="flex flex-col">
 					<button
 						onClick={toggleEntregados}
-						className="uppercase bg-green-500 p-4 font-black font-antonio text-left flex justify-between items-center"
+						className="uppercase bg-green-500 px-4 py-2 font-black font-antonio text-left flex justify-between items-center"
 					>
-						<span>Pedidos entregados ({pedidosEntregados.length})</span>
+						<span className="text-xs">
+							Pedidos entregados ({pedidosEntregados.length})
+						</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							className={`h-6 w-6 transform transition-transform duration-300 ${
+							className={`h-4 w-4 transform transition-transform duration-300 ${
 								isEntregadosVisible ? "rotate-180" : ""
 							}`}
 							fill="none"
@@ -170,13 +174,15 @@ export const AnheloRiders = () => {
 				<div className="flex flex-col">
 					<button
 						onClick={toggleCancelados}
-						className="uppercase bg-gray-600 p-4 font-black font-antonio text-left flex justify-between items-center"
+						className="uppercase bg-gray-700 px-4 py-2 font-black font-antonio text-left flex justify-between items-center"
 					>
-						<span>Pedidos cancelados ({pedidosHechos.length})</span>
+						<span className="text-xs">
+							Pedidos cancelados ({pedidosHechos.length})
+						</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							className={`h-6 w-6 transform transition-transform duration-300 ${
-								isCanceladosVisible ? "rotate-180" : ""
+							className={`h-4 w-4 transform transition-transform duration-300 ${
+								isEntregadosVisible ? "rotate-180" : ""
 							}`}
 							fill="none"
 							viewBox="0 0 24 24"
