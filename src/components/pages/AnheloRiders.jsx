@@ -96,19 +96,17 @@ export const AnheloRiders = () => {
 						</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							className={`h-4 w-4 transform transition-transform duration-300 ${
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="3"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							className={`h-3 transition-transform duration-300 ${
 								visibleSection === "porEntregar" ? "rotate-180" : ""
 							}`}
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
 						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M19 9l-7 7-7-7"
-							/>
+							<path d="M20 4L4 20M4 4v16h16" />
 						</svg>
 					</button>
 					<div
@@ -137,19 +135,17 @@ export const AnheloRiders = () => {
 						</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							className={`h-4 w-4 transform transition-transform duration-300 ${
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="3"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							className={`h-3 transition-transform duration-300 ${
 								visibleSection === "entregados" ? "rotate-180" : ""
 							}`}
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
 						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M19 9l-7 7-7-7"
-							/>
+							<path d="M20 4L4 20M4 4v16h16" />
 						</svg>
 					</button>
 					<div
@@ -178,19 +174,17 @@ export const AnheloRiders = () => {
 						</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							className={`h-4 w-4 transform transition-transform duration-300 ${
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="3"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							className={`h-3 transition-transform duration-300 ${
 								visibleSection === "cancelados" ? "rotate-180" : ""
 							}`}
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
 						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M19 9l-7 7-7-7"
-							/>
+							<path d="M20 4L4 20M4 4v16h16" />
 						</svg>
 					</button>
 					<div
