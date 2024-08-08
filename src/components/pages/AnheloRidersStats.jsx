@@ -215,10 +215,63 @@ export const AnheloRidersStats = () => {
 							<div>
 								<p className="text-sm uppercase">Km recorridos</p>
 								<p className="text-xl font-bold">42 kms = $8000</p>
+
+								<div className="flex flex-row items-center gap-1 text-green-500">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										className="h-3"
+									>
+										<path
+											fill="#22c55e"
+											stroke="currentColor"
+											stroke-width="2"
+											d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6z"
+										/>
+										<path
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											d="M9 3v15"
+										/>
+										<path
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											d="M15 6v15"
+										/>
+										<path
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											d="M5 10l2-1 2 1 2-1 2 1 2-1 2 1"
+										/>
+									</svg>
+
+									<p className="text-xs ">
+										Los cadetes nivel 3 andan en promedio a 60 km/hr
+									</p>
+								</div>
 							</div>
 							<div>
 								<p className="text-sm uppercase">Puntos de entrega</p>
 								<p className="text-xl font-bold">21 = $21.000</p>
+								<div className="flex flex-row items-center gap-1 text-green-500">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 384 512"
+										className="h-3"
+									>
+										<path
+											fill="#22c55e"
+											d="M384 192c0 77.47-64 184-192 320-128-136-192-242.53-192-320C0 86 86 0 192 0s192 86 192 192zM192 256c35.35 0 64-28.65 64-64s-28.65-64-64-64-64 28.65-64 64 28.65 64 64 64z"
+										/>
+									</svg>
+
+									<p className="text-xs ">
+										Los cadetes nivel 3 en promedio tienen 30 puntos de entrega
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
