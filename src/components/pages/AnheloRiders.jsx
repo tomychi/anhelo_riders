@@ -3,9 +3,13 @@ import logo from "../../assets/anheloTMblack.png";
 import { MapOrders } from "../map/MapOrders";
 import { PedidoCard } from "../orders/PedidoCard";
 import { ReadOrdersForToday } from "../../firebase/orders";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export const AnheloRiders = () => {
+	const navigate = useNavigate();
+
+	const [isArrowRotated, setIsArrowRotated] = useState(false);
+
 	const [orders, setOrders] = useState([]);
 	useEffect(() => {
 		// Lee los pedidos para hoy y actualiza el estado
@@ -44,6 +48,15 @@ export const AnheloRiders = () => {
 		return () => window.removeEventListener("resize", setVh);
 	}, []);
 
+	const handleVolverClick = (e) => {
+		e.preventDefault();
+		setIsArrowRotated(true);
+		setTimeout(() => {
+			setIsArrowRotated(false);
+			navigate("/anheloriders_stats");
+		}, 500);
+	};
+
 	return (
 		<div className="flex flex-col h-screen h-[calc(var(--vh,1vh)*100)]">
 			{/* Parte de la ganancia */}
@@ -61,14 +74,20 @@ export const AnheloRiders = () => {
 					</div>
 				</div>
 				<div className="flex flex-col justify-between">
-					<NavLink to="/anheloriders_stats" className="flex flex-col items-end">
+					<NavLink
+						to="/anheloriders_stats"
+						className="flex flex-col items-end"
+						onClick={handleVolverClick}
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
 							strokeWidth="1.5"
 							stroke="currentColor"
-							className="w-6"
+							className={`w-6 h-6 mr-2 transition-transform duration-500 ${
+								isArrowRotated ? "rotate-180" : "rotate-0"
+							}`}
 						>
 							<path
 								strokeLinecap="round"
