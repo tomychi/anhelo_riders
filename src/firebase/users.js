@@ -22,6 +22,19 @@ export const fetchUserNameByUid = async (uid) => {
   }
 };
 
+export const fetchUserVueltasByUid = async (uid) => {
+  const firestore = getFirestore();
+  const userDocRef = doc(firestore, 'users', uid);
+  const userDoc = await getDoc(userDocRef);
+
+  if (userDoc.exists()) {
+    return userDoc.data().vueltas;
+  } else {
+    console.error('No se encontró el usuario');
+    return null;
+  }
+};
+
 export const startRide = async (
   cadeteId,
   orders,
@@ -42,6 +55,7 @@ export const startRide = async (
       startTime: startTime,
       orders: orders.map((order) => ({
         orderId: order.id,
+        direccion: order.direccion,
       })),
       totalDistance: totalDistance,
       totalDuration: totalDuration,
