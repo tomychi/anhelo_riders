@@ -79,7 +79,7 @@ export const AnheloRiders = () => {
 			{/* Parte de pedidos */}
 			<div className="overflow-y-auto pb-safe">
 				{/* Pedidos por entregar */}
-				<div className="flex flex-col">
+				<div className="flex flex-col ">
 					<div
 						className={`transition-all duration-500 ease-in-out  overflow-hidden ${
 							visibleSection === "porEntregar" ? "max-h-[1000px]" : "max-h-0"
