@@ -1,7 +1,18 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { fetchConstants } from '../../firebase/users';
+import { fetchUserVueltasByUid } from '../../firebase/users';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { useSelector } from 'react-redux';
+import { currencyFormat } from '../../helpers/currencyFormat';
+
+const formatearFecha = (timestamp) => {
+  if (!timestamp) return '';
+
+  const date = new Date(
+    timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
+  );
+  return date.toLocaleString(); // Formatea la fecha y hora a un string legible
+};
 
 export const AnheloRidersStats = () => {
   const navigate = useNavigate();
@@ -9,7 +20,10 @@ export const AnheloRidersStats = () => {
   const [isEstadisticasVisible, setIsEstadisticasVisible] = useState(false); // Cambiado a false
   const [isResumenVisible, setIsResumenVisible] = useState(false); // Cambiado a false
   const [isDesgloseVisible, setIsDesgloseVisible] = useState(false); // Cambiado a false
+
+  const [vueltas, setVeultas] = useState([]);
   const [cadetesData, setCadetesData] = useState(null);
+  const user = useSelector((state) => state.auth.user);
 
   const handleVolverClick = (e) => {
     e.preventDefault();
@@ -21,6 +35,13 @@ export const AnheloRidersStats = () => {
   };
 
   useEffect(() => {
+    const getVueltas = async () => {
+      if (user?.uid) {
+        const name = await fetchUserVueltasByUid(user.uid);
+        setVeultas(name);
+      }
+    };
+
     const fetchConstants = async () => {
       const firestore = getFirestore();
       const constDocRef = doc(firestore, 'constantes', 'sueldos');
@@ -34,14 +55,50 @@ export const AnheloRidersStats = () => {
       }
     };
 
+    getVueltas();
     fetchConstants();
-  }, []);
-  console.log(cadetesData);
+  }, [user.uid]);
 
   const toggleEstadisticas = () =>
     setIsEstadisticasVisible(!isEstadisticasVisible);
   const toggleResumen = () => setIsResumenVisible(!isResumenVisible);
   const toggleDesglose = () => setIsDesgloseVisible(!isDesgloseVisible);
+
+  const calcularDesglosePaga = (vueltas) => {
+    let totalPaga = 0;
+
+    vueltas.forEach((vuelta) => {
+      const puntosDeEntrega = vuelta.orders.length;
+      const pagaPorPuntosDeEntrega =
+        puntosDeEntrega * cadetesData.precioPuntoEntrega;
+      const pagaPorKmRecorridos =
+        vuelta.totalDistance * cadetesData.precioPorKM;
+
+      // Sumar al total de la vuelta
+      const pagaVuelta = pagaPorPuntosDeEntrega + pagaPorKmRecorridos;
+      totalPaga += pagaVuelta;
+
+      // console.log(`
+      //   Puntos de Entrega: $${pagaPorPuntosDeEntrega} (${puntosDeEntrega} puntos)
+      //   Km recorridos: $${pagaPorKmRecorridos.toFixed(
+      //     2
+      //   )} (${vuelta.totalDistance.toFixed(2)} km)
+      //   Total de la vuelta: $${pagaVuelta.toFixed(2)}
+      // `);
+    });
+
+    return totalPaga;
+  };
+
+  // Uso de la función
+  const desglose = calcularDesglosePaga(vueltas, cadetesData);
+
+  const kmRecorridos = vueltas.reduce((total, vuelta) => {
+    return total + vuelta.totalDistance;
+  }, 0);
+  const puntosEntrega = vueltas.reduce((total, vuelta) => {
+    return total + vuelta.orders.length;
+  }, 0);
 
   return (
     <div className="bg-red-main min-h-screen text-black font-antonio">
@@ -243,7 +300,10 @@ export const AnheloRidersStats = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 px-4 pb-4 gap-4">
               <div>
                 <p className="text-sm uppercase">Km recorridos</p>
-                <p className="text-xl font-bold">42 kms = $8000</p>
+                <p className="text-xl font-bold">
+                  {kmRecorridos.toFixed(2)} km ={' '}
+                  {currencyFormat(kmRecorridos * cadetesData.precioPorKM)}
+                </p>
 
                 <div className="flex flex-row items-center gap-1 text-green-500">
                   <svg
@@ -284,7 +344,12 @@ export const AnheloRidersStats = () => {
               </div>
               <div>
                 <p className="text-sm uppercase">Puntos de entrega</p>
-                <p className="text-xl font-bold">21 = $21.000</p>
+                <p className="text-xl font-bold">
+                  {puntosEntrega} ={' '}
+                  {currencyFormat(
+                    puntosEntrega * cadetesData.precioPuntoEntrega
+                  )}
+                </p>
                 <div className="flex flex-row items-center gap-1 text-green-500">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -339,23 +404,36 @@ export const AnheloRidersStats = () => {
             }`}
           >
             <div className="px-4 pb-4">
-              {[1, 2, 3, 4, 5].map((pedido) => (
-                <div key={pedido} className="mb-4 last:mb-0">
-                  <h3 className="text-xl font-bold mb-2">Pedido {pedido}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {pedido === 1 && (
-                      <p>Punto de Retiro: $1000 (Por ser en días pico)</p>
-                    )}
-                    <p>
-                      Km al Pedido {pedido}: ${pedido * 200} ({pedido} km)
-                    </p>
-                    <p>Punto de Entrega: $1000</p>
+              {vueltas.map((vuelta) => (
+                <div key={vuelta.rideId} className="mb-4 last:mb-0">
+                  <h3 className="text-xl font-bold mb-2">
+                    Inicio vuelta {formatearFecha(vuelta.startTime)}
+                  </h3>
+                  <div>
+                    {vuelta.orders.map((o, index) => (
+                      <p key={o.orderId}>
+                        {index + 1}. {o.direccion}
+                      </p>
+                    ))}
                   </div>
+                  <p>
+                    puntos de entrega:{' '}
+                    {currencyFormat(cadetesData.precioPuntoEntrega)} (
+                    {vuelta.orders.length})
+                  </p>
+                  <p>
+                    Km recorridos: {currencyFormat(cadetesData.precioPorKM)} (
+                    {vuelta.totalDistance.toFixed(2)} km)
+                  </p>
+                  <h3 className="text-xl font-bold mb-2">
+                    Final vuelta {formatearFecha(vuelta.endTime)}
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
                 </div>
               ))}
-              <p>Km de vuelta al local: $1160 (5.8 km)</p>
+
               <p className="text-xl font-bold mt-2">
-                TOTAL DE LA VUELTA: $10.060
+                TOTAL DE LA VUELTA: {currencyFormat(desglose)}
               </p>
             </div>
           </div>
