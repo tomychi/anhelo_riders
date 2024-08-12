@@ -71,7 +71,6 @@ export const startRide = async (cadeteId, orders, totalDistance) => {
 
 export const endRide = async (
   rideId,
-  totalDistance,
   totalDuration,
   cadeteId // Ahora pasamos el cadeteId como parámetro
 ) => {
@@ -92,7 +91,6 @@ export const endRide = async (
         ? {
             ...ride,
             endTime: endTime,
-            totalDistance: totalDistance,
             totalDuration: totalDuration,
             status: 'completed', // Marca la vuelta como completada
           }

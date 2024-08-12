@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import logo from '../../assets/anheloTMblack.png';
+import { MapOrders } from '../map/MapOrders';
 import { PedidoCard } from '../orders/PedidoCard';
 import { ReadOrdersForToday } from '../../firebase/orders';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { fetchUserNameByUid } from '../../firebase/users';
-import { MapOrders } from '../map/MapOrders';
 
 export const AnheloRiders = () => {
   const user = useSelector((state) => state.auth.user);
@@ -45,10 +45,8 @@ export const AnheloRiders = () => {
     const [horaB, minutosB] = b.hora.split(':').map(Number);
     return horaA * 60 + minutosA - (horaB * 60 + minutosB);
   });
-  const pedidosPorEntregar = filteredOrders.filter(
-    (o) => !o.entregado && o.status !== 'pending'
-  );
-  const pedidosenVuelta = filteredOrders.filter((o) => o.status === 'pending');
+
+  const pedidosPorEntregar = filteredOrders.filter((o) => !o.entregado);
 
   const pedidosHechos = filteredOrders.filter(
     (o) => o.elaborado && !o.entregado
@@ -174,45 +172,6 @@ export const AnheloRiders = () => {
             ))}
           </div>
         </div>
-        {/* Pedidos en vuelta */}
-        <div className="flex flex-col">
-          <button
-            onClick={() => toggleSection('enVuelta')}
-            className="uppercase bg-yellow-400 px-4 py-2 font-black font-antonio text-left flex justify-between items-center"
-          >
-            <span className="text-xs">
-              Pedidos en vuelta ({pedidosenVuelta.length})
-            </span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className={`h-3 transition-transform duration-300 ${
-                visibleSection === 'enVuelta' ? 'rotate-180' : ''
-              }`}
-            >
-              <path d="M20 4L4 20M4 4v16h16" />
-            </svg>
-          </button>
-          <div
-            className={`transition-all duration-500 ease-in-out overflow-hidden ${
-              visibleSection === 'enVuelta' ? 'max-h-[1000px]' : 'max-h-0'
-            }`}
-          >
-            {pedidosenVuelta.map((pedido, index) => (
-              <PedidoCard
-                key={index}
-                {...pedido}
-                isVisible={visibleSection === 'enVuelta'}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
         {/* Pedidos entregados */}
         <div className="flex flex-col">
           <button
@@ -294,10 +253,7 @@ export const AnheloRiders = () => {
       </div>
       {/* Parte del mapa */}
       <div className="flex-grow relative">
-        <MapOrders
-          pedidosenVuelta={pedidosenVuelta}
-          pedidosPorEntregar={pedidosPorEntregar}
-        />
+        <MapOrders orders={pedidosPorEntregar} />
       </div>
     </div>
   );

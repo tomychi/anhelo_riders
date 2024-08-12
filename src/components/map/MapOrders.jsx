@@ -17,7 +17,7 @@ const origen = { lat: -33.095809, lng: -64.33412 };
 
 // const origen = { lat: -33.122869792517136, lng: -64.3548615327737 };
 
-export const MapOrders = ({ pedidosenVuelta, pedidosPorEntregar }) => {
+export const MapOrders = ({ orders }) => {
   return (
     <APIProvider apiKey={APIKEY}>
       <div className="absolute inset-0 w-full h-full object-cover">
@@ -35,17 +35,14 @@ export const MapOrders = ({ pedidosenVuelta, pedidosPorEntregar }) => {
 							draggable={false}
 						/>
 					))} */}
-          <Directions
-            pedidosenVuelta={pedidosenVuelta}
-            pedidosPorEntregar={pedidosPorEntregar}
-          />
+          <Directions orders={orders} />
         </Map>
       </div>
     </APIProvider>
   );
 };
 
-function Directions({ pedidosenVuelta, pedidosPorEntregar }) {
+function Directions({ orders }) {
   const map = useMap();
   const routesLibrary = useMapsLibrary('routes');
 
@@ -69,7 +66,7 @@ function Directions({ pedidosenVuelta, pedidosPorEntregar }) {
   useEffect(() => {
     if (!directionsService || !directionsRenderer) return;
 
-    const waypoints = pedidosPorEntregar.map((order) => ({
+    const waypoints = orders.map((order) => ({
       location: { lat: order.map[0], lng: order.map[1] },
       stopover: true,
     }));
@@ -123,14 +120,13 @@ function Directions({ pedidosenVuelta, pedidosPorEntregar }) {
 
         setRoutes(response.routes);
       });
-  }, [directionsService, directionsRenderer, pedidosenVuelta]);
+  }, [directionsService, directionsRenderer, orders]);
   if (!leg) return null;
 
   return (
     <div className="directions">
       <RideComponent
-        pedidosPorEntregar={pedidosPorEntregar}
-        pedidosenVuelta={pedidosenVuelta}
+        pedidosPorEntregar={orders}
         totalDistance={totalDistance}
         totalDuration={totalDuration}
       />
@@ -157,11 +153,9 @@ function Directions({ pedidosenVuelta, pedidosPorEntregar }) {
 }
 
 MapOrders.propTypes = {
-  pedidosenVuelta: PropTypes.arrayOf(pedidoPropTypes).isRequired,
-  pedidosPorEntregar: PropTypes.arrayOf(pedidoPropTypes).isRequired,
+  orders: PropTypes.arrayOf(pedidoPropTypes).isRequired,
 };
 
 Directions.propTypes = {
-  pedidosenVuelta: PropTypes.arrayOf(pedidoPropTypes).isRequired,
-  pedidosPorEntregar: PropTypes.arrayOf(pedidoPropTypes).isRequired,
+  orders: PropTypes.arrayOf(pedidoPropTypes).isRequired,
 };

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setRideStatus } from '../../redux/riders/riderAction';
 const RideComponent = ({
   pedidosPorEntregar,
-  pedidosenVuelta,
   totalDuration,
   totalDistance,
 }) => {
@@ -44,7 +43,7 @@ const RideComponent = ({
     }
 
     // Verifica si todos los pedidos en vuelta están marcados como 'delivered'
-    const allDelivered = pedidosenVuelta.every(
+    const allDelivered = pedidosPorEntregar.every(
       (order) => order.status === 'delivered'
     );
 
@@ -54,7 +53,7 @@ const RideComponent = ({
     }
 
     try {
-      await endRide(rideId, totalDistance, totalDuration, cadeteId);
+      await endRide(rideId, totalDuration, cadeteId);
       dispatch(setRideStatus(null, false, []));
     } catch (error) {
       console.error('Error al finalizar la vuelta', error);
@@ -92,7 +91,6 @@ export default RideComponent;
 
 RideComponent.propTypes = {
   pedidosPorEntregar: PropTypes.arrayOf(pedidoPropTypes).isRequired,
-  pedidosenVuelta: PropTypes.arrayOf(pedidoPropTypes).isRequired,
   totalDistance: PropTypes.number,
   totalDuration: PropTypes.number,
 };
