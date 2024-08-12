@@ -24,7 +24,8 @@ const RideComponent = ({
       const newRideId = await startRide(
         cadeteId,
         pedidosPorEntregar,
-        totalDistance
+        totalDistance,
+        totalDuration
       );
       if (newRideId) {
         dispatch(setRideStatus(newRideId, true, pedidosPorEntregar));
@@ -53,7 +54,7 @@ const RideComponent = ({
     }
 
     try {
-      await endRide(rideId, totalDuration, cadeteId);
+      await endRide(rideId, cadeteId);
       dispatch(setRideStatus(null, false, []));
     } catch (error) {
       console.error('Error al finalizar la vuelta', error);

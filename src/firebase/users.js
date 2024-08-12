@@ -22,7 +22,12 @@ export const fetchUserNameByUid = async (uid) => {
   }
 };
 
-export const startRide = async (cadeteId, orders, totalDistance) => {
+export const startRide = async (
+  cadeteId,
+  orders,
+  totalDistance,
+  totalDuration
+) => {
   const startTime = new Date();
   const firestore = getFirestore();
   const fechaActual = obtenerFechaActual();
@@ -39,7 +44,7 @@ export const startRide = async (cadeteId, orders, totalDistance) => {
         orderId: order.id,
       })),
       totalDistance: totalDistance,
-      totalDuration: 0,
+      totalDuration: totalDuration,
       status: 'ongoing',
     }),
   });
@@ -71,7 +76,6 @@ export const startRide = async (cadeteId, orders, totalDistance) => {
 
 export const endRide = async (
   rideId,
-  totalDuration,
   cadeteId // Ahora pasamos el cadeteId como parámetro
 ) => {
   const endTime = new Date();
@@ -91,7 +95,6 @@ export const endRide = async (
         ? {
             ...ride,
             endTime: endTime,
-            totalDuration: totalDuration,
             status: 'completed', // Marca la vuelta como completada
           }
         : ride
