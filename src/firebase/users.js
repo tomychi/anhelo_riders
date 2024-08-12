@@ -113,3 +113,17 @@ export const endRide = async (
     console.error('No se encontró el usuario');
   }
 };
+
+// Función para obtener constantes
+export const fetchConstants = async () => {
+  const firestore = getFirestore();
+  const constDocRef = doc(firestore, 'constantes', 'sueldos');
+  const constDoc = await getDoc(constDocRef);
+
+  if (constDoc.exists()) {
+    return constDoc.data().cadetes;
+  } else {
+    console.error('No se encontró el usuario');
+    return null;
+  }
+};

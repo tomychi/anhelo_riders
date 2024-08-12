@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { fetchConstants } from '../../firebase/users';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 
 export const AnheloRidersStats = () => {
   const navigate = useNavigate();
@@ -7,6 +9,7 @@ export const AnheloRidersStats = () => {
   const [isEstadisticasVisible, setIsEstadisticasVisible] = useState(false); // Cambiado a false
   const [isResumenVisible, setIsResumenVisible] = useState(false); // Cambiado a false
   const [isDesgloseVisible, setIsDesgloseVisible] = useState(false); // Cambiado a false
+  const [cadetesData, setCadetesData] = useState(null);
 
   const handleVolverClick = (e) => {
     e.preventDefault();
@@ -16,6 +19,24 @@ export const AnheloRidersStats = () => {
       navigate('/anheloriders');
     }, 500);
   };
+
+  useEffect(() => {
+    const fetchConstants = async () => {
+      const firestore = getFirestore();
+      const constDocRef = doc(firestore, 'constantes', 'sueldos');
+      const constDoc = await getDoc(constDocRef);
+
+      if (constDoc.exists()) {
+        const cadetes = constDoc.data().cadetes;
+        setCadetesData(cadetes);
+      } else {
+        console.error('No se encontró el documento "sueldos"');
+      }
+    };
+
+    fetchConstants();
+  }, []);
+  console.log(cadetesData);
 
   const toggleEstadisticas = () =>
     setIsEstadisticasVisible(!isEstadisticasVisible);
@@ -129,9 +150,9 @@ export const AnheloRidersStats = () => {
                     className="h-3"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
 
@@ -151,9 +172,9 @@ export const AnheloRidersStats = () => {
                     className="h-3"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
 
@@ -233,25 +254,25 @@ export const AnheloRidersStats = () => {
                     <path
                       fill="#22c55e"
                       stroke="currentColor"
-                      stroke-width="2"
+                      strokeWidth="2"
                       d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6z"
                     />
                     <path
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
+                      strokeWidth="2"
                       d="M9 3v15"
                     />
                     <path
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
+                      strokeWidth="2"
                       d="M15 6v15"
                     />
                     <path
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
+                      strokeWidth="2"
                       d="M5 10l2-1 2 1 2-1 2 1 2-1 2 1"
                     />
                   </svg>
