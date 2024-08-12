@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import { thunk } from 'redux-thunk';
 
 import authReducer from './auth/authReducer';
+import rideReducer from './riders/rideReducer';
 const persistConfig = {
   key: 'root',
   storage,
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const RootReducer = combineReducers({
   auth: authReducer,
+  ride: rideReducer,
   // ACA VAN LOS ESTADOS
 });
 

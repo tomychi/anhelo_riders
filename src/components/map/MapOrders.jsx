@@ -7,13 +7,17 @@ import {
   useMapsLibrary,
 } from '@vis.gl/react-google-maps';
 import PropTypes from 'prop-types';
+import { pedidoPropTypes } from '../../helpers/propTypes';
+import RideComponent from '../riders';
 
 const APIKEY = import.meta.env.VITE_API_GOOGLE_MAPS;
 
 const position = { lat: -33.117142, lng: -64.347756 };
 const origen = { lat: -33.095809, lng: -64.33412 };
 
-export const MapOrders = ({ orders }) => {
+// const origen = { lat: -33.122869792517136, lng: -64.3548615327737 };
+
+export const MapOrders = ({ pedidosenVuelta, pedidosPorEntregar }) => {
   return (
     <APIProvider apiKey={APIKEY}>
       <div className="absolute inset-0 w-full h-full object-cover">
@@ -31,19 +35,24 @@ export const MapOrders = ({ orders }) => {
 							draggable={false}
 						/>
 					))} */}
-          <Directions orders={orders} />
+          <Directions
+            pedidosenVuelta={pedidosenVuelta}
+            pedidosPorEntregar={pedidosPorEntregar}
+          />
         </Map>
       </div>
     </APIProvider>
   );
 };
 
-function Directions({ orders }) {
+function Directions({ pedidosenVuelta, pedidosPorEntregar }) {
   const map = useMap();
   const routesLibrary = useMapsLibrary('routes');
 
   const [directionsService, setDirectionsService] = useState();
   const [directionsRenderer, setDirectionsRenderer] = useState();
+  const [totalDistance, setTotalDistance] = useState(0);
+  const [totalDuration, setTotalDuration] = useState(0);
 
   const [routes, setRoutes] = useState([]);
   const [routeIndex, setRouteIndex] = useState(0);
@@ -60,7 +69,7 @@ function Directions({ orders }) {
   useEffect(() => {
     if (!directionsService || !directionsRenderer) return;
 
-    const waypoints = orders.map((order) => ({
+    const waypoints = pedidosPorEntregar.map((order) => ({
       location: { lat: order.map[0], lng: order.map[1] },
       stopover: true,
     }));
@@ -76,6 +85,20 @@ function Directions({ orders }) {
       })
       .then((response) => {
         directionsRenderer.setDirections(response);
+
+        // Calcular la distancia total
+        const route = response.routes[0];
+        const totalDistance = route.legs.reduce((acc, leg) => {
+          return acc + leg.distance.value; // Sumar las distancias en metros
+        }, 0);
+        const totalDuration = route.legs.reduce(
+          (acc, leg) => acc + leg.duration.value,
+          0
+        );
+
+        setTotalDistance(totalDistance / 1000);
+        setTotalDuration(totalDuration / 60); // Convertir a minutos
+
         const lineSymbol = {
           path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW, // Define una flecha cerrada como símbolo
           scale: 2, // Escala del símbolo
@@ -100,53 +123,45 @@ function Directions({ orders }) {
 
         setRoutes(response.routes);
       });
-  }, [directionsService, directionsRenderer, orders]);
-
+  }, [directionsService, directionsRenderer, pedidosenVuelta]);
   if (!leg) return null;
+
+  return (
+    <div className="directions">
+      <RideComponent
+        pedidosPorEntregar={pedidosPorEntregar}
+        pedidosenVuelta={pedidosenVuelta}
+        totalDistance={totalDistance}
+        totalDuration={totalDuration}
+      />
+      {/* <h2>{selected.summary}</h2> */}
+      <p>
+        {/* {leg.start_address.split(',')[0]} to {leg.end_address.split(',')[0]} */}
+      </p>
+      <p>Distancia total: {totalDistance.toFixed(2)} km</p>
+      <p>Duración total: {totalDuration.toFixed(2)} minutos</p>
+
+      {/* 
+      <h2>Other Routes</h2>
+      <ul>
+        {routes.map((route, index) => (
+          <li key={route.summary}>
+            <button onClick={() => setRouteIndex(index)}>
+              {route.summary}
+            </button>
+          </li>
+        ))}
+      </ul> */}
+    </div>
+  );
 }
 
-// Definición de PropTypes para DetallePedidoItem
-const detallePedidoItemPropTypes = PropTypes.shape({
-  burger: PropTypes.string.isRequired,
-  priceBurger: PropTypes.number.isRequired,
-  priceToppings: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
-  subTotal: PropTypes.number.isRequired,
-  toppings: PropTypes.arrayOf(PropTypes.string).isRequired,
-  costoBurger: PropTypes.number.isRequired,
-});
-
-// Definición de PropTypes para PedidoProps
-const pedidoPropTypes = PropTypes.shape({
-  aclaraciones: PropTypes.string.isRequired,
-  detallePedido: PropTypes.arrayOf(detallePedidoItemPropTypes).isRequired,
-  direccion: PropTypes.string.isRequired,
-  elaborado: PropTypes.bool.isRequired,
-  envio: PropTypes.number.isRequired,
-  fecha: PropTypes.string.isRequired,
-  hora: PropTypes.string.isRequired,
-  metodoPago: PropTypes.string.isRequired,
-  subTotal: PropTypes.number.isRequired,
-  telefono: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
-  referencias: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  ubicacion: PropTypes.string.isRequired,
-  cadete: PropTypes.string.isRequired,
-  dislike: PropTypes.bool,
-  delay: PropTypes.bool,
-  tiempoElaborado: PropTypes.string,
-  tiempoEntregado: PropTypes.string,
-  entregado: PropTypes.bool,
-  map: PropTypes.arrayOf(PropTypes.number).isRequired,
-  kms: PropTypes.number,
-  minutosDistancia: PropTypes.number,
-});
-
 MapOrders.propTypes = {
-  orders: PropTypes.arrayOf(pedidoPropTypes).isRequired,
+  pedidosenVuelta: PropTypes.arrayOf(pedidoPropTypes).isRequired,
+  pedidosPorEntregar: PropTypes.arrayOf(pedidoPropTypes).isRequired,
 };
 
 Directions.propTypes = {
-  orders: PropTypes.arrayOf(pedidoPropTypes).isRequired,
+  pedidosenVuelta: PropTypes.arrayOf(pedidoPropTypes).isRequired,
+  pedidosPorEntregar: PropTypes.arrayOf(pedidoPropTypes).isRequired,
 };

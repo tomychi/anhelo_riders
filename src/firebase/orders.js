@@ -96,6 +96,7 @@ export const marcarPedidoComoEntregado = async (pedidoId, fecha) => {
       if (index !== -1) {
         pedidosDelDia[index].tiempoEntregado = tiempo;
         pedidosDelDia[index].entregado = true;
+        pedidosDelDia[index].status = 'delivered';
         transaction.set(pedidoDocRef, { pedidos: pedidosDelDia });
         console.log('Pedido marcado como entregado en Firestore');
       } else {
