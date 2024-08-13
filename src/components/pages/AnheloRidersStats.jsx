@@ -258,7 +258,7 @@ export const AnheloRidersStats = () => {
 								</svg>
 							</div>
 						</div>
-						<div className="bg-red-600 text-white text-center py-2 font-medium cursor-pointer">
+						<div className="bg-red-main text-white text-center py-2 font-medium cursor-pointer">
 							Ver mas
 						</div>
 					</div>
