@@ -82,22 +82,26 @@ const RideComponent = ({
 		>
 			{/* Mostrar botón de iniciar vuelta solo si no hay vuelta en curso y hay pedidos por entregar */}
 			{isAvailable && pedidosPorEntregar.length > 0 && (
-				<div className="flex flex-row w-full gap-4">
+				<div className="flex flex-col w-full items-center gap-2">
 					<button
 						onClick={handleStartRide}
-						className="bg-black h-14 text-gray-100 text-xl items-center w-full font-medium p-4"
+						className="bg-black h-14 text-gray-100 hover:text-green-500  uppercase text-xl items-center w-full rounded-full font-medium p-4"
 					>
-						Confirmar salida
+						COMENZAR VUELTA
 					</button>
-					<div className="h-14 bg-gray-100 relative">
-						<img
-							src={clock}
-							className="h-2 absolute top-0 right-0 m-2"
-							alt=""
-						/>
-						<p className="text-xs text-black lowercase flex items-center text-center justify-center font-bold p-4 leading-none">
-							{Math.floor(totalDuration)} Minutos
-						</p>
+
+					<div className="flex flex-row w-full gap-2 justify-center">
+						<div className="h-5 rounded-full flex flex-row items-center bg-green-500 w-1/2 p-4 gap-2 text-center justify-center ">
+							<img src={clock} className="h-2 mb-1" alt="" />
+							<p className="text-xs text-black lowercase  flex  text-center justify-center font-bold  leading-none">
+								{Math.floor(totalDuration)} Minutos aprox.
+							</p>
+						</div>
+						<div className="h-5 rounded-full flex flex-row items-center bg-green-500 w-1/2 p-4 gap-2 text-center justify-center ">
+							<p className="text-xs text-black lowercase  flex  text-center justify-center font-bold  leading-none">
+								$7890 de ganancia
+							</p>
+						</div>
 					</div>
 				</div>
 			)}
