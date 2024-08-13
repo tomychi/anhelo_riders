@@ -135,7 +135,8 @@ export const AnheloRidersStats = () => {
 						Como cadete nivel 4 hubieses ganado +$9170
 					</p>
 				</div>
-				<div className="absolute left-4 right-4 top-40 bg-gray-300 flex flex-col gap-2 rounded-md px-4 pt-2 pb-2">
+				{/* Div de opciones */}
+				<div className="absolute left-4 right-4 top-40 shadow-lg bg-gray-300 flex flex-col gap-2 rounded-md px-4 pt-2 pb-2">
 					{/* card de la opcion 1 */}
 					<div className="flex flex-row justify-between items-center">
 						{/* Div de lo de la izquierda */}
