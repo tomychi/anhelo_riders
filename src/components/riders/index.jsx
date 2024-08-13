@@ -4,6 +4,7 @@ import { endRide, startRide } from "../../firebase/users";
 import { useDispatch, useSelector } from "react-redux";
 import { setRideStatus } from "../../redux/riders/riderAction";
 import clock from "../../assets/clockIcon.png";
+import logo from "../../assets/anheloTMblack.png";
 import Swal from "sweetalert2";
 const RideComponent = ({
 	pedidosPorEntregar,
@@ -104,15 +105,25 @@ const RideComponent = ({
 			{/* Mostrar botón de finalizar vuelta solo si hay una vuelta en curso y todos los pedidos en vuelta están entregados */}
 			{!isAvailable && pedidosPorEntregar.length === 0 && (
 				<div className="flex flex-row w-full gap-4">
-					<button
-						onClick={handleEndRide}
-						className="bg-black text-gray-100 h-14 text-xl items-center w-full font-medium p-4"
-					>
-						Llegue a Anhelo
+					<button onClick={handleEndRide} className="bg-black p-4 w-full">
+						<p className="text-gray-100 mb-[-5px] text-xs font-medium text-">
+							Vuelta casi terminada:
+						</p>
+						<div className="flex flex-row items-baseline justify-center gap-2 ">
+							<p className="text-gray-100 h-14 text-lg items-center  font-medium ">
+								Clickea aca cuando llegues a
+							</p>
+							<img
+								src={logo}
+								className="h-4 mt-2 invert"
+								style={{ filter: "invert(100%)" }}
+								alt=""
+							/>
+						</div>
+						<p className="text-green-500 text-lg  font-medium mt-[-30px]">
+							y $7.890 se agregaran a tu ganancia.
+						</p>
 					</button>
-					<p className="bg-green-500 text-xl text-black h-14 flex items-center font-bold p-4  leading-none">
-						+$7890
-					</p>
 				</div>
 			)}
 		</div>
