@@ -23,7 +23,7 @@ export const PedidoCard = ({
 
 	return (
 		<div
-			className={`flex flex-row justify-between bg-gray-100 p-4 mb-[-10px]  hover:bg-gray-300 transition-transform duration-300 ease-in-out ${
+			className={`flex flex-row justify-between bg-gray-100 p-4 mb-[-10px] gap-4 hover:bg-gray-300 transition-transform duration-300 ease-in-out ${
 				isVisible ? "transform-none" : "transform -translate-y-full"
 			}`}
 			style={{ transitionDelay: `${index * 100}ms` }}
