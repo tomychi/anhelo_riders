@@ -136,83 +136,88 @@ export const AnheloRidersStats = () => {
 					</p>
 				</div>
 				{/* Div de opciones */}
-				<div className="absolute left-4 right-4 top-40 shadow-lg bg-gray-300 flex flex-col gap-2 rounded-md px-4 pt-2 pb-2">
-					{/* card de la opcion 1 */}
-					<div className="flex flex-row justify-between items-center">
-						{/* Div de lo de la izquierda */}
-						<div className="flex flex-row items-center gap-1">
+				<div className="absolute left-4 right-4 top-40  flex flex-col gap-4">
+					{/* div 1 */}
+					<div className="flex flex-col gap-2 shadow-lg bg-gray-300  rounded-md px-4 pt-2 pb-2">
+						{/* card de la opcion 1 */}
+						<div className="flex flex-row justify-between items-center">
+							{/* Div de lo de la izquierda */}
+							<div className="flex flex-row items-center gap-1">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth="1.5"
+									stroke="currentColor"
+									className="h-11 transform rotate-90"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+									/>
+								</svg>
+								<div className="flex flex-col">
+									<p className="text-xl mb-[-8px]">Cadete nivel 3</p>
+									<p className="text-sm">Ver detalle de las estadisticas</p>
+								</div>
+							</div>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
 								viewBox="0 0 24 24"
 								strokeWidth="1.5"
 								stroke="currentColor"
-								className="h-11 transform rotate-90"
+								className="h-3 text-black"
 							>
 								<path
 									strokeLinecap="round"
 									strokeLinejoin="round"
-									d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+									d="M8.25 4.5l7.5 7.5-7.5 7.5"
 								/>
 							</svg>
-							<div className="flex flex-col">
-								<p className="text-xl mb-[-8px]">Cadete nivel 3</p>
-								<p className="text-sm">Ver detalle de las estadisticas</p>
-							</div>
 						</div>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							strokeWidth="1.5"
-							stroke="currentColor"
-							className="h-3 text-black"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="M8.25 4.5l7.5 7.5-7.5 7.5"
-							/>
-						</svg>
-					</div>
-					{/* Card de la opcion 2 */}
-					<div className="flex flex-row justify-between items-center">
-						{/* Div de lo de la izquierda */}
-						<div className="flex flex-row items-center gap-1">
+						{/* Card de la opcion 2 */}
+						<div className="flex flex-row justify-between items-center">
+							{/* Div de lo de la izquierda */}
+							<div className="flex flex-row items-center gap-1">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth="1.5"
+									stroke="currentColor"
+									className="h-11 transform rotate-90"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+									/>
+								</svg>
+								<div className="flex flex-col">
+									<p className="text-xl mb-[-8px]">Detalle de las ganancias</p>
+									<p className="text-sm">Ver desgloce</p>
+								</div>
+							</div>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
 								viewBox="0 0 24 24"
 								strokeWidth="1.5"
 								stroke="currentColor"
-								className="h-11 transform rotate-90"
+								className="h-3 text-black"
 							>
 								<path
 									strokeLinecap="round"
 									strokeLinejoin="round"
-									d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+									d="M8.25 4.5l7.5 7.5-7.5 7.5"
 								/>
 							</svg>
-							<div className="flex flex-col">
-								<p className="text-xl mb-[-8px]">Detalle de las ganancias</p>
-								<p className="text-sm">Ver desgloce</p>
-							</div>
 						</div>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							strokeWidth="1.5"
-							stroke="currentColor"
-							className="h-3 text-black"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="M8.25 4.5l7.5 7.5-7.5 7.5"
-							/>
-						</svg>
 					</div>
+					{/* div 2*/}
+					<div className="flex flex-col gap-2 shadow-lg bg-gray-300  rounded-md px-4 pt-2 pb-2"></div>
 				</div>
 			</div>
 
