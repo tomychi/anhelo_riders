@@ -221,7 +221,8 @@ export const AnheloRidersStats = () => {
 					<div className="flex flex-col shadow-lg bg-gray-300 rounded-md overflow-hidden">
 						<div className="px-4 pt-2 pb-2">
 							<div className="flex flex-row justify-between items-center">
-								<div className="flex flex-row items-center gap-1">
+								{/* Div de lo de la izquierda */}
+								<div className="flex flex-row items-center gap-2">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
@@ -238,7 +239,7 @@ export const AnheloRidersStats = () => {
 									</svg>
 									<div className="flex flex-col">
 										<p className="text-xl mb-[-8px]">Invita y gana</p>
-										<p className="text-sm">
+										<p className="text-sm leading-4">
 											Gana dinero extra por traer conocidos a trabajar a la app
 										</p>
 									</div>
