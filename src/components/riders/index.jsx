@@ -62,12 +62,12 @@ const RideComponent = ({
   };
 
   return (
-    <div className="overflow-y-auto pb-safe">
+    <>
       {/* Mostrar botón de iniciar vuelta solo si no hay vuelta en curso y hay pedidos por entregar */}
       {!isRideOngoing && pedidosPorEntregar.length > 0 && (
         <button
           onClick={handleStartRide}
-          className="uppercase bg-yellow-400 px-4 py-2 font-black font-antonio text-left flex justify-between items-center"
+          className="bg-black text-gray-100 w-full   font-medium py-4"
         >
           Iniciar vuelta
         </button>
@@ -84,7 +84,7 @@ const RideComponent = ({
       )}
 
       {/* Resto del componente aquí */}
-    </div>
+    </>
   );
 };
 

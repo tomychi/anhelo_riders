@@ -22,7 +22,10 @@ export const AnheloRidersStats = () => {
   const [isDesgloseVisible, setIsDesgloseVisible] = useState(false); // Cambiado a false
 
   const [vueltas, setVeultas] = useState([]);
-  const [cadetesData, setCadetesData] = useState(null);
+  const [cadetesData, setCadetesData] = useState({
+    precioPorKM: 0,
+    precioPuntoEntrega: 0,
+  });
   const user = useSelector((state) => state.auth.user);
 
   const handleVolverClick = (e) => {
@@ -72,7 +75,7 @@ export const AnheloRidersStats = () => {
       const pagaPorPuntosDeEntrega =
         puntosDeEntrega * cadetesData.precioPuntoEntrega;
       const pagaPorKmRecorridos =
-        vuelta.totalDistance * cadetesData.precioPorKM;
+        vuelta.totalDistance * cadetesData?.precioPorKM;
 
       // Sumar al total de la vuelta
       const pagaVuelta = pagaPorPuntosDeEntrega + pagaPorKmRecorridos;
@@ -91,8 +94,7 @@ export const AnheloRidersStats = () => {
   };
 
   // Uso de la función
-  const desglose = calcularDesglosePaga(vueltas, cadetesData);
-
+  const desglose = cadetesData ? calcularDesglosePaga(vueltas, cadetesData) : 0;
   const kmRecorridos = vueltas.reduce((total, vuelta) => {
     return total + vuelta.totalDistance;
   }, 0);
