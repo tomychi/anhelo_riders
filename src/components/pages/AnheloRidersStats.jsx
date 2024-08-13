@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { fetchUserVueltasByUid } from '../../firebase/users';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
-import { useSelector } from 'react-redux';
-import { currencyFormat } from '../../helpers/currencyFormat';
-import logo from '../../assets/anheloTMblack.png';
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { fetchUserVueltasByUid } from "../../firebase/users";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { currencyFormat } from "../../helpers/currencyFormat";
+import logo from "../../assets/anheloTMblack.png";
+import arrow from "../../assets/arrowIcon.png";
+import levelUp from "../../assets/levelUpIcon.png";
+import detail from "../../assets/detailIcon.png";
+import invite from "../../assets/personIcon.png";
 
 const formatearFecha = (timestamp) => {
   if (!timestamp) return '';
@@ -93,29 +97,21 @@ export const AnheloRidersStats = () => {
     return total + vuelta.orders.length;
   }, 0);
 
-  return (
-    <div className="bg-gray-100 min-h-screen text-black font-coolvetica relative">
-      <div className="bg-black p-4">
-        {/* Div del header */}
-        <div className="flex flex-row  justify-between mt-[-6px]">
-          <NavLink
-            to="/"
-            className="flex items-center mb-6 flex-row gap-1 text-black"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="h-3 text-white"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5 8.25 12l7.5-7.5"
-              />
-            </svg>
+	return (
+		<div className="bg-gray-100 min-h-screen text-black font-coolvetica relative">
+			<div className="bg-black p-4">
+				{/* Div del header */}
+				<div className="flex flex-row  justify-between mt-[-6px]">
+					<NavLink
+						to="/"
+						className="flex items-center mb-6 flex-row gap-1 text-black"
+					>
+						<img
+							src={arrow}
+							className="h-2"
+							style={{ filter: "invert(100%)", transform: "rotate(180deg)" }}
+							alt=""
+						/>
 
             <span className="text-lg font-medium text-white ">Mapa</span>
           </NavLink>
@@ -127,144 +123,68 @@ export const AnheloRidersStats = () => {
           />
         </div>
 
-        {/* Div de cash collected */}
-        <div className="flex flex-col items-center mb-12 mt-[-6px]">
-          <p className="text-sm mb-[-18px] text-white">Hoy</p>
-          <h1 className="text-6xl mb-[-8px] text-white">$32.720</h1>
-          <p className="text-green-500 text-sm">
-            Como cadete nivel 4 hubieses ganado +$9170
-          </p>
-        </div>
-        {/* Div de opciones */}
-        <div className="absolute left-4 right-4 top-40  flex flex-col gap-4">
-          {/* div 1 */}
-          <div className="flex flex-col gap-2 shadow-lg bg-gray-300 rounded-md px-4 pt-2 pb-2">
-            {/* card de la opcion 1 */}
-            <div
-              className="flex flex-row justify-between items-center"
-              onClick={toggleEstadisticas}
-            >
-              {/* Div de lo de la izquierda */}
-              <div className="flex flex-row items-center gap-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className={`h-11 transition-transform duration-300 ${
-                    isEstadisticasVisible ? 'rotate-180' : 'rotate-90'
-                  }`}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-                <div className="flex flex-col">
-                  <p className="text-xl mb-[-8px]">Cadete nivel 3</p>
-                  <p className="text-sm">Ver detalle de las estadisticas</p>
-                </div>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="h-3 text-black"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </div>
-            {/* Card de la opcion 2 */}
-            <div
-              className="flex flex-row justify-between items-center"
-              onClick={toggleDesglose}
-            >
-              {/* Div de lo de la izquierda */}
-              <div className="flex flex-row items-center gap-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className={`h-11 transition-transform duration-300 ${
-                    isDesgloseVisible ? 'rotate-180' : 'rotate-90'
-                  }`}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-                <div className="flex flex-col">
-                  <p className="text-xl mb-[-8px]">Detalle de las ganancias</p>
-                  <p className="text-sm">Ver desgloce</p>
-                </div>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="h-3 text-black"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </div>
-            <div
-              className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                isDesgloseVisible ? 'max-h-[1000px]' : 'max-h-0'
-              }`}
-            >
-              <div className="px-4 pb-4">
-                {vueltas.map((vuelta) => (
-                  <div key={vuelta.rideId} className="mb-4 last:mb-0">
-                    <h3 className="text-xl font-bold mb-2">
-                      Inicio vuelta {formatearFecha(vuelta.startTime)}
-                    </h3>
-                    <div>
-                      {vuelta.orders.map((o, index) => (
-                        <p key={o.orderId}>
-                          {index + 1}. {o.direccion}
-                        </p>
-                      ))}
-                    </div>
-                    <p>
-                      puntos de entrega:{' '}
-                      {currencyFormat(cadetesData.precioPuntoEntrega)} (
-                      {vuelta.orders.length})
-                    </p>
-                    <p>
-                      Km recorridos: {currencyFormat(cadetesData.precioPorKM)} (
-                      {vuelta.totalDistance.toFixed(2)} km)
-                    </p>
-                    <h3 className="text-xl font-bold mb-2">
-                      Final vuelta {formatearFecha(vuelta.endTime)}
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
-                  </div>
-                ))}
+				{/* Div de cash collected */}
+				<div className="flex flex-col items-center mb-12 mt-[-6px]">
+					<p className="text-sm mb-[-18px] text-white">Hoy</p>
+					<h1 className="text-6xl mb-[-8px] text-white">$32.720</h1>
+					<p className="text-green-500 text-sm">
+						Como cadete nivel 4 hubieses ganado +$9170
+					</p>
+				</div>
+				{/* Div de opciones */}
+				<div className="absolute left-4 right-4 top-40  flex flex-col gap-4">
+					{/* div 1 */}
+					<div className="flex flex-col gap-2 shadow-lg bg-gray-300 rounded-md px-4 pt-2 pb-2">
+						{/* card de la opcion 1 */}
+						<div className="flex flex-row justify-between items-center">
+							{/* Div de lo de la izquierda */}
+							<div className="flex flex-row items-center gap-2">
+								<img src={levelUp} className="h-9" alt="" />
+								<div className="flex flex-col">
+									<p className="text-xl mb-[-8px]">Cadete nivel 3</p>
+									<p className="text-sm">Ver detalle de las estadisticas</p>
+								</div>
+							</div>
+							<img src={arrow} className="h-2" alt="" />
+						</div>
+						{/* Card de la opcion 2 */}
+						<div className="flex flex-row justify-between items-center">
+							{/* Div de lo de la izquierda */}
+							<div className="flex flex-row items-center gap-2">
+								<img src={detail} className="h-9" alt="" />
 
-                <p className="text-xl font-bold mt-2">
-                  TOTAL DE LA VUELTA: {currencyFormat(desglose)}
-                </p>
-              </div>
-            </div>
-          </div>
+								<div className="flex flex-col">
+									<p className="text-xl mb-[-8px]">Detalle de las ganancias</p>
+									<p className="text-sm">Ver desgloce</p>
+								</div>
+							</div>
+							<img src={arrow} className="h-2" alt="" />
+						</div>
+					</div>
+
+					{/* div 2 */}
+					<div className="flex flex-col shadow-lg bg-gray-300 rounded-md overflow-hidden">
+						<div className="px-4 pt-2 pb-2">
+							<div className="flex flex-row justify-between items-center">
+								{/* Div de lo de la izquierda */}
+								<div className="flex flex-row items-top gap-2">
+									<img src={invite} className="h-9 mt-2" alt="" />
+
+									<div className="flex flex-col">
+										<p className="text-xl mb-[-5px]">Invita y gana</p>
+										<p className="text-sm leading-4">
+											Gana dinero extra por traer conocidos a trabajar a la app
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="bg-red-main text-white text-center py-3 font-medium cursor-pointer">
+							Ver mas
+						</div>
+					</div>
+				</div>
+			</div>
 
           {/* div 2 */}
           <div className="flex flex-col shadow-lg bg-gray-300 rounded-md overflow-hidden">
@@ -300,7 +220,7 @@ export const AnheloRidersStats = () => {
             </div>
           </div>
         </div>
-      </div>
+	)
 
       {/* Estadisticas principales */}
       {/* <div className="bg-red-main text-red-main mb-4">
