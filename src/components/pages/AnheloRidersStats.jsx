@@ -217,46 +217,49 @@ export const AnheloRidersStats = () => {
 						</div>
 					</div>
 					{/* div 2*/}
-					<div className="flex flex-col gap-2 shadow-lg bg-gray-300  rounded-md px-4 pt-2 pb-2">
-						{/* card de la opcion 1 */}
-						<div className="flex flex-row justify-between items-center">
-							{/* Div de lo de la izquierda */}
-							<div className="flex flex-row items-top gap-1">
+					<div className="flex flex-col shadow-lg bg-white rounded-lg overflow-hidden">
+						<div className="px-4 py-3">
+							<div className="flex flex-row justify-between items-start">
+								<div className="flex flex-row items-start gap-3">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										strokeWidth="1.5"
+										stroke="currentColor"
+										className="w-10 h-10 mt-1"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
+										/>
+									</svg>
+									<div className="flex flex-col">
+										<p className="text-lg font-semibold">Invita y gana</p>
+										<p className="text-sm text-gray-600 leading-tight">
+											Gana dinero extra por traer conocidos a trabajar a la app
+										</p>
+									</div>
+								</div>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									strokeWidth="1.5"
 									stroke="currentColor"
-									className="h-14 mt-[-3px] transform rotate-90"
+									className="w-6 h-6 text-gray-400"
 								>
 									<path
 										strokeLinecap="round"
 										strokeLinejoin="round"
-										d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+										d="M8.25 4.5l7.5 7.5-7.5 7.5"
 									/>
 								</svg>
-								<div className="flex flex-col">
-									<p className="text-xl mb-[-8px]">Invita y gana</p>
-									<p className="text-sm leading-4">
-										Gana dinero extra por traer conocidos a trabajar a la app
-									</p>
-								</div>
 							</div>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth="1.5"
-								stroke="currentColor"
-								className="h-3 text-black"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M8.25 4.5l7.5 7.5-7.5 7.5"
-								/>
-							</svg>
+						</div>
+						<div className="bg-red-600 text-white text-center py-2 font-medium cursor-pointer">
+							Ver mas
 						</div>
 					</div>
 				</div>
