@@ -139,7 +139,8 @@ export const AnheloRidersStats = () => {
 
 			{/* Div de opciones */}
 			<div className="m-4 bg-gray-300 flex flex-col gap-2 rounded-md px-4 pt-2 pb-2">
-				<div className="flex flex-row justify-between">
+				<div className="flex flex-row justify-between items-center">
+					{/* Div de lo de la izquierda */}
 					<div className="flex flex-row items-center gap-1">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -160,9 +161,23 @@ export const AnheloRidersStats = () => {
 							<p className="text-sm">Ver detalle de las estadisticas</p>
 						</div>
 					</div>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						strokeWidth="1.5"
+						stroke="currentColor"
+						className="h-3 text-black"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							d="M8.25 4.5l7.5 7.5-7.5 7.5"
+						/>
+					</svg>
 				</div>
-				<div>Detalle de las ganancias</div>
 			</div>
+			<div>Detalle de las ganancias</div>
 
 			{/* Estadisticas principales */}
 			<div className="bg-red-main text-red-main mb-4">
