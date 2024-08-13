@@ -129,7 +129,12 @@ export const AnheloRidersStats = () => {
 
 						<span className="text-xl font-medium text-white ">Volver</span>
 					</NavLink>
-					<img src={logo} className="h-3 mt-2" alt="" />
+					<img
+						src={logo}
+						className="h-3 mt-2 invert"
+						style={{ filter: "invert(100%)" }}
+						alt=""
+					/>
 				</div>
 
 				{/* Div de cash collected */}
