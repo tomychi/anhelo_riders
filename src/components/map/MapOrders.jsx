@@ -21,7 +21,7 @@ export const MapOrders = ({ orders }) => {
 			<div className="relative w-full h-full">
 				<div
 					className={`w-full h-full transition-filter duration-500 ease-in-out ${
-						!vueltaIniciada ? "filter blur-sm brightness-50" : "filter-none"
+						!vueltaIniciada ? "filter blur-md brightness-50" : "filter-none"
 					}`}
 				>
 					<Map
@@ -36,7 +36,7 @@ export const MapOrders = ({ orders }) => {
 				</div>
 
 				{!vueltaIniciada && (
-					<div className="absolute inset-0 flex flex-row p-4 gap-4 items-center justify-center">
+					<div className="absolute inset-0 flex  flex-row p-4 gap-4 items-center justify-center">
 						<button
 							onClick={() => setVueltaIniciada(true)}
 							className="bg-black text-gray-100 w-full font-medium py-4"
