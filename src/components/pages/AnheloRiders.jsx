@@ -11,8 +11,9 @@ export const AnheloRiders = () => {
 	const user = useSelector((state) => state.auth.user);
 	const [userName, setUserName] = useState(null);
 	const [orders, setOrders] = useState([]);
-
 	const [isArrowRotated, setIsArrowRotated] = useState(false);
+	const [visibleSection, setVisibleSection] = useState(null);
+	const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
 	const navigate = useNavigate();
 
@@ -30,11 +31,23 @@ export const AnheloRiders = () => {
 	useEffect(() => {
 		if (userName) {
 			const unsubscribe = ReadOrdersForToday(userName, setOrders);
-			return () => unsubscribe(); // Limpia el suscriptor cuando el componente se desmonte
+			return () => unsubscribe();
 		}
 	}, [userName]);
 
-	const [visibleSection, setVisibleSection] = useState(null);
+	useEffect(() => {
+		const handleResize = () => {
+			setWindowHeight(window.innerHeight);
+		};
+
+		window.addEventListener("resize", handleResize);
+		window.addEventListener("orientationchange", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+			window.removeEventListener("orientationchange", handleResize);
+		};
+	}, []);
 
 	const toggleSection = (section) => {
 		setVisibleSection(visibleSection === section ? null : section);
@@ -48,23 +61,6 @@ export const AnheloRiders = () => {
 
 	const pedidosPorEntregar = filteredOrders.filter((o) => !o.entregado);
 
-	const pedidosHechos = filteredOrders.filter(
-		(o) => o.elaborado && !o.entregado
-	);
-	const pedidosEntregados = filteredOrders.filter((o) => o.entregado);
-
-	useEffect(() => {
-		const setVh = () => {
-			let vh = window.innerHeight * 0.01;
-			document.documentElement.style.setProperty("--vh", `${vh}px`);
-		};
-
-		setVh();
-
-		window.addEventListener("resize", setVh);
-		return () => window.removeEventListener("resize", setVh);
-	}, []);
-
 	const handleVolverClick = (e) => {
 		e.preventDefault();
 		setIsArrowRotated(true);
@@ -75,13 +71,14 @@ export const AnheloRiders = () => {
 	};
 
 	return (
-		<div className="flex flex-col h-screen h-[calc(var(--vh,1vh)*100)]">
-			{/* Parte de pedidos */}
-			{/* Pedidos por entregar */}
-			<div className="flex flex-col ">
+		<div
+			className="flex flex-col overflow-hidden"
+			style={{ height: `${windowHeight}px` }}
+		>
+			<div className="flex flex-col flex-shrink-0">
 				<div
-					className={`transition-all duration-500 ease-in-out  overflow-hidden ${
-						visibleSection === "porEntregar" ? "max-h-[1000px]" : "max-h-0"
+					className={`transition-max-height duration-500 ease-in-out overflow-hidden ${
+						visibleSection === "porEntregar" ? "max-h-[500px]" : "max-h-0"
 					}`}
 				>
 					{pedidosPorEntregar.map((pedido, index) => (
@@ -93,45 +90,40 @@ export const AnheloRiders = () => {
 						/>
 					))}
 				</div>
-				<button
-					onClick={() => toggleSection("porEntregar")}
-					className="p-4 bg-gray-100 font-black font-antonio flex items-center relative w-full"
-				>
-					{/* Logo a la izquierda */}
-					<div className="absolute left-4">
-						<img src={logo} className="h-1.5" alt="" />
-						{/* Ajusta el tamaño según necesites */}
-					</div>
-
-					{/* Contenido central */}
-					<div className="flex-grow flex flex-col items-center">
-						<span className="text-xs font-coolvetica font-medium mb-1.5">
-							Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
-							ver.
-						</span>
-						<div className="w-12 h-1 bg-gray-300 rounded-full"></div>
-					</div>
-
-					{/* SVG a la derecha */}
-					<div className="absolute right-4">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M19 9l-7 7-7-7"
-							/>
-						</svg>
-					</div>
-				</button>
 			</div>
-			{/* Parte del mapa */}
+			<button
+				onClick={() => toggleSection("porEntregar")}
+				className="p-4 bg-gray-100 font-black font-antonio flex items-center relative w-full"
+			>
+				<div className="absolute left-4">
+					<img src={logo} className="h-1.5" alt="" />
+				</div>
+				<div className="flex-grow flex flex-col items-center">
+					<span className="text-xs font-coolvetica font-medium mb-1.5">
+						Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
+						ver.
+					</span>
+					<div className="w-12 h-1 bg-gray-300 rounded-full"></div>
+				</div>
+				<div className="absolute right-4">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						className={`h-6 w-6 transition-transform duration-300 ${
+							visibleSection === "porEntregar" ? "rotate-180" : ""
+						}`}
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth={2}
+							d="M19 9l-7 7-7-7"
+						/>
+					</svg>
+				</div>
+			</button>
 			<div className="flex-grow relative">
 				<MapOrders orders={pedidosPorEntregar} />
 			</div>
