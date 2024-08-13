@@ -13,7 +13,6 @@ const RideComponent = ({
 
   const dispatch = useDispatch();
   const { rideId, isRideOngoing } = useSelector((state) => state.ride);
-  console.log(totalDistance);
   const handleStartRide = async () => {
     try {
       if (pedidosPorEntregar.length === 0) {
