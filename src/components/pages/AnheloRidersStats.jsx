@@ -131,7 +131,7 @@ export const AnheloRidersStats = () => {
 				<div className="flex flex-col items-center mb-14">
 					<p className="text-sm mb-[-18px] text-white">Hoy</p>
 					<h1 className="text-6xl mb-[-8px] text-white">$32.720</h1>
-					<p className="text-green-500">
+					<p className="text-green-500 text-sm">
 						Como cadete nivel 4 hubieses ganado +$9170
 					</p>
 				</div>
@@ -158,7 +158,7 @@ export const AnheloRidersStats = () => {
 							/>
 						</svg>
 						<div className="flex flex-col">
-							<p className="text-2xl mb-[-8px]">Cadete nivel 3</p>
+							<p className="text-xl mb-[-8px]">Cadete nivel 3</p>
 							<p className="text-sm">Ver detalle de las estadisticas</p>
 						</div>
 					</div>
@@ -196,8 +196,8 @@ export const AnheloRidersStats = () => {
 							/>
 						</svg>
 						<div className="flex flex-col">
-							<p className="text-2xl mb-[-8px]">Cadete nivel 3</p>
-							<p className="text-sm">Ver detalle de las estadisticas</p>
+							<p className="text-xl mb-[-8px]">Detalle de las ganancias</p>
+							<p className="text-sm">Ver desgloce</p>
 						</div>
 					</div>
 					<svg
