@@ -244,20 +244,6 @@ export const AnheloRidersStats = () => {
 										</p>
 									</div>
 								</div>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									strokeWidth="1.5"
-									stroke="currentColor"
-									className="h-3 text-black"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										d="M8.25 4.5l7.5 7.5-7.5 7.5"
-									/>
-								</svg>
 							</div>
 						</div>
 						<div className="bg-red-main text-white text-center py-3 font-medium cursor-pointer">
