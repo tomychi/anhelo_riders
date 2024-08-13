@@ -36,7 +36,7 @@ export const MapOrders = ({ orders }) => {
 				</div>
 
 				{!vueltaIniciada && (
-					<div className="absolute inset-0 bg-black bg-opacity-50 flex flex-row p-4 gap-4 items-center justify-center">
+					<div className="absolute inset-0 flex flex-row p-4 gap-4 items-center justify-center">
 						<button
 							onClick={() => setVueltaIniciada(true)}
 							className="bg-black text-gray-100 w-full font-medium py-4"
