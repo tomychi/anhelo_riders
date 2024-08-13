@@ -5,6 +5,7 @@ import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { currencyFormat } from "../../helpers/currencyFormat";
 import logo from "../../assets/anheloTMblack.png";
+import arrow from "../../assets/arrowIcon.png";
 
 const formatearFecha = (timestamp) => {
 	if (!timestamp) return "";
@@ -102,20 +103,12 @@ export const AnheloRidersStats = () => {
 						to="/"
 						className="flex items-center mb-6 flex-row gap-1 text-black"
 					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							className="h-3 text-white"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M15.75 19.5 8.25 12l7.5-7.5"
-							/>
-						</svg>
+						<img
+							src={arrow}
+							className="h-2"
+							style={{ filter: "invert(100%)", transform: "rotate(180deg)" }}
+							alt=""
+						/>
 
 						<span className="text-lg font-medium text-white ">Mapa</span>
 					</NavLink>
