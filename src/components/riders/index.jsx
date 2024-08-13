@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { endRide, startRide } from '../../firebase/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRideStatus } from '../../redux/riders/riderAction';
+import Swal from 'sweetalert2';
 const RideComponent = ({
   pedidosPorEntregar,
   totalDuration,
@@ -49,6 +50,15 @@ const RideComponent = ({
 
     if (!allDelivered) {
       console.error('No todos los pedidos están marcados como entregados.');
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Pedidos Incompletos',
+        text: 'No todos los pedidos están marcados como entregados. Por favor, verifica los pedidos restantes.',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#3085d6',
+      });
+
       return;
     }
 
