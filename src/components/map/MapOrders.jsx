@@ -132,17 +132,17 @@ function Directions({ orders }) {
 
 	if (!leg) return null;
 
-	return (
-		<div className="directions">
-			<RideComponent
-				pedidosPorEntregar={orders}
-				totalDistance={totalDistance}
-				totalDuration={totalDuration}
-			/>
-			<p>Distancia total: {totalDistance.toFixed(2)} km</p>
-			<p>Duración total: {totalDuration.toFixed(2)} minutos</p>
-		</div>
-	);
+	// return (
+	// 	<div className="directions">
+	// 		<RideComponent
+	// 			pedidosPorEntregar={orders}
+	// 			totalDistance={totalDistance}
+	// 			totalDuration={totalDuration}
+	// 		/>
+	// 		<p>Distancia total: {totalDistance.toFixed(2)} km</p>
+	// 		<p>Duración total: {totalDuration.toFixed(2)} minutos</p>
+	// 	</div>
+	// );
 }
 
 MapOrders.propTypes = {
