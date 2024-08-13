@@ -238,7 +238,7 @@ export const AnheloRidersStats = () => {
 										/>
 									</svg>
 									<div className="flex flex-col">
-										<p className="text-xl mb-[-8px]">Invita y gana</p>
+										<p className="text-xl mb-[-5px]">Invita y gana</p>
 										<p className="text-sm leading-4">
 											Gana dinero extra por traer conocidos a trabajar a la app
 										</p>
