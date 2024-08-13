@@ -11,7 +11,7 @@ import { obtenerFechaActual } from './orders';
 // Función para obtener el nombre del usuario por UID
 export const fetchUserNameByUid = async (uid) => {
   const firestore = getFirestore();
-  const userDocRef = doc(firestore, 'users', uid);
+  const userDocRef = doc(firestore, 'empleados', uid);
   const userDoc = await getDoc(userDocRef);
 
   if (userDoc.exists()) {
@@ -24,7 +24,7 @@ export const fetchUserNameByUid = async (uid) => {
 
 export const fetchUserVueltasByUid = async (uid) => {
   const firestore = getFirestore();
-  const userDocRef = doc(firestore, 'users', uid);
+  const userDocRef = doc(firestore, 'empleados', uid);
   const userDoc = await getDoc(userDocRef);
 
   if (userDoc.exists()) {
@@ -48,7 +48,7 @@ export const startRide = async (
 
   const rideId = new Date().getTime().toString();
   // Actualiza el documento del usuario para iniciar una nueva vuelta
-  const userRef = doc(firestore, 'users', cadeteId);
+  const userRef = doc(firestore, 'empleados', cadeteId);
   await updateDoc(userRef, {
     vueltas: arrayUnion({
       rideId, // Genera un ID único usando timestamp
@@ -96,7 +96,7 @@ export const endRide = async (
   const firestore = getFirestore();
 
   // Obtén la referencia al documento del usuario
-  const userRef = doc(firestore, 'users', cadeteId);
+  const userRef = doc(firestore, 'empleados', cadeteId);
   const userDoc = await getDoc(userRef);
 
   if (userDoc.exists()) {
