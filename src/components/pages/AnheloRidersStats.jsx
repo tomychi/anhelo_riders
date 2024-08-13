@@ -216,8 +216,6 @@ export const AnheloRidersStats = () => {
 				</div>
 			</div>
 
-			{/* Div de opciones */}
-
 			{/* Estadisticas principales */}
 			{/* <div className="bg-red-main text-red-main mb-4">
 				<div
