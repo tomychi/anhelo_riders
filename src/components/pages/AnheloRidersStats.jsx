@@ -128,7 +128,7 @@ export const AnheloRidersStats = () => {
 				</div>
 
 				{/* Div de cash collected */}
-				<div className="flex flex-col items-center">
+				<div className="flex flex-col items-center mb-14">
 					<p className="text-sm mb-[-18px] text-white">Hoy</p>
 					<h1 className="text-7xl mb-[-8px] text-white">$32.720</h1>
 					<p className="text-green-500">
@@ -138,7 +138,7 @@ export const AnheloRidersStats = () => {
 			</div>
 
 			{/* Estadisticas principales */}
-			<div className="bg-black text-red-main mb-4">
+			<div className="bg-red-main text-red-main mb-4">
 				<div
 					className="flex flex-row items-center gap-2 cursor-pointer"
 					onClick={toggleEstadisticas}
