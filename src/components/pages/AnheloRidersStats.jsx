@@ -128,7 +128,7 @@ export const AnheloRidersStats = () => {
 				</div>
 
 				{/* Div de cash collected */}
-				<div className="flex flex-col items-center mb-14">
+				<div className="flex flex-col items-center mb-12 mt-[-10px]">
 					<p className="text-sm mb-[-18px] text-white">Hoy</p>
 					<h1 className="text-6xl mb-[-8px] text-white">$32.720</h1>
 					<p className="text-green-500 text-sm">
