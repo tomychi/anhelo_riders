@@ -221,14 +221,14 @@ export const AnheloRidersStats = () => {
 						{/* card de la opcion 1 */}
 						<div className="flex flex-row justify-between items-center">
 							{/* Div de lo de la izquierda */}
-							<div className="flex flex-row items-center gap-1">
+							<div className="flex flex-row items-top gap-1">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									strokeWidth="1.5"
 									stroke="currentColor"
-									className="h-11 transform rotate-90"
+									className="h-14 mt-[-3px] transform rotate-90"
 								>
 									<path
 										strokeLinecap="round"
@@ -237,8 +237,10 @@ export const AnheloRidersStats = () => {
 									/>
 								</svg>
 								<div className="flex flex-col">
-									<p className="text-xl mb-[-8px]">Cadete nivel 3</p>
-									<p className="text-sm">Ver detalle de las estadisticas</p>
+									<p className="text-xl mb-[-8px]">Invita y gana</p>
+									<p className="text-sm leading-4">
+										Gana dinero extra por traer conocidos a trabajar a la app
+									</p>
 								</div>
 							</div>
 							<svg
