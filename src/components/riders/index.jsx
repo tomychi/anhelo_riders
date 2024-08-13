@@ -69,21 +69,22 @@ const RideComponent = ({
           onClick={handleStartRide}
           className="bg-black text-gray-100 w-full   font-medium py-4"
         >
-          Iniciar vuelta
+          Confirmar salida{' '}
         </button>
       )}
+      <p className="bg-white text-xs text-black font-bold px-4 py-4 leading-none">
+        {totalDuration.toFixed(2)} Min.
+      </p>
 
       {/* Mostrar botón de finalizar vuelta solo si hay una vuelta en curso y todos los pedidos en vuelta están entregados */}
       {isRideOngoing && (
         <button
           onClick={handleEndRide}
-          className="uppercase bg-red-500 px-4 py-2 font-black font-antonio text-left flex justify-between items-center mt-4"
+          className="bg-black text-gray-100 w-full   font-medium py-4"
         >
           Finalizar vuelta
         </button>
       )}
-
-      {/* Resto del componente aquí */}
     </>
   );
 };

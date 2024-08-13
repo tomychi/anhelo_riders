@@ -70,29 +70,23 @@ export const AnheloRidersStats = () => {
   const calcularDesglosePaga = (vueltas) => {
     let totalPaga = 0;
 
-    vueltas.forEach((vuelta) => {
-      const puntosDeEntrega = vuelta.orders.length;
-      const pagaPorPuntosDeEntrega =
-        puntosDeEntrega * cadetesData.precioPuntoEntrega;
-      const pagaPorKmRecorridos =
-        vuelta.totalDistance * cadetesData?.precioPorKM;
+    // Verificar si vueltas es un array y si tiene elementos
+    if (Array.isArray(vueltas) && vueltas.length > 0) {
+      vueltas.forEach((vuelta) => {
+        const puntosDeEntrega = vuelta.orders.length;
+        const pagaPorPuntosDeEntrega =
+          puntosDeEntrega * (cadetesData?.precioPuntoEntrega || 0);
+        const pagaPorKmRecorridos =
+          vuelta.totalDistance * (cadetesData?.precioPorKM || 0);
 
-      // Sumar al total de la vuelta
-      const pagaVuelta = pagaPorPuntosDeEntrega + pagaPorKmRecorridos;
-      totalPaga += pagaVuelta;
-
-      // console.log(`
-      //   Puntos de Entrega: $${pagaPorPuntosDeEntrega} (${puntosDeEntrega} puntos)
-      //   Km recorridos: $${pagaPorKmRecorridos.toFixed(
-      //     2
-      //   )} (${vuelta.totalDistance.toFixed(2)} km)
-      //   Total de la vuelta: $${pagaVuelta.toFixed(2)}
-      // `);
-    });
+        // Sumar al total de la vuelta
+        const pagaVuelta = pagaPorPuntosDeEntrega + pagaPorKmRecorridos;
+        totalPaga += pagaVuelta;
+      });
+    }
 
     return totalPaga;
   };
-
   // Uso de la función
   const desglose = cadetesData ? calcularDesglosePaga(vueltas, cadetesData) : 0;
   const kmRecorridos = vueltas.reduce((total, vuelta) => {

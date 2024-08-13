@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import {
   APIProvider,
   Map,
-  AdvancedMarker,
   useMap,
   useMapsLibrary,
 } from '@vis.gl/react-google-maps';
@@ -16,8 +15,6 @@ const position = { lat: -33.117142, lng: -64.347756 };
 const origen = { lat: -33.095809, lng: -64.33412 };
 
 export const MapOrders = ({ orders }) => {
-  const [vueltaIniciada, setVueltaIniciada] = useState(false);
-
   return (
     <APIProvider apiKey={APIKEY}>
       <div className="relative w-full h-full">
@@ -30,23 +27,6 @@ export const MapOrders = ({ orders }) => {
         >
           <Directions orders={orders} />
         </Map>
-
-        {/* {!vueltaIniciada && (
-          <div className="absolute inset-0 bg-black flex flex-row bg-opacity-50 p-4 gap-4 items-center justify-center">
-            <button
-              onClick={() => setVueltaIniciada(true)}
-              className="bg-black text-gray-100 w-full   font-medium py-4 "
-            >
-              Confirmar salida
-            </button>
-            <button
-              onClick={() => setVueltaIniciada(true)}
-              className="bg-white text-xs text-black font-bold px-4 py-4 leading-none"
-            >
-              28 minutos
-            </button>
-          </div>
-        )} */}
       </div>
     </APIProvider>
   );
@@ -139,8 +119,6 @@ function Directions({ orders }) {
         totalDistance={totalDistance}
         totalDuration={totalDuration}
       />
-      <p>Distancia total: {totalDistance.toFixed(2)} km</p>
-      <p>Duración total: {totalDuration.toFixed(2)} minutos</p>
     </div>
   );
 }
