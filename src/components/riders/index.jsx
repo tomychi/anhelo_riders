@@ -13,7 +13,7 @@ const RideComponent = ({
   const cadeteId = user.uid;
 
   const dispatch = useDispatch();
-  const { rideId, isRideOngoing } = useSelector((state) => state.ride);
+  const { rideId, isAvailable } = useSelector((state) => state.ride);
   const handleStartRide = async () => {
     try {
       if (pedidosPorEntregar.length === 0) {
@@ -28,7 +28,7 @@ const RideComponent = ({
         totalDuration
       );
       if (newRideId) {
-        dispatch(setRideStatus(newRideId, true, pedidosPorEntregar));
+        dispatch(setRideStatus(newRideId, false, pedidosPorEntregar));
       } else {
         console.error('No se pudo iniciar la vuelta.');
       }
@@ -64,37 +64,43 @@ const RideComponent = ({
 
     try {
       await endRide(rideId, cadeteId);
-      dispatch(setRideStatus(null, false, []));
+      dispatch(setRideStatus(null, true, []));
     } catch (error) {
       console.error('Error al finalizar la vuelta', error);
     }
   };
-
   return (
-    <>
+    <div
+      className={`absolute bg-black ${
+        (isAvailable && pedidosPorEntregar.length > 0) ||
+        (!isAvailable && pedidosPorEntregar.length === 0)
+          ? 'inset-0 bg-opacity-50'
+          : 'hidden'
+      } flex flex-col items-center justify-center p-4 gap-4`}
+    >
       {/* Mostrar botón de iniciar vuelta solo si no hay vuelta en curso y hay pedidos por entregar */}
-      {!isRideOngoing && pedidosPorEntregar.length > 0 && (
+      {isAvailable && pedidosPorEntregar.length > 0 && (
         <button
           onClick={handleStartRide}
-          className="bg-black text-gray-100 w-full   font-medium py-4"
+          className="bg-black text-gray-100 w-full max-w-md font-medium py-4"
         >
-          Confirmar salida{' '}
+          Confirmar salida
+          <p className="bg-white text-xs text-black font-bold px-4 py-2 leading-none">
+            {totalDuration.toFixed(2)} Min.
+          </p>
         </button>
       )}
-      <p className="bg-white text-xs text-black font-bold px-4 py-4 leading-none">
-        {totalDuration.toFixed(2)} Min.
-      </p>
 
       {/* Mostrar botón de finalizar vuelta solo si hay una vuelta en curso y todos los pedidos en vuelta están entregados */}
-      {isRideOngoing && (
+      {!isAvailable && pedidosPorEntregar.length === 0 && (
         <button
           onClick={handleEndRide}
-          className="bg-black text-gray-100 w-full   font-medium py-4"
+          className="bg-black text-gray-100 w-full max-w-md font-medium py-4"
         >
-          Finalizar vuelta
+          Llegue Anhelo
         </button>
       )}
-    </>
+    </div>
   );
 };
 

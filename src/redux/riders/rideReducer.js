@@ -1,8 +1,12 @@
-import { SET_RIDE_STATUS, UPDATE_RIDE_ORDERS } from './riderAction';
+import {
+  SET_RIDE_STATUS,
+  UPDATE_RIDE_ORDERS,
+  UPDATE_AVAILABLE_RIDE,
+} from './riderAction';
 
 const initialState = {
   rideId: null,
-  isRideOngoing: false,
+  isAvailable: false,
   orders: [],
 };
 
@@ -12,13 +16,20 @@ const rideReducer = (state = initialState, action) => {
       return {
         ...state,
         rideId: action.payload.rideId,
-        isRideOngoing: action.payload.isOngoing,
+        isAvailable: action.payload.isOngoing,
         orders: action.payload.orders,
       };
     case UPDATE_RIDE_ORDERS:
       return {
         ...state,
         orders: action.payload,
+      };
+
+    case UPDATE_AVAILABLE_RIDE:
+      return {
+        ...state,
+        isAvailable: action.payload.isAvailable,
+        rideId: action.payload.rideId,
       };
     default:
       return state;

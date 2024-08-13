@@ -113,13 +113,11 @@ function Directions({ orders }) {
   if (!leg) return null;
 
   return (
-    <div className="absolute inset-0 bg-black flex flex-row bg-opacity-50 p-4 gap-4 items-center justify-center">
-      <RideComponent
-        pedidosPorEntregar={orders}
-        totalDistance={totalDistance}
-        totalDuration={totalDuration}
-      />
-    </div>
+    <RideComponent
+      pedidosPorEntregar={orders}
+      totalDistance={totalDistance}
+      totalDuration={totalDuration}
+    />
   );
 }
 

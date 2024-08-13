@@ -15,7 +15,7 @@ export const fetchUserNameByUid = async (uid) => {
   const userDoc = await getDoc(userDocRef);
 
   if (userDoc.exists()) {
-    return userDoc.data().name; // Asegúrate de que el campo del nombre se llama 'name'
+    return userDoc.data(); // Asegúrate de que el campo del nombre se llama 'name'
   } else {
     console.error('No se encontró el usuario');
     return null;
@@ -50,6 +50,7 @@ export const startRide = async (
   // Actualiza el documento del usuario para iniciar una nueva vuelta
   const userRef = doc(firestore, 'empleados', cadeteId);
   await updateDoc(userRef, {
+    available: false,
     vueltas: arrayUnion({
       rideId, // Genera un ID único usando timestamp
       startTime: startTime,
@@ -81,7 +82,6 @@ export const startRide = async (
           ? { ...pedido, status: 'pending' }
           : pedido
       );
-      console.log('Updated Pedidos:', updatedPedidos);
       transaction.update(pedidosRef, { pedidos: updatedPedidos });
     }
   });
@@ -115,14 +115,16 @@ export const endRide = async (
     );
 
     // Verifica los datos antes de la actualización
-    console.log('Updated Rides:', updatedRides);
     if (updatedRides.some((ride) => ride === undefined || ride === null)) {
       console.error('Datos de vuelta inválidos:', updatedRides);
       return;
     }
 
     // Actualiza el documento del usuario
-    await updateDoc(userRef, { vueltas: updatedRides });
+    await updateDoc(userRef, {
+      vueltas: updatedRides,
+      available: true, // Marca al cadete como disponible
+    });
   } else {
     console.error('No se encontró el usuario');
   }
