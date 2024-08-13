@@ -94,7 +94,7 @@ export const AnheloRidersStats = () => {
 	}, 0);
 
 	return (
-		<div className="bg-gray-100 min-h-screen  text-black font-coolvetica">
+		<div className="bg-gray-100 min-h-screen text-black font-coolvetica relative">
 			<div className="bg-black p-4">
 				{/* Div del header */}
 				<div className="flex flex-row  justify-between mt-[-6px]">
@@ -138,7 +138,7 @@ export const AnheloRidersStats = () => {
 			</div>
 
 			{/* Div de opciones */}
-			<div className="m-4 bg-gray-300 flex flex-col gap-2 rounded-md px-4 pt-2 pb-2">
+			<div className="absolute left-4 right-4 top-40 bg-gray-300 flex flex-col gap-2 rounded-md px-4 pt-2 pb-2">
 				{/* card de la opcion 1 */}
 				<div className="flex flex-row justify-between items-center">
 					{/* Div de lo de la izquierda */}
@@ -218,7 +218,7 @@ export const AnheloRidersStats = () => {
 			</div>
 
 			{/* Estadisticas principales */}
-			<div className="bg-red-main text-red-main mb-4">
+			{/* <div className="bg-red-main text-red-main mb-4">
 				<div
 					className="flex flex-row items-center gap-2 cursor-pointer"
 					onClick={toggleEstadisticas}
@@ -317,10 +317,10 @@ export const AnheloRidersStats = () => {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 
 			{/* Resumen de la actividad */}
-			<div className="bg-black text-red-main mb-4">
+			{/* <div className="bg-black text-red-main mb-4">
 				<div
 					className="flex flex-row items-center gap-2 cursor-pointer"
 					onClick={toggleResumen}
@@ -421,10 +421,10 @@ export const AnheloRidersStats = () => {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 
 			{/* Desglose de la paga */}
-			<div className="bg-black text-red-main">
+			{/* <div className="bg-black text-red-main">
 				<div
 					className="flex flex-row items-center gap-2 cursor-pointer"
 					onClick={toggleDesglose}
@@ -489,7 +489,7 @@ export const AnheloRidersStats = () => {
 						</p>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
