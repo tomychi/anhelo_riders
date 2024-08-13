@@ -99,10 +99,13 @@ export const AnheloRiders = () => {
 						className=" p-4 bg-gray-200 font-black font-antonio  flex flex-row  justify-between  items-center"
 					>
 						<img src={logo} className="h-2" alt="anheloLogo" />
-						<span className="text-xs font-coolvetica font-medium ">
-							Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
-							ver.
-						</span>
+						<div className="flex flex-col items-center">
+							<span className="text-xs font-coolvetica font-medium mb-1">
+								Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
+								ver.
+							</span>
+							<div className="w-12 h-1 bg-gray-400 rounded-full "></div>
+						</div>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"

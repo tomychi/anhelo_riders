@@ -21,7 +21,7 @@ export const PedidoCard = ({
 
 	return (
 		<div
-			className={`flex flex-row justify-between bg-gray-200 p-4  hover:bg-gray-300 transition-transform duration-300 ease-in-out ${
+			className={`flex flex-row justify-between bg-gray-200 p-4  hover:bg-gray-400 transition-transform duration-300 ease-in-out ${
 				isVisible ? "transform-none" : "transform -translate-y-full"
 			}`}
 			style={{ transitionDelay: `${index * 100}ms` }}
@@ -62,7 +62,7 @@ export const PedidoCard = ({
 								})
 						}
 						className="
-         flex flex-col h-full w-20 bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-2"
+         flex flex-col h-4/5 w-20 mt-1 bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-2"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ export const PedidoCard = ({
 							viewBox="0 0 24 24"
 							strokeWidth="1.5"
 							stroke="currentColor"
-							className="h-5"
+							className="h-5 text-green-500"
 						>
 							<path
 								strokeLinecap="round"
@@ -84,7 +84,7 @@ export const PedidoCard = ({
 				<a
 					href={`tel:${telefono}`}
 					className="
-         flex flex-col h-full w-20 bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-2"
+         flex flex-col h-4/5 w-20 mt-1 bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-2"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ export const PedidoCard = ({
 						viewBox="0 0 24 24"
 						strokeWidth="1.5"
 						stroke="currentColor"
-						className="h-4"
+						className="h-4 text-blue-500"
 					>
 						<path
 							strokeLinecap="round"
