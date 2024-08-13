@@ -77,51 +77,59 @@ export const AnheloRiders = () => {
 	return (
 		<div className="flex flex-col h-screen h-[calc(var(--vh,1vh)*100)]">
 			{/* Parte de pedidos */}
-			<div className="overflow-y-auto pb-safe">
-				{/* Pedidos por entregar */}
-				<div className="flex flex-col ">
-					<div
-						className={`transition-all duration-500 ease-in-out  overflow-hidden ${
-							visibleSection === "porEntregar" ? "max-h-[1000px]" : "max-h-0"
-						}`}
-					>
-						{pedidosPorEntregar.map((pedido, index) => (
-							<PedidoCard
-								key={index}
-								{...pedido}
-								isVisible={visibleSection === "porEntregar"}
-								index={index}
-							/>
-						))}
+			{/* Pedidos por entregar */}
+			<div className="flex flex-col ">
+				<div
+					className={`transition-all duration-500 ease-in-out  overflow-hidden ${
+						visibleSection === "porEntregar" ? "max-h-[1000px]" : "max-h-0"
+					}`}
+				>
+					{pedidosPorEntregar.map((pedido, index) => (
+						<PedidoCard
+							key={index}
+							{...pedido}
+							isVisible={visibleSection === "porEntregar"}
+							index={index}
+						/>
+					))}
+				</div>
+				<button
+					onClick={() => toggleSection("porEntregar")}
+					className="p-4 bg-gray-200 font-black font-antonio flex items-center relative w-full"
+				>
+					{/* Logo a la izquierda */}
+					<div className="absolute left-4">
+						<img src={logo} className="h-1.5" alt="" />
+						{/* Ajusta el tamaño según necesites */}
 					</div>
-					<button
-						onClick={() => toggleSection("porEntregar")}
-						className=" p-4 bg-gray-200 font-black font-antonio  flex flex-row  justify-between  items-center"
-					>
-						<img src={logo} className="h-2" alt="anheloLogo" />
-						<div className="flex flex-col items-center">
-							<span className="text-xs font-coolvetica font-medium mb-1">
-								Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
-								ver.
-							</span>
-							<div className="w-12 h-1 bg-gray-400 rounded-full "></div>
-						</div>
+
+					{/* Contenido central */}
+					<div className="flex-grow flex flex-col items-center">
+						<span className="text-xs font-coolvetica font-medium mb-1">
+							Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
+							ver.
+						</span>
+						<div className="w-12 h-1 bg-gray-400 rounded-full"></div>
+					</div>
+
+					{/* SVG a la derecha */}
+					<div className="absolute right-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
+							className="h-6 w-6"
 							fill="none"
+							viewBox="0 0 24 24"
 							stroke="currentColor"
-							strokeWidth="3"
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							className={`h-3 transition-transform duration-300 ${
-								visibleSection === "porEntregar" ? "rotate-180" : ""
-							}`}
 						>
-							<path d="M20 4L4 20M4 4v16h16" />
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M19 9l-7 7-7-7"
+							/>
 						</svg>
-					</button>
-				</div>
+					</div>
+				</button>
 			</div>
 			{/* Parte del mapa */}
 			<div className="flex-grow relative">
