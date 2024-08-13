@@ -117,7 +117,7 @@ export const AnheloRidersStats = () => {
 							/>
 						</svg>
 
-						<span className="text-xl font-medium text-white ">Volver</span>
+						<span className="text-lg font-medium text-white ">Volver</span>
 					</NavLink>
 					<img
 						src={logo}
