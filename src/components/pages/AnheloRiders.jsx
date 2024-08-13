@@ -106,7 +106,7 @@ export const AnheloRiders = () => {
 					</span>
 					<div className="w-12 h-1 bg-gray-300 rounded-full"></div>
 				</div>
-				<div className="absolute right-4">
+				<NavLink to="/anheloriders_stats" className="absolute right-4">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						className={`h-6 w-6 transition-transform duration-300 ${
@@ -123,7 +123,7 @@ export const AnheloRiders = () => {
 							d="M19 9l-7 7-7-7"
 						/>
 					</svg>
-				</div>
+				</NavLink>
 			</button>
 			<div className="flex-grow relative">
 				<MapOrders orders={pedidosPorEntregar} />
