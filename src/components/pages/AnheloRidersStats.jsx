@@ -147,7 +147,7 @@ export const AnheloRidersStats = () => {
 							viewBox="0 0 24 24"
 							strokeWidth="1.5"
 							stroke="currentColor"
-							className="h-8 transform rotate-90"
+							className="h-11 transform rotate-90"
 						>
 							<path
 								strokeLinecap="round"
