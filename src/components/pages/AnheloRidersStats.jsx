@@ -222,7 +222,7 @@ export const AnheloRidersStats = () => {
 						<div className="px-4 pt-2 pb-2">
 							<div className="flex flex-row justify-between items-center">
 								{/* Div de lo de la izquierda */}
-								<div className="flex flex-row items-center gap-2">
+								<div className="flex flex-row items-top gap-2">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
