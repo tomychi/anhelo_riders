@@ -28,15 +28,6 @@ export const AnheloRidersStats = () => {
 	});
 	const user = useSelector((state) => state.auth.user);
 
-	const handleVolverClick = (e) => {
-		e.preventDefault();
-		setIsArrowRotated(true);
-		setTimeout(() => {
-			setIsArrowRotated(false);
-			navigate("/anheloriders");
-		}, 500);
-	};
-
 	useEffect(() => {
 		const getVueltas = async () => {
 			if (user?.uid) {
@@ -108,9 +99,8 @@ export const AnheloRidersStats = () => {
 				{/* Div del header */}
 				<div className="flex flex-row  justify-between mt-[-6px]">
 					<NavLink
-						to="/anheloriders"
+						to="/"
 						className="flex items-center mb-6 flex-row gap-1 text-black"
-						onClick={handleVolverClick}
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
