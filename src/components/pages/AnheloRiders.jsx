@@ -105,7 +105,7 @@ export const AnheloRiders = () => {
 
 					{/* Contenido central */}
 					<div className="flex-grow flex flex-col items-center">
-						<span className="text-xs font-coolvetica font-medium mb-1">
+						<span className="text-xs font-coolvetica font-medium mb-1.5">
 							Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
 							ver.
 						</span>

@@ -28,7 +28,6 @@ export default {
 				light: "300",
 				normal: "400",
 				medium: "500",
-				book: "550", // Añadimos el peso 'book'
 				bold: "700",
 				black: "900",
 			},
