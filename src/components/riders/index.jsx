@@ -1,13 +1,20 @@
 import { pedidoPropTypes } from '../../helpers/propTypes';
 import PropTypes from 'prop-types';
-import { endRide, startRide } from '../../firebase/users';
+import {
+  endRide,
+  fetchUserVueltasByUid,
+  startRide,
+} from '../../firebase/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRideStatus } from '../../redux/riders/riderAction';
 import clock from '../../assets/clockIcon.png';
 import logo from '../../assets/anheloTMblack.png';
 import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
-import { calcularPagaPorVuelta } from '../../helpers/desgloseGanancia';
+import {
+  calcularPagaPorUnaVuelta,
+  calcularPagaPorVuelta,
+} from '../../helpers/desgloseGanancia';
 import { currencyFormat } from '../../helpers/currencyFormat';
 const RideComponent = ({
   pedidosPorEntregar,
@@ -32,8 +39,19 @@ const RideComponent = ({
       }
     };
 
+    const getLastVuelta = async () => {
+      if (pedidosPorEntregar.length === 0) {
+        const vuelta = await fetchUserVueltasByUid(cadeteId);
+        const pagaVuelta = await calcularPagaPorUnaVuelta(
+          vuelta[vuelta.length - 1]
+        );
+        setPaga(pagaVuelta);
+      }
+    };
+
     getPaga();
-  }, [pedidosPorEntregar, totalDistance]);
+    getLastVuelta();
+  }, [pedidosPorEntregar, totalDistance, cadeteId]);
 
   const handleStartRide = async () => {
     try {

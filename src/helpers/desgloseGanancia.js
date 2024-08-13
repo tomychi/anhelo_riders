@@ -44,6 +44,33 @@ export const calcularDesglosePaga = async (vueltas) => {
   return totalPaga;
 };
 
+export const calcularPagaPorUnaVuelta = async (vuelta) => {
+  const cadetesData = await fetchConstants();
+
+  if (!cadetesData) {
+    console.error('No se pudieron obtener los datos de sueldos');
+    return 0;
+  }
+
+  const puntosDeEntrega = vuelta.orders.length;
+  const pagaPorPuntosDeEntrega =
+    puntosDeEntrega * cadetesData.precioPuntoEntrega;
+  const pagaPorKmRecorridos = vuelta.totalDistance * cadetesData.precioPorKM;
+
+  const pagaVuelta = pagaPorPuntosDeEntrega + pagaPorKmRecorridos;
+
+  // Puedes descomentar el siguiente bloque si quieres ver el desglose en consola.
+  // console.log(`
+  //   Puntos de Entrega: $${pagaPorPuntosDeEntrega} (${puntosDeEntrega} puntos)
+  //   Km recorridos: $${pagaPorKmRecorridos.toFixed(
+  //     2
+  //   )} (${vuelta.totalDistance.toFixed(2)} km)
+  //   Total de la vuelta: $${pagaVuelta.toFixed(2)}
+  // `);
+
+  return pagaVuelta;
+};
+
 export const calcularPagaPorVuelta = async (orders, totalDistance) => {
   const cadetesData = await fetchConstants();
 
