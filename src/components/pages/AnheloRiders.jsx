@@ -95,7 +95,7 @@ export const AnheloRiders = () => {
 				</div>
 				<button
 					onClick={() => toggleSection("porEntregar")}
-					className="p-4 bg-gray-200 font-black font-antonio flex items-center relative w-full"
+					className="p-4 bg-gray-100 font-black font-antonio flex items-center relative w-full"
 				>
 					{/* Logo a la izquierda */}
 					<div className="absolute left-4">
@@ -109,7 +109,7 @@ export const AnheloRiders = () => {
 							Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
 							ver.
 						</span>
-						<div className="w-12 h-1 bg-gray-400 rounded-full"></div>
+						<div className="w-12 h-1 bg-gray-300 rounded-full"></div>
 					</div>
 
 					{/* SVG a la derecha */}
