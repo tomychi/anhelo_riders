@@ -35,13 +35,13 @@ export const MapOrders = ({ orders }) => {
 					<div className="absolute inset-0 bg-black flex flex-row bg-opacity-50 p-4 gap-4 items-center justify-center">
 						<button
 							onClick={() => setVueltaIniciada(true)}
-							className="bg-black text-gray-100 w-full  font-medium py-2 "
+							className="bg-black text-gray-100 w-full   font-medium py-4 "
 						>
 							Confirmar salida
 						</button>
 						<button
 							onClick={() => setVueltaIniciada(true)}
-							className="bg-white text-xs text-black font-bold px-4 py-2 leading-none"
+							className="bg-white text-xs text-black font-bold px-4 py-4 leading-none"
 						>
 							28 minutos
 						</button>

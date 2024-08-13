@@ -6,7 +6,6 @@ import { ReadOrdersForToday } from "../../firebase/orders";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { fetchUserNameByUid } from "../../firebase/users";
-
 export const AnheloRiders = () => {
 	const user = useSelector((state) => state.auth.user);
 	const [userName, setUserName] = useState(null);
@@ -77,8 +76,10 @@ export const AnheloRiders = () => {
 		>
 			<div className="flex flex-col flex-shrink-0">
 				<div
-					className={`transition-max-height duration-500 ease-in-out overflow-hidden ${
-						visibleSection === "porEntregar" ? "max-h-[500px]" : "max-h-0"
+					className={`overflow-hidden transition-all duration-500 ease-in-out ${
+						visibleSection === "porEntregar"
+							? "max-h-[500px] opacity-100"
+							: "max-h-0 opacity-0"
 					}`}
 				>
 					{pedidosPorEntregar.map((pedido, index) => (
