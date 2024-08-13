@@ -46,7 +46,8 @@ const RideComponent = ({
         cadeteId,
         pedidosPorEntregar,
         totalDistance,
-        totalDuration
+        totalDuration,
+        paga
       );
       if (newRideId) {
         dispatch(setRideStatus(newRideId, false, pedidosPorEntregar));

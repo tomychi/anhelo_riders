@@ -39,7 +39,8 @@ export const startRide = async (
   cadeteId,
   orders,
   totalDistance,
-  totalDuration
+  totalDuration,
+  paga
 ) => {
   const startTime = new Date();
   const firestore = getFirestore();
@@ -60,6 +61,7 @@ export const startRide = async (
       })),
       totalDistance: totalDistance,
       totalDuration: totalDuration,
+      paga,
       status: 'ongoing',
     }),
   });
