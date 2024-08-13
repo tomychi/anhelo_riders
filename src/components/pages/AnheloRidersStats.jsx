@@ -130,11 +130,38 @@ export const AnheloRidersStats = () => {
 				{/* Div de cash collected */}
 				<div className="flex flex-col items-center mb-14">
 					<p className="text-sm mb-[-18px] text-white">Hoy</p>
-					<h1 className="text-7xl mb-[-8px] text-white">$32.720</h1>
+					<h1 className="text-6xl mb-[-8px] text-white">$32.720</h1>
 					<p className="text-green-500">
 						Como cadete nivel 4 hubieses ganado +$9170
 					</p>
 				</div>
+			</div>
+
+			{/* Div de opciones */}
+			<div className="m-4 bg-gray-300 flex flex-col gap-2 rounded-md px-4 pt-2 pb-2">
+				<div className="flex flex-row justify-between">
+					<div className="flex flex-row items-center gap-1">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							strokeWidth="1.5"
+							stroke="currentColor"
+							className="h-8 transform rotate-90"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+							/>
+						</svg>
+						<div className="flex flex-col">
+							<p className="text-2xl mb-[-8px]">Cadete nivel 3</p>
+							<p className="text-sm">Ver detalle de las estadisticas</p>
+						</div>
+					</div>
+				</div>
+				<div>Detalle de las ganancias</div>
 			</div>
 
 			{/* Estadisticas principales */}
