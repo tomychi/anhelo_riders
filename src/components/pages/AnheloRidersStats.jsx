@@ -5,10 +5,6 @@ import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
 import { currencyFormat } from '../../helpers/currencyFormat';
 import logo from '../../assets/anheloTMblack.png';
-import arrow from '../../assets/arrowIcon.png';
-import levelUp from '../../assets/levelUpIcon.png';
-import detail from '../../assets/detailIcon.png';
-import invite from '../../assets/personIcon.png';
 
 const formatearFecha = (timestamp) => {
   if (!timestamp) return '';
@@ -106,12 +102,20 @@ export const AnheloRidersStats = () => {
             to="/"
             className="flex items-center mb-6 flex-row gap-1 text-black"
           >
-            <img
-              src={arrow}
-              className="h-2"
-              style={{ filter: 'invert(100%)', transform: 'rotate(180deg)' }}
-              alt=""
-            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="h-3 text-white"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 19.5 8.25 12l7.5-7.5"
+              />
+            </svg>
 
             <span className="text-lg font-medium text-white ">Mapa</span>
           </NavLink>
@@ -138,27 +142,78 @@ export const AnheloRidersStats = () => {
             {/* card de la opcion 1 */}
             <div className="flex flex-row justify-between items-center">
               {/* Div de lo de la izquierda */}
-              <div className="flex flex-row items-center gap-2">
-                <img src={levelUp} className="h-9" alt="" />
+              <div className="flex flex-row items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-11 transform rotate-90"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
                 <div className="flex flex-col">
                   <p className="text-xl mb-[-8px]">Cadete nivel 3</p>
                   <p className="text-sm">Ver detalle de las estadisticas</p>
                 </div>
               </div>
-              <img src={arrow} className="h-2" alt="" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="h-3 text-black"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
             </div>
             {/* Card de la opcion 2 */}
             <div className="flex flex-row justify-between items-center">
               {/* Div de lo de la izquierda */}
-              <div className="flex flex-row items-center gap-2">
-                <img src={detail} className="h-9" alt="" />
-
+              <div className="flex flex-row items-center gap-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-11 transform rotate-90"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
                 <div className="flex flex-col">
                   <p className="text-xl mb-[-8px]">Detalle de las ganancias</p>
                   <p className="text-sm">Ver desgloce</p>
                 </div>
               </div>
-              <img src={arrow} className="h-2" alt="" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="h-3 text-black"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
             </div>
           </div>
 
@@ -168,8 +223,20 @@ export const AnheloRidersStats = () => {
               <div className="flex flex-row justify-between items-center">
                 {/* Div de lo de la izquierda */}
                 <div className="flex flex-row items-top gap-2">
-                  <img src={invite} className="h-9 mt-2" alt="" />
-
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="h-11"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
+                    />
+                  </svg>
                   <div className="flex flex-col">
                     <p className="text-xl mb-[-5px]">Invita y gana</p>
                     <p className="text-sm leading-4">
