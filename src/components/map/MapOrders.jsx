@@ -40,6 +40,7 @@ function Directions({ orders }) {
   const [directionsRenderer, setDirectionsRenderer] = useState();
   const [totalDistance, setTotalDistance] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
+  const [isCalculating, setIsCalculating] = useState(true); // Nuevo estado para la carga
 
   const [routes, setRoutes] = useState([]);
   const [routeIndex, setRouteIndex] = useState(0);
@@ -55,6 +56,8 @@ function Directions({ orders }) {
 
   useEffect(() => {
     if (!directionsService || !directionsRenderer) return;
+
+    setIsCalculating(true); // Inicia la carga
 
     const waypoints = orders.map((order) => ({
       location: { lat: order.map[0], lng: order.map[1] },
@@ -107,10 +110,13 @@ function Directions({ orders }) {
         });
 
         setRoutes(response.routes);
+        setIsCalculating(false); // Termina la carga
       });
   }, [directionsService, directionsRenderer, orders]);
 
-  if (!leg) return null;
+  if (isCalculating || !leg) {
+    return <div>Cargando ruta...</div>; // O cualquier otro indicador de carga
+  }
 
   return (
     <RideComponent

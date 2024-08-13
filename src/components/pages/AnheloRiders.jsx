@@ -14,6 +14,8 @@ export const AnheloRiders = () => {
     name: '',
   });
   const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Estado de carga
+
   const [isArrowRotated, setIsArrowRotated] = useState(false);
   const [visibleSection, setVisibleSection] = useState(null);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -24,11 +26,14 @@ export const AnheloRiders = () => {
   useEffect(() => {
     const getUserName = async () => {
       if (user?.uid) {
+        setIsLoading(true); // Empieza la carga
+
         const datos = await fetchUserNameByUid(user.uid);
         const { name } = datos;
         const { available } = datos;
         dispatch(updateAvailableRide(available, user.uid));
         setUserName({ name, available });
+        setIsLoading(false); // Termina la carga
       }
     };
 
@@ -83,58 +88,66 @@ export const AnheloRiders = () => {
       className="flex flex-col overflow-hidden"
       style={{ height: `${windowHeight}px` }}
     >
-      <div className="flex flex-col flex-shrink-0">
-        <div
-          className={`overflow-hidden transition-all duration-500 ease-in-out ${
-            visibleSection === 'porEntregar'
-              ? 'max-h-[500px] opacity-100'
-              : 'max-h-0 opacity-0'
-          }`}
-        >
-          {pedidosPorEntregar.map((pedido, index) => (
-            <PedidoCard
-              key={index}
-              {...pedido}
-              isVisible={visibleSection === 'porEntregar'}
-              index={index}
-            />
-          ))}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-full bg-white">
+          <span>Cargando...</span> {/* Puedes reemplazar esto con un spinner */}
         </div>
-      </div>
-      <button
-        onClick={() => toggleSection('porEntregar')}
-        className="p-4 bg-gray-100 font-black font-antonio flex items-center relative w-full"
-      >
-        <div className="absolute left-4">
-          <img src={logo} className="h-1.5" alt="" />
-        </div>
-        <div className="flex-grow flex flex-col items-center">
-          <span className="text-xs font-coolvetica font-medium mb-1.5">
-            Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
-            ver.
-          </span>
-          <div className="w-12 h-1 bg-gray-300 rounded-full"></div>
-        </div>
-        <NavLink to="/anheloriders_stats" className="absolute right-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="h-3 text-black"
+      ) : (
+        <>
+          <div className="flex flex-col flex-shrink-0">
+            <div
+              className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                visibleSection === 'porEntregar'
+                  ? 'max-h-[500px] opacity-100'
+                  : 'max-h-0 opacity-0'
+              }`}
+            >
+              {pedidosPorEntregar.map((pedido, index) => (
+                <PedidoCard
+                  key={index}
+                  {...pedido}
+                  isVisible={visibleSection === 'porEntregar'}
+                  index={index}
+                />
+              ))}
+            </div>
+          </div>
+          <button
+            onClick={() => toggleSection('porEntregar')}
+            className="p-4 bg-gray-100 font-black font-antonio flex items-center relative w-full"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
-          </svg>
-        </NavLink>
-      </button>
-      <div className="flex-grow relative">
-        <MapOrders orders={pedidosPorEntregar} />
-      </div>
+            <div className="absolute left-4">
+              <img src={logo} className="h-1.5" alt="" />
+            </div>
+            <div className="flex-grow flex flex-col items-center">
+              <span className="text-xs font-coolvetica font-medium mb-1.5">
+                Pedidos por entregar ({pedidosPorEntregar.length}). Clickea para
+                ver.
+              </span>
+              <div className="w-12 h-1 bg-gray-300 rounded-full"></div>
+            </div>
+            <NavLink to="/anheloriders_stats" className="absolute right-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="h-3 text-black"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </NavLink>
+          </button>
+          <div className="flex-grow relative">
+            <MapOrders orders={pedidosPorEntregar} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
