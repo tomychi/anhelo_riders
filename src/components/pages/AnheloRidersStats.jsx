@@ -138,7 +138,7 @@ export const AnheloRidersStats = () => {
 				{/* Div de opciones */}
 				<div className="absolute left-4 right-4 top-40  flex flex-col gap-4">
 					{/* div 1 */}
-					<div className="flex flex-col gap-2 shadow-lg bg-gray-300  rounded-md px-4 pt-2 pb-2">
+					<div className="flex flex-col gap-2 shadow-lg bg-gray-300 rounded-md px-4 pt-2 pb-2">
 						{/* card de la opcion 1 */}
 						<div className="flex flex-row justify-between items-center">
 							{/* Div de lo de la izquierda */}
@@ -216,18 +216,19 @@ export const AnheloRidersStats = () => {
 							</svg>
 						</div>
 					</div>
-					{/* div 2*/}
-					<div className="flex flex-col shadow-lg bg-white rounded-lg overflow-hidden">
-						<div className="px-4 py-3">
-							<div className="flex flex-row justify-between items-start">
-								<div className="flex flex-row items-start gap-3">
+
+					{/* div 2 */}
+					<div className="flex flex-col shadow-lg bg-gray-300 rounded-md overflow-hidden">
+						<div className="px-4 pt-2 pb-2">
+							<div className="flex flex-row justify-between items-center">
+								<div className="flex flex-row items-center gap-1">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
 										viewBox="0 0 24 24"
 										strokeWidth="1.5"
 										stroke="currentColor"
-										className="w-10 h-10 mt-1"
+										className="h-11"
 									>
 										<path
 											strokeLinecap="round"
@@ -236,8 +237,8 @@ export const AnheloRidersStats = () => {
 										/>
 									</svg>
 									<div className="flex flex-col">
-										<p className="text-lg font-semibold">Invita y gana</p>
-										<p className="text-sm text-gray-600 leading-tight">
+										<p className="text-xl mb-[-8px]">Invita y gana</p>
+										<p className="text-sm">
 											Gana dinero extra por traer conocidos a trabajar a la app
 										</p>
 									</div>
@@ -248,7 +249,7 @@ export const AnheloRidersStats = () => {
 									viewBox="0 0 24 24"
 									strokeWidth="1.5"
 									stroke="currentColor"
-									className="w-6 h-6 text-gray-400"
+									className="h-3 text-black"
 								>
 									<path
 										strokeLinecap="round"
