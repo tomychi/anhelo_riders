@@ -29,6 +29,7 @@ const formatearFecha = (timestamp) => {
   const minutos = date.getMinutes().toString().padStart(2, '0');
 
   return `${dia}/${mes}/${año} a las ${horas}:${minutos} hs`;
+  return `del ${dia}/${mes}/${año} a las ${horas}:${minutos} hs`;
 };
 
 export const AnheloRidersStats = () => {
@@ -198,19 +199,8 @@ export const AnheloRidersStats = () => {
                     </div>
                     {/* datos */}
                     <p>Recorrido: {vuelta.totalDistance.toFixed(2)} kms</p>
-                    <p>
-                      Velocidad:{' '}
-                      {parseFloat(vuelta.kmPorHora)
-                        ? parseFloat(vuelta.kmPorHora).toFixed(2)
-                        : 0}{' '}
-                      km/hr
-                    </p>
-                    <p>
-                      Ganancia:{' '}
-                      {paga[vuelta.rideId]
-                        ? currencyFormat(paga[vuelta.rideId])
-                        : 'Calculando...'}
-                    </p>{' '}
+                    <p>Velocidad: {vuelta.totalDistance.toFixed(2)} km/hr</p>
+                    <p>Ganancia: {currencyFormat(desglose)}</p>
                   </div>
                 ))}
 
