@@ -90,14 +90,10 @@ export const startRide = async (
   return rideId;
 };
 
-export const endRide = async (
-  rideId,
-  cadeteId // Ahora pasamos el cadeteId como parámetro
-) => {
+export const endRide = async (rideId, cadeteId) => {
   const endTime = new Date();
   const firestore = getFirestore();
 
-  // Obtén la referencia al documento del usuario
   const userRef = doc(firestore, 'empleados', cadeteId);
   const userDoc = await getDoc(userRef);
 
@@ -105,33 +101,47 @@ export const endRide = async (
     const userData = userDoc.data();
     const existingRides = userData.vueltas || [];
 
-    // Busca la vuelta que se está terminando para actualizarla
-    const updatedRides = existingRides.map((ride) =>
-      ride.rideId === rideId
-        ? {
-            ...ride,
-            endTime: endTime,
-            status: 'completed', // Marca la vuelta como completada
-          }
-        : ride
-    );
+    const updatedRides = existingRides.map((ride) => {
+      if (ride.rideId === rideId) {
+        const startTime = ride.startTime.toDate();
+        const tiempoVuelta = (endTime - startTime) / (1000 * 60 * 60); // Tiempo en horas
+        const kmPorHora = ride.totalDistance / tiempoVuelta;
 
-    // Verifica los datos antes de la actualización
+        const tiempoVueltaMinutos = (endTime - startTime) / (1000 * 60); // Tiempo en minutos
+
+        const tiempoVueltaMS = endTime - startTime;
+        const horas = Math.floor(tiempoVueltaMS / (1000 * 60 * 60));
+        const minutos = Math.floor(
+          (tiempoVueltaMS % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const segundos = Math.floor((tiempoVueltaMS % (1000 * 60)) / 1000);
+        const tiempoVueltaFormato = `${horas}h ${minutos}m ${segundos}s`;
+
+        return {
+          ...ride,
+          endTime: endTime,
+          status: 'completed',
+          tiempoVuelta: tiempoVuelta.toFixed(2),
+          tiempoVueltaMinutos: tiempoVueltaMinutos.toFixed(2),
+          kmPorHora: kmPorHora.toFixed(2),
+          tiempoVueltaFormato,
+        };
+      }
+      return ride;
+    });
     if (updatedRides.some((ride) => ride === undefined || ride === null)) {
       console.error('Datos de vuelta inválidos:', updatedRides);
       return;
     }
 
-    // Actualiza el documento del usuario
     await updateDoc(userRef, {
       vueltas: updatedRides,
-      available: true, // Marca al cadete como disponible
+      available: true,
     });
   } else {
     console.error('No se encontró el usuario');
   }
 };
-
 // Función para obtener constantes
 export const fetchConstants = async () => {
   const firestore = getFirestore();
