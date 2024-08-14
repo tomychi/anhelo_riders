@@ -156,9 +156,12 @@ const RideComponent = ({
 							</p>
 						</div>
 					</div>
-					<div className="border-t border-black rounded-b-md text-xl bg-black text-gray-100 text-center py-3 font-medium cursor-pointer">
+					<button
+						onClick={handleEndRide}
+						className="border-t border-black rounded-b-md text-xl bg-black text-gray-100 text-center py-3 font-medium cursor-pointer"
+					>
 						Llegue a Anhelo
-					</div>
+					</button>
 				</div>
 			)}
 		</div>
