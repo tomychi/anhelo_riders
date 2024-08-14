@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { fetchUserVueltasByUid } from "../../firebase/users";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
@@ -104,6 +104,12 @@ export const AnheloRidersStats = () => {
 		return total + vuelta.orders.length;
 	}, 0);
 
+	const DireccionParcial = ({ direccion }) => {
+		const direccionParcial = direccion.split(",")[0];
+
+		return <p>{direccionParcial}</p>;
+	};
+
 	return (
 		<div className="bg-gray-100 min-h-screen text-black font-coolvetica relative">
 			<div className="bg-black p-4">
@@ -180,12 +186,19 @@ export const AnheloRidersStats = () => {
 										<h3 className="text-xl font-bold mb-2">
 											Vuelta {formatearFecha(vuelta.startTime)}
 										</h3>
-										<div>
+										<div className="flex flex-row">
+											<p className="mr-1">Direcciones:</p>
 											{vuelta.orders.map((o, index) => (
-												<p key={o.orderId}>
-													{index + 1}. {o.direccion}
-												</p>
+												<React.Fragment key={o.orderId}>
+													<p>
+														<DireccionParcial direccion={o.direccion} />
+													</p>
+													{index < vuelta.orders.length - 1 && (
+														<span>{","}&nbsp;</span>
+													)}
+												</React.Fragment>
 											))}
+											.
 										</div>
 
 										<p>
