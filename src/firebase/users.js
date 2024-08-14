@@ -5,10 +5,6 @@ import {
   updateDoc,
   arrayUnion,
   runTransaction,
-  collection,
-  query,
-  where,
-  getDocs,
 } from 'firebase/firestore';
 import { obtenerFechaActual } from './orders';
 
@@ -28,12 +24,38 @@ export const fetchUserNameByUid = async (uid) => {
 
 export const fetchUserVueltasByUid = async (uid, periodo) => {
   const firestore = getFirestore();
-  const vueltasRef = collection(firestore, 'empleados', uid, 'vueltas');
+  const userDocRef = doc(firestore, 'empleados', uid);
 
+  try {
+    const userDoc = await getDoc(userDocRef);
+
+    if (userDoc.exists()) {
+      const data = userDoc.data();
+      if (data.vueltas) {
+        // Filtra las vueltas según el período seleccionado
+        const filteredVueltas = filterVueltasByPeriod(data.vueltas, periodo);
+        return filteredVueltas;
+      } else {
+        console.error(
+          'El campo "vueltas" no existe en el documento del usuario'
+        );
+        return [];
+      }
+    } else {
+      console.error('No se encontró el usuario');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error al obtener el documento del usuario:', error);
+    return null;
+  }
+};
+
+// Función para filtrar vueltas por período
+const filterVueltasByPeriod = (vueltas, periodo) => {
+  const today = new Date();
   let startDate;
 
-  // Establece la fecha de inicio basada en el período seleccionado
-  const today = new Date();
   switch (periodo) {
     case 'HOY':
       startDate = new Date(today.setHours(0, 0, 0, 0)); // Hoy, desde la medianoche
@@ -51,18 +73,11 @@ export const fetchUserVueltasByUid = async (uid, periodo) => {
       break;
   }
 
-  // Crea la consulta para Firestore usando el rango de fechas
-  const vueltasQuery = query(vueltasRef, where('startTime', '>=', startDate));
-
-  const querySnapshot = await getDocs(vueltasQuery);
-  const vueltas = querySnapshot.docs.map((doc) => doc.data());
-
-  if (vueltas.length > 0) {
-    return vueltas;
-  } else {
-    console.error('No se encontraron vueltas en el período seleccionado');
-    return [];
-  }
+  // Filtra las vueltas basadas en la fecha de inicio
+  return vueltas.filter((vuelta) => {
+    const startTime = new Date(vuelta.startTime.toDate()); // Convierte Timestamp a Date
+    return startTime >= startDate;
+  });
 };
 
 export const startRide = async (
