@@ -128,15 +128,15 @@ const RideComponent = ({
 						COMENZAR VUELTA
 					</button>
 
-					<div className="flex flex-row w-full gap-2 justify-center">
-						<div className="h-5 rounded-full flex flex-row items-center bg-green-500 w-1/2 p-4 gap-2 text-center justify-center ">
-							<img src={clock} className="h-2 mb-1" alt="" />
-							<p className="text-xs text-black lowercase  flex  text-center justify-center font-bold  leading-none">
+					<div className="flex flex-row w-full gap-2 justify-center ">
+						<div className="h-5 rounded-full flex flex-row items-center bg-gray-100 w-1/2 p-4 gap-2 text-center justify-center ">
+							<img src={clock} className="h-2 " alt="" />
+							<p className="text-xs text-black lowercase mb-[-4px]  flex  text-center justify-center font-medium">
 								{Math.floor(totalDuration)} Minutos aprox.
 							</p>
 						</div>
-						<div className="h-5 rounded-full flex flex-row items-center bg-green-500 w-1/2 p-4 gap-2 text-center justify-center ">
-							<p className="text-xs text-black lowercase  flex  text-center justify-center font-bold  leading-none">
+						<div className="h-5 rounded-full flex flex-row items-center bg-gray-100 w-1/2 p-4 gap-2 text-center justify-center ">
+							<p className="text-xs text-black lowercase mb-[-4px] flex  text-center justify-center font-medium  leading-none">
 								{currencyFormat(paga)} de ganancia
 							</p>
 						</div>
