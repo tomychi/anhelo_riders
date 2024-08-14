@@ -211,8 +211,7 @@ export const AnheloRidersStats = () => {
 									<div className="flex flex-col">
 										<p className="text-xl mb-[-5px]">Invita y gana</p>
 										<p className="text-sm leading-4">
-											Expand Down Gana dinero extra por traer conocidos a
-											trabajar a la app
+											Gana dinero extra por traer conocidos a trabajar a la app
 										</p>
 									</div>
 								</div>
