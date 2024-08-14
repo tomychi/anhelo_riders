@@ -191,7 +191,7 @@ export const AnheloRidersStats = () => {
 						>
 							<div className=" border-t border-black py-2">
 								{vueltas.map((vuelta) => (
-									<div key={vuelta.rideId} className="mb-4 last:mb-0">
+									<div key={vuelta.rideId} className="mt-1 last:mb-0">
 										<h3 className="text-xl font-bold mb-2">
 											Vuelta {formatearFecha(vuelta.startTime)}
 										</h3>
@@ -204,8 +204,6 @@ export const AnheloRidersStats = () => {
 										<p>Ganancia: {currencyFormat(desglose)}</p>
 									</div>
 								))}
-
-								<p className="text-xl font-bold mt-2">TOTAL DE LA VUELTA:</p>
 							</div>
 						</div>
 					</div>
