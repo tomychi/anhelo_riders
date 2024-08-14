@@ -186,6 +186,7 @@ export const AnheloRidersStats = () => {
 										<h3 className="text-xl font-bold mb-2">
 											Vuelta {formatearFecha(vuelta.startTime)}
 										</h3>
+										{/* direcciones */}
 										<div className="flex flex-row">
 											<p className="mr-1">Direcciones:</p>
 											{vuelta.orders.map((o, index) => (
@@ -200,16 +201,14 @@ export const AnheloRidersStats = () => {
 											))}
 											.
 										</div>
-
-										<p>Km recorridos: {vuelta.totalDistance.toFixed(2)} kms</p>
-
-										<div className="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
+										{/* datos */}
+										<p>Recorrido: {vuelta.totalDistance.toFixed(2)} kms</p>
+										<p>Velocidad: {vuelta.totalDistance.toFixed(2)} km/hr</p>
+										<p>Ganancia: {currencyFormat(desglose)}</p>
 									</div>
 								))}
 
-								<p className="text-xl font-bold mt-2">
-									TOTAL DE LA VUELTA: {currencyFormat(desglose)}
-								</p>
+								<p className="text-xl font-bold mt-2">TOTAL DE LA VUELTA:</p>
 							</div>
 						</div>
 					</div>
