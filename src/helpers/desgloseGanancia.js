@@ -13,22 +13,16 @@ const fetchConstants = async () => {
   }
 };
 
-export const calcularDesglosePaga = async (vueltas) => {
-  const cadetesData = await fetchConstants();
-
-  if (!cadetesData) {
-    console.error('No se pudieron obtener los datos de sueldos');
-    return 0;
-  }
-
+export const calcularDesglosePaga = (vueltas, cadetesData) => {
   let totalPaga = 0;
 
   vueltas.forEach((vuelta) => {
     const puntosDeEntrega = vuelta.orders.length;
     const pagaPorPuntosDeEntrega =
       puntosDeEntrega * cadetesData.precioPuntoEntrega;
-    const pagaPorKmRecorridos = vuelta.totalDistance * cadetesData.precioPorKM;
+    const pagaPorKmRecorridos = vuelta.totalDistance * cadetesData?.precioPorKM;
 
+    // Sumar al total de la vuelta
     const pagaVuelta = pagaPorPuntosDeEntrega + pagaPorKmRecorridos;
     totalPaga += pagaVuelta;
 

@@ -5,6 +5,10 @@ import {
   updateDoc,
   arrayUnion,
   runTransaction,
+  collection,
+  query,
+  where,
+  getDocs,
 } from 'firebase/firestore';
 import { obtenerFechaActual } from './orders';
 
@@ -22,16 +26,42 @@ export const fetchUserNameByUid = async (uid) => {
   }
 };
 
-export const fetchUserVueltasByUid = async (uid) => {
+export const fetchUserVueltasByUid = async (uid, periodo) => {
   const firestore = getFirestore();
-  const userDocRef = doc(firestore, 'empleados', uid);
-  const userDoc = await getDoc(userDocRef);
+  const vueltasRef = collection(firestore, 'empleados', uid, 'vueltas');
 
-  if (userDoc.exists()) {
-    return userDoc.data().vueltas;
+  let startDate;
+
+  // Establece la fecha de inicio basada en el período seleccionado
+  const today = new Date();
+  switch (periodo) {
+    case 'HOY':
+      startDate = new Date(today.setHours(0, 0, 0, 0)); // Hoy, desde la medianoche
+      break;
+    case 'SEMANA':
+      startDate = new Date(today.setDate(today.getDate() - 7)); // Últimos 7 días
+      startDate.setHours(0, 0, 0, 0);
+      break;
+    case 'MES':
+      startDate = new Date(today.setDate(1)); // El primer día de este mes
+      startDate.setHours(0, 0, 0, 0);
+      break;
+    default:
+      startDate = new Date(0); // En caso de error, trae todo
+      break;
+  }
+
+  // Crea la consulta para Firestore usando el rango de fechas
+  const vueltasQuery = query(vueltasRef, where('startTime', '>=', startDate));
+
+  const querySnapshot = await getDocs(vueltasQuery);
+  const vueltas = querySnapshot.docs.map((doc) => doc.data());
+
+  if (vueltas.length > 0) {
+    return vueltas;
   } else {
-    console.error('No se encontró el usuario');
-    return null;
+    console.error('No se encontraron vueltas en el período seleccionado');
+    return [];
   }
 };
 
