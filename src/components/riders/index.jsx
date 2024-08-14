@@ -146,17 +146,17 @@ const RideComponent = ({
 
 			{/* Mostrar botón de finalizar vuelta solo si hay una vuelta en curso y todos los pedidos en vuelta están entregados */}
 			{!isAvailable && pedidosPorEntregar.length === 0 && (
-				<div className="flex flex-col bg-black text-white rounded-md">
+				<div className="flex flex-col bg-gray-100 text-black rounded-md">
 					<div className="px-4 p-4">
 						<div className="flex flex-col items-center text-center">
 							<p className="text-xl mb-[-5px]">Vuelta casi terminada</p>
 							<p className="text-xs font-medium leading-4">
 								Cuando regreses a Anhelo podrás apretar el siguiente botón y se
-								te acreditará {currencyFormat(paga)}
+								te acreditará {currencyFormat(paga)}.
 							</p>
 						</div>
 					</div>
-					<div className="border-t border-black rounded-b-md text-xl bg-green-500 text-black text-center py-3 font-medium cursor-pointer">
+					<div className="border-t border-black rounded-b-md text-xl bg-black text-gray-100 text-center py-3 font-medium cursor-pointer">
 						Llegue a Anhelo
 					</div>
 				</div>
