@@ -23,7 +23,7 @@ const formatearFecha = (timestamp) => {
 	const horas = date.getHours().toString().padStart(2, "0");
 	const minutos = date.getMinutes().toString().padStart(2, "0");
 
-	return `${dia}/${mes}/${año} a las ${horas}:${minutos} hs`;
+	return `del ${dia}/${mes}/${año} a las ${horas}:${minutos} hs`;
 };
 
 export const AnheloRidersStats = () => {
