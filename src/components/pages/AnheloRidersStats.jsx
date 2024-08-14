@@ -198,7 +198,13 @@ export const AnheloRidersStats = () => {
                     </div>
                     {/* datos */}
                     <p>Recorrido: {vuelta.totalDistance.toFixed(2)} kms</p>
-                    <p>Velocidad: {vuelta.totalDistance.toFixed(2)} km/hr</p>
+                    <p>
+                      Velocidad:{' '}
+                      {parseFloat(vuelta.kmPorHora)
+                        ? parseFloat(vuelta.kmPorHora).toFixed(2)
+                        : 0}{' '}
+                      km/hr
+                    </p>
                     <p>
                       Ganancia:{' '}
                       {paga[vuelta.rideId]
