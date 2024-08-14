@@ -33,12 +33,9 @@ const formatearFecha = (timestamp) => {
 
 export const AnheloRidersStats = () => {
 	const [paga, setPaga] = useState({});
-
 	const navigate = useNavigate();
-	const [isEstadisticasVisible, setIsEstadisticasVisible] = useState(false); // Cambiado a false
-	const [isResumenVisible, setIsResumenVisible] = useState(false); // Cambiado a false
-	const [isDesgloseVisible, setIsDesgloseVisible] = useState(false); // Cambiado a false
-
+	const [isEstadisticasVisible, setIsEstadisticasVisible] = useState(false);
+	const [isDesgloseVisible, setIsDesgloseVisible] = useState(false);
 	const [vueltas, setVueltas] = useState([]);
 	const [cadetesData, setCadetesData] = useState({
 		precioPorKM: 0,
@@ -88,10 +85,8 @@ export const AnheloRidersStats = () => {
 
 	const toggleEstadisticas = () =>
 		setIsEstadisticasVisible(!isEstadisticasVisible);
-	const toggleResumen = () => setIsResumenVisible(!isResumenVisible);
 	const toggleDesglose = () => setIsDesgloseVisible(!isDesgloseVisible);
 
-	// Uso de la función
 	const desglose = cadetesData ? calcularDesglosePaga(vueltas, cadetesData) : 0;
 
 	const handleFechaChange = (periodo) => {
@@ -102,12 +97,6 @@ export const AnheloRidersStats = () => {
 		return direccion.split(",")[0].trim();
 	};
 
-	const DireccionParcial = ({ direccion }) => {
-		const direccionParcial = direccion.split(",")[0];
-
-		return <p>{direccionParcial}</p>;
-	};
-
 	const renderDirecciones = (orders) => {
 		if (orders.length === 0) return "No hay direcciones";
 		const direcciones = orders.map((order) =>
@@ -115,6 +104,7 @@ export const AnheloRidersStats = () => {
 		);
 		return direcciones.join(", ");
 	};
+
 	return (
 		<div className="bg-gray-100 min-h-screen text-black font-coolvetica relative">
 			<div className="bg-black p-4">
@@ -154,8 +144,10 @@ export const AnheloRidersStats = () => {
 					{/* div 1 */}
 					<div className="flex flex-col gap-2 shadow-lg bg-gray-300 rounded-md px-4 pt-2 pb-2">
 						{/* card de la opcion 1 */}
-						<div className="flex flex-row justify-between items-center">
-							{/* Div de lo de la izquierda */}
+						<div
+							onClick={toggleEstadisticas}
+							className="flex flex-row justify-between items-center cursor-pointer"
+						>
 							<div className="flex flex-row items-center gap-2">
 								<img src={levelUp} className="h-9" alt="" />
 								<div className="flex flex-col">
@@ -163,14 +155,30 @@ export const AnheloRidersStats = () => {
 									<p className="text-sm">Ver detalle de las estadisticas</p>
 								</div>
 							</div>
-							<img src={arrow} className="h-2" alt="" />
+							<img
+								src={arrow}
+								className={`h-2 transition-transform duration-300 ${
+									isEstadisticasVisible ? "rotate-180" : ""
+								}`}
+								alt=""
+							/>
 						</div>
+
+						{/* Contenido de estadísticas */}
+						<div
+							className={`transition-all duration-500 ease-in-out overflow-hidden ${
+								isEstadisticasVisible ? "max-h-[1000px]" : "max-h-0"
+							}`}
+						>
+							{/* Contenido de las estadísticas */}
+							<p>Aquí irían los detalles de las estadísticas...</p>
+						</div>
+
 						{/* Card de la opcion 2 */}
 						<div
 							onClick={toggleDesglose}
-							className="flex flex-row justify-between items-center"
+							className="flex flex-row justify-between items-center cursor-pointer"
 						>
-							{/* Div de lo de la izquierda */}
 							<div className="flex flex-row items-center gap-2">
 								<img src={detail} className="h-9" alt="" />
 								<div className="flex flex-col">
@@ -178,7 +186,13 @@ export const AnheloRidersStats = () => {
 									<p className="text-sm">Ver desgloce</p>
 								</div>
 							</div>
-							<img src={arrow} className="h-2" alt="" />
+							<img
+								src={arrow}
+								className={`h-2 transition-transform duration-300 ${
+									isDesgloseVisible ? "rotate-180" : ""
+								}`}
+								alt=""
+							/>
 						</div>
 
 						{/* Aca las vueltas */}
