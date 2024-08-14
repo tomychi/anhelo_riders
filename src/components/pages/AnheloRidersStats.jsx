@@ -100,14 +100,23 @@ export const AnheloRidersStats = () => {
 	const kmRecorridos = vueltas.reduce((total, vuelta) => {
 		return total + vuelta.totalDistance;
 	}, 0);
-	const puntosEntrega = vueltas.reduce((total, vuelta) => {
-		return total + vuelta.orders.length;
-	}, 0);
 
 	const DireccionParcial = ({ direccion }) => {
 		const direccionParcial = direccion.split(",")[0];
 
 		return <p>{direccionParcial}</p>;
+	};
+
+	const obtenerDireccionParcial = (direccion) => {
+		return direccion.split(",")[0].trim();
+	};
+
+	const renderDirecciones = (orders) => {
+		if (orders.length === 0) return "No hay direcciones";
+		const direcciones = orders.map((order) =>
+			obtenerDireccionParcial(order.direccion)
+		);
+		return direcciones.join(", ");
 	};
 
 	return (
@@ -186,22 +195,10 @@ export const AnheloRidersStats = () => {
 										<h3 className="text-xl font-bold mb-2">
 											Vuelta {formatearFecha(vuelta.startTime)}
 										</h3>
-										{/* direcciones */}
-										<div className="flex flex-row">
-											<p className="mr-1">Direcciones:</p>
-											{vuelta.orders.map((o, index) => (
-												<React.Fragment key={o.orderId}>
-													<p>
-														<DireccionParcial direccion={o.direccion} />
-													</p>
-													{index < vuelta.orders.length - 1 && (
-														<span>{","}&nbsp;</span>
-													)}
-												</React.Fragment>
-											))}
-											.
-										</div>
 										{/* datos */}
+
+										<p>Direcciones: {renderDirecciones(vuelta.orders)}</p>
+
 										<p>Recorrido: {vuelta.totalDistance.toFixed(2)} kms</p>
 										<p>Velocidad: {vuelta.totalDistance.toFixed(2)} km/hr</p>
 										<p>Ganancia: {currencyFormat(desglose)}</p>
