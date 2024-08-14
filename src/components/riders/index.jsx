@@ -147,7 +147,7 @@ const RideComponent = ({
 			{/* Mostrar botón de finalizar vuelta solo si hay una vuelta en curso y todos los pedidos en vuelta están entregados */}
 			{!isAvailable && pedidosPorEntregar.length === 0 && (
 				<div className="flex flex-col bg-black text-white rounded-md">
-					<div className="px-4 pt-2 pb-2">
+					<div className="px-4 p-4">
 						<div className="flex flex-col items-center text-center">
 							<p className="text-xl mb-[-5px]">Vuelta casi terminada</p>
 							<p className="text-xs font-medium leading-4">
