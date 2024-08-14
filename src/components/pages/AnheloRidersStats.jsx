@@ -157,8 +157,8 @@ export const AnheloRidersStats = () => {
 							</div>
 							<img
 								src={arrow}
-								className={`h-2 transition-transform duration-300 ${
-									isEstadisticasVisible ? "rotate-180" : ""
+								className={`h-2 transition-transform duration-500 ${
+									isEstadisticasVisible ? "-rotate-90" : "rotate-90"
 								}`}
 								alt=""
 							/>
@@ -188,8 +188,8 @@ export const AnheloRidersStats = () => {
 							</div>
 							<img
 								src={arrow}
-								className={`h-2 transition-transform duration-300 ${
-									isDesgloseVisible ? "rotate-180" : ""
+								className={`h-2 transition-transform duration-500 ${
+									isDesgloseVisible ? "-rotate-90" : "rotate-90"
 								}`}
 								alt=""
 							/>
