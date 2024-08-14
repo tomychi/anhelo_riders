@@ -201,13 +201,8 @@ export const AnheloRidersStats = () => {
 											.
 										</div>
 
-										<p>
-											Km recorridos: {currencyFormat(cadetesData.precioPorKM)} (
-											{vuelta.totalDistance.toFixed(2)} km)
-										</p>
-										<h3 className="text-xl font-bold mb-2">
-											Final vuelta {formatearFecha(vuelta.endTime)}
-										</h3>
+										<p>Km recorridos: {vuelta.totalDistance.toFixed(2)} kms</p>
+
 										<div className="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
 									</div>
 								))}
