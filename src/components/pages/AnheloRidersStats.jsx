@@ -16,7 +16,14 @@ const formatearFecha = (timestamp) => {
 	const date = new Date(
 		timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
 	);
-	return date.toLocaleString(); // Formatea la fecha y hora a un string legible
+
+	const dia = date.getDate().toString().padStart(2, "0");
+	const mes = (date.getMonth() + 1).toString().padStart(2, "0");
+	const año = date.getFullYear().toString().slice(-2);
+	const horas = date.getHours().toString().padStart(2, "0");
+	const minutos = date.getMinutes().toString().padStart(2, "0");
+
+	return `${dia}/${mes}/${año} a las ${horas}:${minutos} hs`;
 };
 
 export const AnheloRidersStats = () => {
@@ -160,16 +167,18 @@ export const AnheloRidersStats = () => {
 							</div>
 							<img src={arrow} className="h-2" alt="" />
 						</div>
+
+						{/* Aca las vueltas */}
 						<div
 							className={`transition-all duration-500 ease-in-out overflow-hidden ${
 								isDesgloseVisible ? "max-h-[1000px]" : "max-h-0"
 							}`}
 						>
-							<div className="px-4 pb-4">
+							<div className=" border-t border-black py-2">
 								{vueltas.map((vuelta) => (
 									<div key={vuelta.rideId} className="mb-4 last:mb-0">
 										<h3 className="text-xl font-bold mb-2">
-											Inicio vuelta {formatearFecha(vuelta.startTime)}
+											Vuelta {formatearFecha(vuelta.startTime)}
 										</h3>
 										<div>
 											{vuelta.orders.map((o, index) => (
@@ -178,11 +187,7 @@ export const AnheloRidersStats = () => {
 												</p>
 											))}
 										</div>
-										{/* <p>
-                      puntos de entrega:{' '}
-                      {currencyFormat(cadetesData.precioPuntoEntrega)} (
-                      {vuelta.orders.length})
-                    </p> */}
+
 										<p>
 											Km recorridos: {currencyFormat(cadetesData.precioPorKM)} (
 											{vuelta.totalDistance.toFixed(2)} km)
