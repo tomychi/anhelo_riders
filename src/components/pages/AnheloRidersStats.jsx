@@ -106,13 +106,13 @@ export const AnheloRidersStats = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               className="h-3 text-white"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M15.75 19.5 8.25 12l7.5-7.5"
               />
             </svg>
@@ -178,7 +178,10 @@ export const AnheloRidersStats = () => {
               </svg>
             </div>
             {/* Card de la opcion 2 */}
-            <div className="flex flex-row justify-between items-center">
+            <div
+              onClick={toggleDesglose}
+              className="flex flex-row justify-between items-center"
+            >
               {/* Div de lo de la izquierda */}
               <div className="flex flex-row items-center gap-1">
                 <svg
@@ -187,7 +190,9 @@ export const AnheloRidersStats = () => {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="h-11 transform rotate-90"
+                  className={`h-11 transition-transform duration-300 ${
+                    isDesgloseVisible ? 'rotate-180' : 'rotate-90'
+                  }`}
                 >
                   <path
                     strokeLinecap="round"
@@ -200,6 +205,7 @@ export const AnheloRidersStats = () => {
                   <p className="text-sm">Ver desgloce</p>
                 </div>
               </div>
+
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -214,6 +220,45 @@ export const AnheloRidersStats = () => {
                   d="M8.25 4.5l7.5 7.5-7.5 7.5"
                 />
               </svg>
+            </div>
+            <div
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                isDesgloseVisible ? 'max-h-[1000px]' : 'max-h-0'
+              }`}
+            >
+              <div className="px-4 pb-4">
+                {vueltas.map((vuelta) => (
+                  <div key={vuelta.rideId} className="mb-4 last:mb-0">
+                    <h3 className="text-xl font-bold mb-2">
+                      Inicio vuelta {formatearFecha(vuelta.startTime)}
+                    </h3>
+                    <div>
+                      {vuelta.orders.map((o, index) => (
+                        <p key={o.orderId}>
+                          {index + 1}. {o.direccion}
+                        </p>
+                      ))}
+                    </div>
+                    {/* <p>
+                      puntos de entrega:{' '}
+                      {currencyFormat(cadetesData.precioPuntoEntrega)} (
+                      {vuelta.orders.length})
+                    </p> */}
+                    <p>
+                      Km recorridos: {currencyFormat(cadetesData.precioPorKM)} (
+                      {vuelta.totalDistance.toFixed(2)} km)
+                    </p>
+                    <h3 className="text-xl font-bold mb-2">
+                      Final vuelta {formatearFecha(vuelta.endTime)}
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
+                  </div>
+                ))}
+
+                <p className="text-xl font-bold mt-2">
+                  TOTAL DE LA VUELTA: {currencyFormat(desglose)}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -486,45 +531,7 @@ export const AnheloRidersStats = () => {
 					</div>
 					<div className="bg-red-main h-0.5 flex-grow" />
 				</div>
-				<div
-					className={`transition-all duration-500 ease-in-out overflow-hidden ${
-						isDesgloseVisible ? "max-h-[1000px]" : "max-h-0"
-					}`}
-				>
-					<div className="px-4 pb-4">
-						{vueltas.map((vuelta) => (
-							<div key={vuelta.rideId} className="mb-4 last:mb-0">
-								<h3 className="text-xl font-bold mb-2">
-									Inicio vuelta {formatearFecha(vuelta.startTime)}
-								</h3>
-								<div>
-									{vuelta.orders.map((o, index) => (
-										<p key={o.orderId}>
-											{index + 1}. {o.direccion}
-										</p>
-									))}
-								</div>
-								<p>
-									puntos de entrega:{" "}
-									{currencyFormat(cadetesData.precioPuntoEntrega)} (
-									{vuelta.orders.length})
-								</p>
-								<p>
-									Km recorridos: {currencyFormat(cadetesData.precioPorKM)} (
-									{vuelta.totalDistance.toFixed(2)} km)
-								</p>
-								<h3 className="text-xl font-bold mb-2">
-									Final vuelta {formatearFecha(vuelta.endTime)}
-								</h3>
-								<div className="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
-							</div>
-						))}
-
-						<p className="text-xl font-bold mt-2">
-							TOTAL DE LA VUELTA: {currencyFormat(desglose)}
-						</p>
-					</div>
-				</div>
+				
 			</div> */}
     </div>
   );
