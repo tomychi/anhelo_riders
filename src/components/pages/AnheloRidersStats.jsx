@@ -202,7 +202,7 @@ export const AnheloRidersStats = () => {
 					</div>
 
 					{/* div 2 */}
-					<div className="flex flex-col shadow-lg bg-gray-300 rounded-md overflow-hidden">
+					<div className="flex flex-col shadow-lg bg-gray-300 mb-4 rounded-md overflow-hidden">
 						<div className="px-4 pt-2 pb-2">
 							<div className="flex flex-row justify-between items-center">
 								{/* Div de lo de la izquierda */}
