@@ -194,6 +194,7 @@ export const AnheloRidersStats = () => {
 											Vuelta {formatearFecha(vuelta.startTime)}
 										</h3>
 										{/* datos */}
+										<p>Direcciones: {renderDirecciones(vuelta.orders)}</p>
 										<p>Recorrido: {vuelta.totalDistance.toFixed(2)} kms</p>
 										<p>
 											Velocidad:{" "}
