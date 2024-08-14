@@ -148,7 +148,6 @@ const RideComponent = ({
 			{!isAvailable && pedidosPorEntregar.length === 0 && (
 				<div className="flex flex-col  bg-gray-300 rounded-md ">
 					<div className="px-4 pt-2 pb-2">
-						{/* Div de lo de la izquierda */}
 						<div className="flex flex-col items-center text-center">
 							<p className="text-xl mb-[-5px] ">Vuelta casi terminada</p>
 							<p className="text-sm leading-4">
@@ -157,7 +156,7 @@ const RideComponent = ({
 							</p>
 						</div>
 					</div>
-					<div className="bg-red-main text-white text-center py-3 font-medium cursor-pointer">
+					<div className="border-t border-black text-xl text-black text-center  py-3 font-medium cursor-pointer">
 						Llegue a Anhelo
 					</div>
 				</div>
