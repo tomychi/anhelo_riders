@@ -211,6 +211,13 @@ export const AnheloRidersStats = () => {
 								</p>
 								{/* Aquí puedes agregar más estadísticas si lo deseas */}
 							</div>
+							<div className=" border-black ">
+								<p className="text-xl font-bold ">Tiempo conectado: 3:20 hs</p>
+								<p className="mt-[-8px]">
+									* Los cadetes nivel 4 suelen conectarse 3:50
+								</p>
+								{/* Aquí puedes agregar más estadísticas si lo deseas */}
+							</div>
 						</div>
 
 						{/* Card de la opcion 2 */}
