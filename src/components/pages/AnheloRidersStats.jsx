@@ -316,7 +316,7 @@ export const AnheloRidersStats = () => {
 								</div>
 							</div>
 						</div>
-						<div className="bg-red-main flex flex-row items-center gap-1 justify-center text-white text-center py-3  cursor-pointer">
+						<div className="bg-red-main opacity-50 flex flex-row items-center gap-1 justify-center text-white text-center py-3  cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
