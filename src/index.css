@@ -143,11 +143,11 @@
 }
 
 ::-webkit-scrollbar {
-	width: 0.5rem;
+	width: 1 rem;
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: #ff0000;
+	background-color: #000000;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
