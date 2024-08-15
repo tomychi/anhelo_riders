@@ -211,10 +211,18 @@ export const AnheloRidersStats = () => {
 								</p>
 								{/* Aquí puedes agregar más estadísticas si lo deseas */}
 							</div>
-							<div className=" border-black ">
+							<div className=" ">
 								<p className="text-xl font-bold ">Tiempo conectado: 3:20 hs</p>
 								<p className="mt-[-8px]">
 									* Los cadetes nivel 4 suelen conectarse 3:50
+								</p>
+								{/* Aquí puedes agregar más estadísticas si lo deseas */}
+							</div>
+							{/* niveles */}
+							<div className=" border border-1 mt-2 mb-2 border-black px-4 py-2 rounded-md">
+								<p className="text-center text-black">
+									Los niveles se actualizan semanalmente segun tu rendimiento de
+									la semana previa.
 								</p>
 								{/* Aquí puedes agregar más estadísticas si lo deseas */}
 							</div>
