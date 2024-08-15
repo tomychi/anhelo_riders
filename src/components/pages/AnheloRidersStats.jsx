@@ -44,6 +44,7 @@ export const AnheloRidersStats = () => {
 	const [promedioGeneralPorViaje, setPromedioGeneralPorViaje] = useState(0);
 	const [totalGanancias, setTotalGanancias] = useState(0);
 	const [totalViajes, setTotalViajes] = useState(0);
+	const [velocidadPromedio, setVelocidadPromedio] = useState(0);
 	const user = useSelector((state) => state.auth.user);
 
 	const fetchVueltas = async (periodo) => {
@@ -96,6 +97,18 @@ export const AnheloRidersStats = () => {
 		};
 
 		calcularPagas();
+	}, [vueltas]);
+
+	useEffect(() => {
+		const calcularVelocidadPromedio = () => {
+			if (vueltas.length === 0) return 0;
+			const totalVelocidad = vueltas.reduce((sum, vuelta) => {
+				return sum + (parseFloat(vuelta.kmPorHora) || 0);
+			}, 0);
+			return (totalVelocidad / vueltas.length).toFixed(2);
+		};
+
+		setVelocidadPromedio(calcularVelocidadPromedio());
 	}, [vueltas]);
 
 	const toggleEstadisticas = () =>
@@ -188,8 +201,8 @@ export const AnheloRidersStats = () => {
 								isEstadisticasVisible ? "max-h-[1000px]" : "max-h-0"
 							}`}
 						>
-							{/* Contenido de las estadísticas */}
-							<p>Aquí irían los detalles de las estadísticas...</p>
+							<p>Velocidad promedio: {velocidadPromedio} km/hr</p>
+							{/* Aquí puedes agregar más estadísticas si lo deseas */}
 						</div>
 
 						{/* Card de la opcion 2 */}
