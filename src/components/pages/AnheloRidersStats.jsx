@@ -237,7 +237,7 @@ export const AnheloRidersStats = () => {
 									descuidar la entrega
 								</p>
 								<p className="text-left text-black">
-									Nivel 3: Capaz de sacar 5 o mas pedidos por vuelta sin
+									Nivel 4: Capaz de sacar 6 o mas pedidos por vuelta sin
 									descuidar la entrega
 								</p>
 
