@@ -220,10 +220,27 @@ export const AnheloRidersStats = () => {
 							</div>
 							{/* niveles */}
 							<div className=" border border-1 mt-2 mb-2 border-black px-4 py-2 rounded-md">
-								<p className="text-center text-black">
+								<p className="text-left text-black">
 									Los niveles se actualizan semanalmente segun tu rendimiento de
 									la semana previa.
 								</p>
+								<p className="text-left text-black">
+									Nivel 1: Capaz de sacar maximo 3 pedidos por vuelta sin
+									descuidar la entrega
+								</p>
+								<p className="text-left text-black">
+									Nivel 2: Capaz de sacar maximo 4 pedidos por vuelta sin
+									descuidar la entrega
+								</p>
+								<p className="text-left text-black">
+									Nivel 3: Capaz de sacar maximo 5 pedidos por vuelta sin
+									descuidar la entrega
+								</p>
+								<p className="text-left text-black">
+									Nivel 3: Capaz de sacar 5 o mas pedidos por vuelta sin
+									descuidar la entrega
+								</p>
+
 								{/* Aquí puedes agregar más estadísticas si lo deseas */}
 							</div>
 						</div>
