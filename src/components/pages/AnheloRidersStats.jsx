@@ -201,8 +201,16 @@ export const AnheloRidersStats = () => {
 								isEstadisticasVisible ? "max-h-[1000px]" : "max-h-0"
 							}`}
 						>
-							<p>Velocidad promedio: {velocidadPromedio} km/hr</p>
-							{/* Aquí puedes agregar más estadísticas si lo deseas */}
+							<div className=" border-t border-black pt-2">
+								<p className="text-xl font-bold ">
+									Velocidad promedio: {velocidadPromedio} km/hr
+								</p>
+								<p className="mt-[-8px]">
+									* Los cadetes nivel 4 suelen ir a una velocidad promedio de 15
+									km/hr
+								</p>
+								{/* Aquí puedes agregar más estadísticas si lo deseas */}
+							</div>
 						</div>
 
 						{/* Card de la opcion 2 */}
