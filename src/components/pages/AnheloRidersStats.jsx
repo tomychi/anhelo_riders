@@ -232,7 +232,7 @@ export const AnheloRidersStats = () => {
 								isDesgloseVisible ? "max-h-[1000px]" : "max-h-0"
 							}`}
 						>
-							<div className=" border-t border-black py-2">
+							<div className=" border-t border-black py-1">
 								{vueltas.map((vuelta) => (
 									<div key={vuelta.rideId} className="mt-1 last:mb-0">
 										<h3 className="text-xl font-bold mb-2">
