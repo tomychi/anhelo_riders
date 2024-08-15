@@ -316,14 +316,14 @@ export const AnheloRidersStats = () => {
 								</div>
 							</div>
 						</div>
-						<div className="bg-red-main opacity-20 flex flex-row items-center gap-1 justify-center text-white text-center py-3  cursor-pointer">
+						<div className="bg-red-main opacity-20 flex flex-row items-center gap-1 justify-center text-white text-center pt-2.5 pb-3  cursor-pointer">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke-width="1.5"
 								stroke="currentColor"
-								className="h-4 "
+								className="h-4"
 							>
 								<path
 									stroke-linecap="round"
@@ -332,7 +332,9 @@ export const AnheloRidersStats = () => {
 								/>
 							</svg>
 
-							<p className="text-xl fond-medium ">No disponible todavia</p>
+							<p className="text-lg fond-medium pt-0.5 ">
+								No disponible todavia
+							</p>
 						</div>
 					</div>
 				</div>
