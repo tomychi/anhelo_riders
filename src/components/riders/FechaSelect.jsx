@@ -39,7 +39,7 @@ export const FechaSelect = ({ onFechaChange }) => {
 	return (
 		<div ref={selectRef} className="relative text-sm mb-[-5px] text-white">
 			<div
-				className="p-2 border border-gray-100 bg-black rounded-md cursor-pointer flex justify-center flex-row gap-2 items-center"
+				className="px-2 py-0.5 border border-gray-100 bg-black rounded-md cursor-pointer flex justify-center flex-row gap-2 items-center"
 				onClick={toggleDropdown}
 			>
 				<span>{options.find((opt) => opt.value === selectedFecha)?.label}</span>
