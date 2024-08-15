@@ -41,6 +41,9 @@ export const AnheloRidersStats = () => {
 		precioPorKM: 0,
 		precioPuntoEntrega: 0,
 	});
+	const [promedioGeneralPorViaje, setPromedioGeneralPorViaje] = useState(0);
+	const [totalGanancias, setTotalGanancias] = useState(0);
+	const [totalViajes, setTotalViajes] = useState(0);
 	const user = useSelector((state) => state.auth.user);
 
 	const fetchVueltas = async (periodo) => {
@@ -71,13 +74,25 @@ export const AnheloRidersStats = () => {
 	useEffect(() => {
 		const calcularPagas = async () => {
 			const nuevasPagas = {};
+			let gananciaTotal = 0;
+			let viajesTotal = 0;
 
 			for (const vuelta of vueltas) {
 				const pagaVuelta = await calcularPagaPorUnaVuelta(vuelta);
 				nuevasPagas[vuelta.rideId] = pagaVuelta;
+				gananciaTotal += pagaVuelta;
+				viajesTotal += vuelta.orders.length;
 			}
 
 			setPaga(nuevasPagas);
+			setTotalGanancias(gananciaTotal);
+			setTotalViajes(viajesTotal);
+
+			if (viajesTotal > 0) {
+				setPromedioGeneralPorViaje(gananciaTotal / viajesTotal);
+			} else {
+				setPromedioGeneralPorViaje(0);
+			}
 		};
 
 		calcularPagas();
@@ -133,14 +148,17 @@ export const AnheloRidersStats = () => {
 				<div className="flex flex-col items-center mb-12 mt-[-6px]">
 					<FechaSelect onFechaChange={handleFechaChange} />
 
-					<h1 className="text-6xl mb-[-8px] text-white">$32.720</h1>
+					<h1 className="text-6xl mb-[-4px] text-white">
+						{currencyFormat(totalGanancias)}
+					</h1>
 					<p className="text-green-500 text-sm">
-						Como cadete nivel 4 hubieses ganado +$9170
+						Como cadete nivel 4 hubieses ganado extra:{" "}
+						{currencyFormat(promedioGeneralPorViaje)}
 					</p>
 				</div>
 
 				{/* Div de opciones */}
-				<div className="absolute left-4 right-4 top-44  flex flex-col gap-4">
+				<div className="absolute left-4 right-4 top-[180px]  flex flex-col gap-4">
 					{/* div 1 */}
 					<div className="flex flex-col gap-2 shadow-lg bg-gray-300 rounded-md px-4 pt-2 pb-2">
 						{/* card de la opcion 1 */}
@@ -222,7 +240,7 @@ export const AnheloRidersStats = () => {
 											{paga[vuelta.rideId]
 												? currencyFormat(paga[vuelta.rideId])
 												: "Calculando..."}
-										</p>{" "}
+										</p>
 									</div>
 								))}
 							</div>
