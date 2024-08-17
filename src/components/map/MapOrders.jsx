@@ -8,7 +8,6 @@ import {
 import PropTypes from 'prop-types';
 import { pedidoPropTypes } from '../../helpers/propTypes';
 import RideComponent from '../riders';
-import { useSelector } from 'react-redux';
 
 const APIKEY = import.meta.env.VITE_API_GOOGLE_MAPS;
 
@@ -33,11 +32,9 @@ export const MapOrders = ({ orders }) => {
   );
 };
 
-function Directions({ orders: pedidosPorEntregar }) {
+function Directions({ orders }) {
   const map = useMap();
   const routesLibrary = useMapsLibrary('routes');
-
-  const { orders: pedidosEnVuelta } = useSelector((state) => state.ride);
 
   const [directionsService, setDirectionsService] = useState();
   const [directionsRenderer, setDirectionsRenderer] = useState();
@@ -47,7 +44,6 @@ function Directions({ orders: pedidosPorEntregar }) {
 
   const [routes, setRoutes] = useState([]);
   const [routeIndex, setRouteIndex] = useState(0);
-
   const selected = routes[routeIndex];
   const leg = selected?.legs[0];
 
@@ -58,53 +54,12 @@ function Directions({ orders: pedidosPorEntregar }) {
     setDirectionsRenderer(new routesLibrary.DirectionsRenderer({ map }));
   }, [routesLibrary, map]);
 
-  // Calcular la distancia y duración total basadas en pedidosPorEntregar
-  useEffect(() => {
-    if (
-      !directionsService ||
-      !directionsRenderer ||
-      pedidosPorEntregar.length === 0
-    )
-      return;
-
-    setIsCalculating(true);
-
-    const waypoints = pedidosPorEntregar.map((order) => ({
-      location: { lat: order.map[0], lng: order.map[1] },
-      stopover: true,
-    }));
-
-    directionsService
-      .route({
-        origin: origen,
-        destination: origen,
-        waypoints: waypoints,
-        optimizeWaypoints: true,
-        travelMode: window.google.maps.TravelMode.DRIVING,
-        provideRouteAlternatives: true,
-      })
-      .then((response) => {
-        const route = response.routes[0];
-        const totalDistance = route.legs.reduce((acc, leg) => {
-          return acc + leg.distance.value;
-        }, 0);
-        const totalDuration = route.legs.reduce(
-          (acc, leg) => acc + leg.duration.value,
-          0
-        );
-
-        setTotalDistance(totalDistance / 1000);
-        setTotalDuration(totalDuration / 60);
-        setIsCalculating(false);
-      });
-  }, [directionsService, directionsRenderer, pedidosPorEntregar]);
-
   useEffect(() => {
     if (!directionsService || !directionsRenderer) return;
 
     setIsCalculating(true); // Inicia la carga
 
-    const waypoints = pedidosEnVuelta.map((order) => ({
+    const waypoints = orders.map((order) => ({
       location: { lat: order.map[0], lng: order.map[1] },
       stopover: true,
     }));
@@ -155,10 +110,9 @@ function Directions({ orders: pedidosPorEntregar }) {
         });
 
         setRoutes(response.routes);
-
         setIsCalculating(false); // Termina la carga
       });
-  }, [directionsService, directionsRenderer, pedidosEnVuelta]);
+  }, [directionsService, directionsRenderer, orders]);
 
   if (isCalculating || !leg) {
     return <div>Cargando ruta...</div>; // O cualquier otro indicador de carga
@@ -166,7 +120,7 @@ function Directions({ orders: pedidosPorEntregar }) {
 
   return (
     <RideComponent
-      pedidosPorEntregar={pedidosPorEntregar}
+      pedidosPorEntregar={orders}
       totalDistance={totalDistance}
       totalDuration={totalDuration}
     />
