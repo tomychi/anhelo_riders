@@ -97,4 +97,5 @@ PedidoCard.propTypes = {
   id: PropTypes.string,
   telefono: PropTypes.string,
   metodoPago: PropTypes.string,
+  map: PropTypes.arrayOf(PropTypes.number).isRequired, // Asegura que map es un array de números
 };
