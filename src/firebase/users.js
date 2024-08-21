@@ -103,6 +103,7 @@ export const startRide = async (
       orders: orders.map((order) => ({
         orderId: order.id,
         direccion: order.direccion,
+        map: order.map,
       })),
       totalDistance: totalDistance,
       totalDuration: totalDuration,
@@ -172,6 +173,7 @@ export const endRide = async (rideId, cadeteId) => {
           tiempoVueltaFormato,
         };
       }
+      console.log(ride);
       return ride;
     });
     if (updatedRides.some((ride) => ride === undefined || ride === null)) {

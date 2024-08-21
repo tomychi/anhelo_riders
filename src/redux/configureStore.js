@@ -8,7 +8,7 @@ import rideReducer from './riders/rideReducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
+  whitelist: ['auth', 'ride'],
 };
 
 const RootReducer = combineReducers({

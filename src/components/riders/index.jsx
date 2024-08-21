@@ -8,7 +8,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { setRideStatus } from '../../redux/riders/riderAction';
 import clock from '../../assets/clockIcon.png';
-import logo from '../../assets/anheloTMblack.png';
 import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
 import {
@@ -68,7 +67,7 @@ const RideComponent = ({
         paga
       );
       if (newRideId) {
-        dispatch(setRideStatus(newRideId, false, pedidosPorEntregar));
+        dispatch(setRideStatus(newRideId, false, pedidosPorEntregar, true));
       } else {
         console.error('No se pudo iniciar la vuelta.');
       }
@@ -104,7 +103,7 @@ const RideComponent = ({
 
     try {
       await endRide(rideId, cadeteId);
-      dispatch(setRideStatus(null, true, []));
+      dispatch(setRideStatus(null, true, [], false));
     } catch (error) {
       console.error('Error al finalizar la vuelta', error);
     }

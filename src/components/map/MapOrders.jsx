@@ -8,6 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import { pedidoPropTypes } from '../../helpers/propTypes';
 import RideComponent from '../riders';
+import { useSelector } from 'react-redux';
 
 const APIKEY = import.meta.env.VITE_API_GOOGLE_MAPS;
 
@@ -47,6 +48,10 @@ function Directions({ orders }) {
   const selected = routes[routeIndex];
   const leg = selected?.legs[0];
 
+  const { vueltaEstablecida, orders: ordersVuelta } = useSelector(
+    (state) => state.ride
+  );
+
   useEffect(() => {
     if (!routesLibrary || !map) return;
 
@@ -59,10 +64,24 @@ function Directions({ orders }) {
 
     setIsCalculating(true); // Inicia la carga
 
-    const waypoints = orders.map((order) => ({
-      location: { lat: order.map[0], lng: order.map[1] },
-      stopover: true,
-    }));
+    // Filtrar los pedidos que no tienen ubicación válida
+    const validOrders = orders.filter(
+      (order) => order.map[0] !== 0 || order.map[1] !== 0
+    );
+    const validOrdersVuelta = vueltaEstablecida
+      ? ordersVuelta.filter((order) => order.map[0] !== 0 || order.map[1] !== 0)
+      : null;
+
+    // Determina los waypoints a usar: `vueltaEstablecida` o `orders`
+    const waypoints = vueltaEstablecida
+      ? validOrdersVuelta.map((order) => ({
+          location: { lat: order.map[0], lng: order.map[1] },
+          stopover: true,
+        }))
+      : validOrders.map((order) => ({
+          location: { lat: order.map[0], lng: order.map[1] },
+          stopover: true,
+        }));
 
     directionsService
       .route({
@@ -112,7 +131,13 @@ function Directions({ orders }) {
         setRoutes(response.routes);
         setIsCalculating(false); // Termina la carga
       });
-  }, [directionsService, directionsRenderer, orders]);
+  }, [
+    directionsService,
+    directionsRenderer,
+    orders,
+    vueltaEstablecida,
+    ordersVuelta,
+  ]);
 
   if (isCalculating || !leg) {
     return <div>Cargando ruta...</div>; // O cualquier otro indicador de carga

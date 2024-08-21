@@ -8,6 +8,7 @@ const initialState = {
   rideId: null,
   isAvailable: false,
   orders: [],
+  vueltaEstablecida: false,
 };
 
 const rideReducer = (state = initialState, action) => {
@@ -18,6 +19,7 @@ const rideReducer = (state = initialState, action) => {
         rideId: action.payload.rideId,
         isAvailable: action.payload.isOngoing,
         orders: action.payload.orders,
+        vueltaEstablecida: action.payload.vueltaEstablecida,
       };
     case UPDATE_RIDE_ORDERS:
       return {
