@@ -31,7 +31,6 @@ const rideReducer = (state = initialState, action) => {
       return {
         ...state,
         isAvailable: action.payload.isAvailable,
-        rideId: action.payload.rideId,
       };
     default:
       return state;

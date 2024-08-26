@@ -144,6 +144,18 @@ export const AnheloRidersStats = () => {
     });
   };
 
+  const contarTotalOrders = (vueltas) => {
+    let totalOrders = 0;
+
+    vueltas.forEach((vuelta) => {
+      totalOrders += vuelta.orders.length;
+    });
+
+    return totalOrders;
+  };
+
+  const totalOrders = contarTotalOrders(vueltas);
+
   return (
     <div className="bg-gray-100 min-h-screen text-black font-coolvetica relative">
       <div className="bg-black p-4">
@@ -281,11 +293,13 @@ export const AnheloRidersStats = () => {
 
             {/* Aca las vueltas */}
             <div
-              className={`transition-all duration-500 ease-in-out overflow-hidden ${
+              className={`transition-all duration-500 ease-in-out ${
                 isDesgloseVisible ? 'max-h-[1000px]' : 'max-h-0'
               }`}
             >
               <div id="vueltas" className=" border-t border-black py-1">
+                <p>Total de órdenes en todas las vueltas: {totalOrders}</p>
+
                 {vueltas.map((vuelta) => (
                   <div key={vuelta.rideId} className="mt-1 last:mb-0">
                     <h3 className="text-xl font-bold mb-2">
@@ -295,7 +309,6 @@ export const AnheloRidersStats = () => {
                     <p>Direcciones: {renderDirecciones(vuelta.orders)}</p>
                     <p>Recorrido: {vuelta.totalDistance.toFixed(2)} kms</p>
                     <p>
-                      Velocidad: {console.log(vuelta)}
                       {parseFloat(vuelta.kmPorHora)
                         ? parseFloat(vuelta.kmPorHora).toFixed(2)
                         : 0}{' '}
@@ -324,7 +337,7 @@ export const AnheloRidersStats = () => {
             <div className="px-4 pt-2 pb-2">
               <div className="flex flex-row justify-between items-center">
                 {/* Div de lo de la izquierda */}
-                <div className="flex flex-row items-top gap-2">
+                {/* <div className="flex flex-row items-top gap-2">
                   <img src={invite} className="h-9 mt-2" alt="" />
                   <div className="flex flex-col">
                     <p className="text-xl mb-[-5px]">Invita y gana</p>
@@ -332,10 +345,10 @@ export const AnheloRidersStats = () => {
                       Gana dinero extra por traer conocidos a trabajar a la app
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
-            <div className="bg-red-main opacity-20 flex flex-row items-center gap-1 justify-center text-white text-center pt-2.5 pb-3  cursor-pointer">
+            {/* <div className="bg-red-main opacity-20 flex flex-row items-center gap-1 justify-center text-white text-center pt-2.5 pb-3  cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -354,7 +367,7 @@ export const AnheloRidersStats = () => {
               <p className="text-lg fond-medium pt-0.5 ">
                 No disponible todavia
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

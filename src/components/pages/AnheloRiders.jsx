@@ -33,7 +33,7 @@ export const AnheloRiders = () => {
         const datos = await fetchUserNameByUid(user.uid);
         const { name } = datos;
         const { available } = datos;
-        dispatch(updateAvailableRide(available, user.uid));
+        dispatch(updateAvailableRide(available));
         setUserName({ name, available });
         setIsLoading(false); // Termina la carga
       }

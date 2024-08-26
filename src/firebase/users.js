@@ -5,6 +5,7 @@ import {
   updateDoc,
   arrayUnion,
   runTransaction,
+  arrayRemove,
 } from 'firebase/firestore';
 import { obtenerFechaActual } from './orders';
 
@@ -200,5 +201,45 @@ export const fetchConstants = async () => {
   } else {
     console.error('No se encontró el usuario');
     return null;
+  }
+};
+
+export const deleteRide = async (cadeteId, rideId) => {
+  const firestore = getFirestore();
+
+  try {
+    const userRef = doc(firestore, 'empleados', cadeteId);
+
+    // Obtener el documento del usuario
+    const userDoc = await getDoc(userRef);
+
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      const vueltas = userData.vueltas || [];
+
+      // Encontrar el índice del objeto con el rideId
+      const index = vueltas.findIndex((vuelta) => vuelta.rideId === rideId);
+
+      if (index !== -1) {
+        // Crear un nuevo arreglo de vueltas sin el objeto a eliminar
+        const updatedVueltas = vueltas.filter(
+          (vuelta) => vuelta.rideId !== rideId
+        );
+
+        // Actualizar el documento con el nuevo arreglo de vueltas
+        await updateDoc(userRef, {
+          vueltas: updatedVueltas,
+          available: true,
+        });
+
+        console.log(`Vuelta con ID ${rideId} eliminada exitosamente.`);
+      } else {
+        console.error(`No se encontró una vuelta con ID ${rideId}.`);
+      }
+    } else {
+      console.error('No se encontró el documento del usuario.');
+    }
+  } catch (error) {
+    console.error('Error al eliminar la vuelta:', error);
   }
 };

@@ -1,6 +1,7 @@
 import { pedidoPropTypes } from '../../helpers/propTypes';
 import PropTypes from 'prop-types';
 import {
+  deleteRide,
   endRide,
   fetchUserVueltasByUid,
   startRide,
@@ -15,6 +16,7 @@ import {
   calcularPagaPorVuelta,
 } from '../../helpers/desgloseGanancia';
 import { currencyFormat } from '../../helpers/currencyFormat';
+
 const RideComponent = ({
   pedidosPorEntregar,
   totalDuration,
@@ -26,6 +28,7 @@ const RideComponent = ({
   const dispatch = useDispatch();
   const { rideId, isAvailable } = useSelector((state) => state.ride);
   const [paga, setPaga] = useState(0);
+  const [lastVuelta, setLastVuelta] = useState(0);
 
   useEffect(() => {
     const getPaga = async () => {
@@ -41,6 +44,7 @@ const RideComponent = ({
     const getLastVuelta = async () => {
       if (pedidosPorEntregar.length === 0) {
         const vuelta = await fetchUserVueltasByUid(cadeteId, 'HOY');
+        setLastVuelta(vuelta[vuelta.length - 1]);
         const pagaVuelta = await calcularPagaPorUnaVuelta(
           vuelta[vuelta.length - 1]
         );
@@ -108,6 +112,66 @@ const RideComponent = ({
       console.error('Error al finalizar la vuelta', error);
     }
   };
+
+  const handleCancelRide = async () => {
+    if (!rideId) {
+      console.error('El ID de la vuelta no está definido');
+      return;
+    }
+
+    // Mostrar diálogo de confirmación
+    const result = await Swal.fire({
+      icon: 'warning',
+      title: 'Confirmar Cancelación',
+      text: '¿Estás seguro de que deseas cancelar esta vuelta?',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No, volver',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    });
+
+    // Si el usuario confirma, proceder con la eliminación
+    if (result.isConfirmed) {
+      try {
+        await deleteRide(cadeteId, rideId); // Elimina la vuelta
+        dispatch(setRideStatus(null, true, [], false)); // Actualiza el estado
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Vuelta Cancelada',
+          text: 'La vuelta ha sido cancelada correctamente.',
+          confirmButtonText: 'Entendido',
+          confirmButtonColor: '#3085d6',
+        });
+      } catch (error) {
+        console.error('Error al cancelar la vuelta', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Hubo un problema al intentar cancelar la vuelta. Intenta nuevamente.',
+          confirmButtonText: 'Entendido',
+          confirmButtonColor: '#d33',
+        });
+      }
+    } else {
+      console.log('Cancelación de vuelta cancelada por el usuario.');
+    }
+  };
+
+  if (!isAvailable) {
+    return (
+      <div className="fixed bottom-4 right-4 flex flex-col items-center justify-center gap-2 z-50">
+        <button
+          onClick={handleCancelRide}
+          className="bg-red-500 h-12 w-12 text-gray-100 hover:text-white uppercase text-xl rounded-full flex items-center justify-center font-medium p-2"
+        >
+          X
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`absolute bg-black ${

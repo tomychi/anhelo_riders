@@ -17,6 +17,7 @@ export const PedidoCard = ({
   entregado,
   metodoPago,
   map,
+  referencias,
   index,
 }) => {
   // Modificación para mostrar solo la parte de la dirección antes de la primera coma
@@ -42,6 +43,9 @@ export const PedidoCard = ({
             {metodoPago === 'efectivo'
               ? `Cobrar: ${currencyFormat(total)}`
               : `Cobrar: PAGADO`}
+          </p>
+          <p className="text-black text-xs mb-[-6px] font-coolvetica font-medium">
+            {referencias}
           </p>
         </div>
       </div>
@@ -89,6 +93,7 @@ export const PedidoCard = ({
 PedidoCard.propTypes = {
   direccion: PropTypes.string.isRequired,
   hora: PropTypes.string.isRequired,
+  referencias: PropTypes.string.isRequired,
   total: PropTypes.number.isRequired,
   isVisible: PropTypes.bool,
   index: PropTypes.number,

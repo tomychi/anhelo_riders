@@ -17,7 +17,7 @@ export const updateRideOrders = (orders) => ({
   payload: orders,
 });
 
-export const updateAvailableRide = (isAvailable, rideId) => ({
+export const updateAvailableRide = (isAvailable) => ({
   type: UPDATE_AVAILABLE_RIDE,
-  payload: { isAvailable, rideId },
+  payload: { isAvailable },
 });
