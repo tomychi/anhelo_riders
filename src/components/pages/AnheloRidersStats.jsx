@@ -323,7 +323,15 @@ export const AnheloRidersStats = () => {
                   </div>
                 ))}
                 <button
-                  onClick={generatePDF}
+                  onClick={() =>
+                    generatePDF(
+                      vueltas,
+                      totalOrders,
+                      formatearFecha,
+                      currencyFormat,
+                      paga
+                    )
+                  }
                   className="bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700"
                 >
                   Descargar PDF
