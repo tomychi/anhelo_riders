@@ -132,7 +132,7 @@ export const AnheloRiders = () => {
 						))}
 						{showScrollIndicator && visibleSection === "porEntregar" && (
 							<div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-4">
-								<div className=" w-8 h-8 bg-black border border-white rounded-full flex items-center justify-center animate-bounce">
+								<div className=" w-8 h-8 bg-black border border-1 border-white rounded-full flex items-center justify-center animate-bounce">
 									<img
 										src={arrow}
 										alt="Scroll down"
