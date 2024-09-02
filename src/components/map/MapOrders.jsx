@@ -128,8 +128,8 @@ function Directions({ orders }) {
 				directionsRenderer.setOptions({
 					polylineOptions: {
 						strokeColor: "#000000",
-						strokeOpacity: 0.5,
-						strokeWeight: 14,
+						strokeOpacity: 1,
+						strokeWeight: 7,
 						icons: [
 							{
 								icon: lineSymbol,
