@@ -70,7 +70,7 @@ export const PedidoCard = ({
 								})
 						}
 						className="
-         flex flex-col h-[50px] w-16 rounded-md  bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-"
+         flex flex-col h-[50px] w-20 rounded-xl  bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-"
 					>
 						<img src={check} className="h-4" alt="" />
 						<p>Entregar</p>
@@ -79,7 +79,7 @@ export const PedidoCard = ({
 				<a
 					href={`tel:${telefono}`}
 					className="
-         flex flex-col h-[50px] w-16 rounded-md  bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-"
+         flex flex-col h-[50px] w-20 rounded-xl  bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-"
 				>
 					<img src={call} className="h-4" alt="" />
 
