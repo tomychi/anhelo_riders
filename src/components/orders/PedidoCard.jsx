@@ -30,14 +30,13 @@ export const PedidoCard = ({
 
 	return (
 		<div
-			className={`flex flex-row border-black ${bgColor} p-4 mb-[-10px] gap-4 hover:bg-gray-300 transition-transform duration-300 ease-in-out ${
+			className={`flex flex-row  ${bgColor} p-4 mb-[-10px] gap-4 hover:bg-gray-300 transition-transform duration-300 ease-in-out ${
 				isVisible ? "transform-none" : "transform -translate-y-full"
 			}`}
 			style={{ transitionDelay: `${index * 100}ms` }}
 		>
-			<div className="w-1 bg-black self-stretch"></div>
-
-			<div className="flex flex-row flex-grow">
+			<div className="flex flex-row ">
+				{/* Botones */}
 				<div className="flex flex-col mb-2 gap-2 mr-4">
 					{!entregado && (
 						<div
@@ -72,8 +71,9 @@ export const PedidoCard = ({
 						<p className="text-xs">Llamar</p>
 					</a>
 				</div>
-				<div className="flex flex-col text-left  h-full flex-grow">
-					<p className="text-black font-bold text-xl font-coolvetica">
+				{/* Info */}
+				<div className="flex flex-col text-left  h-full ">
+					<p className="text-black font-bold text-xl mt-[-6px] font-coolvetica">
 						{direccionCorta}
 					</p>
 					<div>
