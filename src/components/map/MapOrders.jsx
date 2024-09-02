@@ -129,7 +129,7 @@ function Directions({ orders }) {
 					polylineOptions: {
 						strokeColor: "#000000",
 						strokeOpacity: 1,
-						strokeWeight: 7,
+						strokeWeight: 5,
 						icons: [
 							{
 								icon: lineSymbol,
