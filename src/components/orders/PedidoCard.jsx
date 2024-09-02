@@ -44,9 +44,12 @@ export const PedidoCard = ({
 							? `Cobrar: ${currencyFormat(total)}`
 							: `Cobrar: PAGADO`}
 					</p>
-					<p className="text-black text-xs mb-[-6px] font-coolvetica font-medium">
-						{referencias}
-					</p>
+					<div className="flex flex-row  items-center">
+						<div className="bg-red-main h-2 w-2 rounded-full mr-2"></div>
+						<p className="text-black text-xs mb-[-2.5px] font-coolvetica font-medium">
+							{referencias}
+						</p>
+					</div>
 				</div>
 			</div>
 			<div className="flex flex-row gap-4">
