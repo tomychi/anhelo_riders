@@ -133,7 +133,7 @@ export const AnheloRiders = () => {
 						{showScrollIndicator && visibleSection === "porEntregar" && (
 							<div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-4">
 								<ChevronDown
-									className="text-black bg-gray-300 opacity-30 rounded-md animate-bounce"
+									className="text-red-main bg-gray-300 opacity-30 rounded-md animate-bounce"
 									size={36}
 								/>
 							</div>
