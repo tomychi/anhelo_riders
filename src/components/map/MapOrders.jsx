@@ -16,6 +16,17 @@ const APIKEY = import.meta.env.VITE_API_GOOGLE_MAPS;
 const position = { lat: -33.117142, lng: -64.347756 };
 const origen = { lat: -33.095809, lng: -64.33412 };
 
+// Función para crear un marcador SVG personalizado
+const createCustomMarkerIcon = (number) => {
+	const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" fill="black"/>
+      <text x="12" y="16" font-family="Arial" font-size="12" fill="white" text-anchor="middle">${number}</text>
+    </svg>
+  `;
+	return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+};
+
 export const MapOrders = ({ orders }) => {
 	return (
 		<APIProvider apiKey={APIKEY}>
@@ -155,10 +166,10 @@ function Directions({ orders }) {
 				<Marker
 					key={index}
 					position={waypoint.location}
-					label={{
-						text: (index + 1).toString(),
-						color: "white",
-						fontWeight: "bold",
+					icon={{
+						url: createCustomMarkerIcon(index + 1),
+						scaledSize: new window.google.maps.Size(30, 30),
+						anchor: new window.google.maps.Point(15, 15),
 					}}
 				/>
 			))}
