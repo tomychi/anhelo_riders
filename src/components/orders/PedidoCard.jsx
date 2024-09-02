@@ -72,7 +72,7 @@ export const PedidoCard = ({
 					</a>
 				</div>
 				{/* Info */}
-				<div className="flex flex-col text-left  h-full ">
+				<div className="flex flex-col text-left justify-center h-full ">
 					<p className="text-black font-bold text-xl mt-[-6px] font-coolvetica">
 						{direccionCorta}
 					</p>
