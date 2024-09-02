@@ -49,7 +49,7 @@ export const PedidoCard = ({
 					</p>
 				</div>
 			</div>
-			<div className="flex flex-row gap-2">
+			<div className="flex flex-row gap-4">
 				{!entregado && (
 					<div
 						onClick={() =>
