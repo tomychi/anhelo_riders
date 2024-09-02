@@ -132,10 +132,14 @@ export const AnheloRiders = () => {
 						))}
 						{showScrollIndicator && visibleSection === "porEntregar" && (
 							<div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-4">
-								<ChevronDown
-									className="text-red-main bg-gray-300 opacity-30 rounded-md animate-bounce"
-									size={36}
-								/>
+								<div className=" w-8 h-8 bg-black  rounded-full flex items-center justify-center animate-bounce">
+									<img
+										src={arrow}
+										alt="Scroll down"
+										className="w-2 transform rotate-90"
+										style={{ filter: "invert(1)" }}
+									/>
+								</div>
 							</div>
 						)}
 					</div>
