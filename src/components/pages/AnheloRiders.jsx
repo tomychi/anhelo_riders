@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import logo from "../../assets/anheloTMblack.png";
 import { MapOrders } from "../map/MapOrders";
 import { PedidoCard } from "../orders/PedidoCard";
@@ -9,6 +9,7 @@ import { fetchUserNameByUid } from "../../firebase/users";
 import { updateAvailableRide } from "../../redux/riders/riderAction";
 import arrow from "../../assets/arrowIcon.png";
 import money from "../../assets/moneyIcon.png";
+import { ChevronDown } from "lucide-react";
 
 export const AnheloRiders = () => {
 	const user = useSelector((state) => state.auth.user);
@@ -21,9 +22,10 @@ export const AnheloRiders = () => {
 	const [isArrowRotated, setIsArrowRotated] = useState(false);
 	const [visibleSection, setVisibleSection] = useState(null);
 	const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+	const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 	const dispatch = useDispatch();
-
 	const navigate = useNavigate();
+	const scrollTimeout = useRef(null);
 
 	useEffect(() => {
 		const getUserName = async () => {
@@ -64,6 +66,7 @@ export const AnheloRiders = () => {
 
 	const toggleSection = (section) => {
 		setVisibleSection(visibleSection === section ? null : section);
+		setShowScrollIndicator(true); // Mostrar el indicador cuando se abre la sección
 	};
 
 	const filteredOrders = orders.sort((a, b) => {
@@ -83,6 +86,23 @@ export const AnheloRiders = () => {
 		}, 500);
 	};
 
+	const handleScroll = (e) => {
+		setShowScrollIndicator(false); // Ocultar el indicador al hacer scroll
+
+		// Limpiar el timeout existente si lo hay
+		if (scrollTimeout.current) {
+			clearTimeout(scrollTimeout.current);
+		}
+
+		// Configurar un nuevo timeout
+		scrollTimeout.current = setTimeout(() => {
+			const { scrollTop, scrollHeight, clientHeight } = e.target;
+			setShowScrollIndicator(
+				scrollHeight > clientHeight && scrollTop < scrollHeight - clientHeight
+			);
+		}, 500); // Esperar 500ms después de que el scroll se detenga
+	};
+
 	return (
 		<div
 			className="flex flex-col overflow-hidden"
@@ -95,11 +115,12 @@ export const AnheloRiders = () => {
 			) : (
 				<>
 					<div
-						className={`flex-shrink-0 overflow-y-auto transition-all duration-500 ease-in-out ${
+						className={`flex-shrink-0 overflow-y-auto transition-all duration-500 ease-in-out relative ${
 							visibleSection === "porEntregar"
 								? "max-h-[50vh] opacity-100"
 								: "max-h-0 opacity-0"
 						}`}
+						onScroll={handleScroll}
 					>
 						{pedidosPorEntregar.map((pedido, index) => (
 							<PedidoCard
@@ -109,6 +130,14 @@ export const AnheloRiders = () => {
 								index={index}
 							/>
 						))}
+						{showScrollIndicator && visibleSection === "porEntregar" && (
+							<div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-4">
+								<ChevronDown
+									className="text-black bg-gray-300 opacity-30 rounded-md animate-bounce"
+									size={36}
+								/>
+							</div>
+						)}
 					</div>
 					<button
 						onClick={() => toggleSection("porEntregar")}
