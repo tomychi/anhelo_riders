@@ -45,7 +45,7 @@ export const PedidoCard = ({
 							: `Cobrar: PAGADO`}
 					</p>
 					<div className="flex flex-row  items-center">
-						<div className="bg-red-main h-2 w-2 rounded-full mr-2"></div>
+						<div className="bg-red-main p-1 rounded-full mr-2"></div>
 						<p className="text-black text-xs mb-[-2.5px] font-coolvetica font-medium">
 							{referencias}
 						</p>
