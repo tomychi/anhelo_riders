@@ -107,15 +107,15 @@ function Directions({ orders }) {
 
 				const lineSymbol = {
 					path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-					scale: 2,
-					strokeColor: "#000000",
+					scale: 1,
+					strokeColor: "#f3f4f6", // gray-100
 				};
 
 				directionsRenderer.setOptions({
 					polylineOptions: {
 						strokeColor: "#000000",
 						strokeOpacity: 0.7,
-						strokeWeight: 4,
+						strokeWeight: 14,
 						icons: [
 							{
 								icon: lineSymbol,
