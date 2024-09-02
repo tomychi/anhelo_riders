@@ -30,36 +30,12 @@ export const PedidoCard = ({
 
 	return (
 		<div
-			className={`flex flex-row  justify-between ${bgColor} p-4 mb-[-10px] gap-4 hover:bg-gray-300 transition-transform duration-300 ease-in-out ${
+			className={`flex flex-row  border-black  ${bgColor} p-4 mb-[-10px] gap-4 hover:bg-gray-300 transition-transform duration-300 ease-in-out ${
 				isVisible ? "transform-none" : "transform -translate-y-full"
 			}`}
 			style={{ transitionDelay: `${index * 100}ms` }}
 		>
-			<div className="flex flex-col text-left justify-between h-full">
-				<p className=" text-black font-bold text-xl font-coolvetica mt-[-8px]">
-					{direccionCorta}
-				</p>
-				<div>
-					<p className="text-black text-xs mb-[-6px] font-coolvetica font-medium">
-						Demora: {calcularDemora(hora)}
-					</p>
-					<p className="text-black text-xs font-medium font-coolvetica">
-						{metodoPago === "efectivo"
-							? `Cobrar: ${currencyFormat(total)}`
-							: `Cobrar: PAGADO`}
-					</p>
-
-					{referencias !== "no especificado" && (
-						<div className="flex flex-row  items-center">
-							<div className="bg-black p-1 rounded-full mr-2"></div>
-							<p className="text-black text-xs mb-[-2.5px] font-coolvetica font-medium">
-								{capitalizeFirstLetter(referencias)}
-							</p>
-						</div>
-					)}
-				</div>
-			</div>
-			<div className="flex flex-row gap-4">
+			<div className="flex flex-col mb-2 gap-2">
 				{!entregado && (
 					<div
 						onClick={() =>
@@ -80,20 +56,47 @@ export const PedidoCard = ({
 								})
 						}
 						className="
-         flex flex-col  h-20 w-20 rounded-xl  bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-"
+         flex flex-col  h-14 w-16 rounded-xl  bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-"
 					>
 						<img src={check} className="h-4" alt="" />
-						<p>Entregar</p>
+						<p className="text-xs">Entregar</p>
 					</div>
 				)}
 				<a
 					href={`tel:${telefono}`}
 					className="
-         flex flex-col  h-20 w-20 rounded-xl  bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-"
+         flex flex-col  h-14 w-16 rounded-xl  bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-"
 				>
 					<img src={call} className="h-4" alt="" />
-					<p>Llamar</p>
+					<p className="text-xs">Llamar</p>
 				</a>
+			</div>
+			<div className="flex flex-col  text-left justify-between h-full">
+				<div className="flex flex-row items-center w-full">
+					<p className="text-black font-bold text-xl mt-[-7px] font-coolvetica  whitespace-nowrap">
+						{direccionCorta}
+					</p>
+					<div className="h-[1px] bg-black flex-grow ml-2 mb-[22px] opacity-20"></div>
+				</div>
+				<div>
+					<p className="text-black text-xs mb-[-6px] font-coolvetica font-medium">
+						Demora: {calcularDemora(hora)}
+					</p>
+					<p className="text-black text-xs font-medium font-coolvetica">
+						{metodoPago === "efectivo"
+							? `Cobrar: ${currencyFormat(total)}`
+							: `Cobrar: PAGADO`}
+					</p>
+
+					{referencias !== "no especificado" && (
+						<div className="flex flex-row  items-center">
+							<div className="bg-black p-1 rounded-full mr-2"></div>
+							<p className="text-black text-xs mb-[-2.5px] font-coolvetica font-medium">
+								{capitalizeFirstLetter(referencias)}
+							</p>
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);
