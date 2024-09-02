@@ -32,7 +32,7 @@ export const PedidoCard = ({
 			style={{ transitionDelay: `${index * 100}ms` }}
 		>
 			<div className="flex flex-col text-left justify-between h-full">
-				<p className=" text-black  text-xl font-coolvetica font-medium mt-[-8px]">
+				<p className=" text-black font-bold text-xl font-coolvetica mt-[-8px]">
 					{direccionCorta}
 				</p>
 				<div>
