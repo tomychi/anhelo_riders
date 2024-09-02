@@ -26,12 +26,12 @@ export const PedidoCard = ({
 
 	return (
 		<div
-			className={`flex flex-row justify-between ${bgColor} p-4 mb-[-10px] gap-4 hover:bg-gray-300 transition-transform duration-300 ease-in-out ${
+			className={`flex flex-row  justify-between ${bgColor} p-4 mb-[-10px] gap-4 hover:bg-gray-300 transition-transform duration-300 ease-in-out ${
 				isVisible ? "transform-none" : "transform -translate-y-full"
 			}`}
 			style={{ transitionDelay: `${index * 100}ms` }}
 		>
-			<div className="flex flex-col text-left justify-between h-full ">
+			<div className="flex flex-col text-left justify-between h-full">
 				<p className=" text-black  text-xl font-coolvetica font-medium mt-[-8px]">
 					{direccionCorta}
 				</p>
