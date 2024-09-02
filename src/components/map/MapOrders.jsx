@@ -19,9 +19,10 @@ const origen = { lat: -33.095809, lng: -64.33412 };
 // Función para crear un marcador SVG personalizado
 const createCustomMarkerIcon = (number) => {
 	const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="10" fill="black"/>
-      <text x="12" y="16" font-family="Arial" font-size="12" fill="white" text-anchor="middle">${number}</text>
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+      <circle cx="20" cy="20" r="18" fill="#f3f4f6" stroke="black" stroke-width="2"/>
+      <circle cx="20" cy="20" r="16" fill="black"/>
+      <text x="20" y="26" font-family="Arial" font-size="16" fill="white" text-anchor="middle">${number}</text>
     </svg>
   `;
 	return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
