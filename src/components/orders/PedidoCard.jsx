@@ -19,6 +19,7 @@ export const PedidoCard = ({
 	map,
 	referencias,
 	index,
+	aclaraciones,
 }) => {
 	// Modificación para mostrar solo la parte de la dirección antes de la primera coma
 	const direccionCorta = direccion.split(",")[0];
@@ -47,9 +48,10 @@ export const PedidoCard = ({
 							? `Cobrar: ${currencyFormat(total)}`
 							: `Cobrar: PAGADO`}
 					</p>
+
 					{referencias !== "no especificado" && (
 						<div className="flex flex-row  items-center">
-							<div className="bg-red-main p-1 rounded-full mr-2"></div>
+							<div className="bg-black p-1 rounded-full mr-2"></div>
 							<p className="text-black text-xs mb-[-2.5px] font-coolvetica font-medium">
 								{capitalizeFirstLetter(referencias)}
 							</p>

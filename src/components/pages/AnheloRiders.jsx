@@ -77,6 +77,8 @@ export const AnheloRiders = () => {
 
 	const pedidosPorEntregar = filteredOrders.filter((o) => !o.entregado);
 
+	console.log(pedidosPorEntregar);
+
 	const handleVolverClick = (e) => {
 		e.preventDefault();
 		setIsArrowRotated(true);
