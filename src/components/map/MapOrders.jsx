@@ -169,11 +169,20 @@ function Directions({ orders }) {
 					position={waypoint.location}
 					icon={{
 						url: createCustomMarkerIcon(index + 1),
-						scaledSize: new window.google.maps.Size(30, 30),
-						anchor: new window.google.maps.Point(15, 15),
+						scaledSize: new window.google.maps.Size(40, 40),
+						anchor: new window.google.maps.Point(20, 20),
 					}}
 				/>
 			))}
+			{/* Marcador de FIN */}
+			<Marker
+				position={origen}
+				icon={{
+					url: createCustomMarkerIcon("Fin"),
+					scaledSize: new window.google.maps.Size(40, 40),
+					anchor: new window.google.maps.Point(20, 20),
+				}}
+			/>
 			<RideComponent
 				pedidosPorEntregar={orders}
 				totalDistance={totalDistance}
