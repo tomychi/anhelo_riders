@@ -23,6 +23,9 @@ export const PedidoCard = ({
 	// Modificación para mostrar solo la parte de la dirección antes de la primera coma
 	const direccionCorta = direccion.split(",")[0];
 	const bgColor = map[0] === 0 && map[1] === 0 ? "bg-red-500" : "bg-gray-100";
+	const capitalizeFirstLetter = (string) => {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	};
 
 	return (
 		<div
@@ -44,12 +47,14 @@ export const PedidoCard = ({
 							? `Cobrar: ${currencyFormat(total)}`
 							: `Cobrar: PAGADO`}
 					</p>
-					<div className="flex flex-row  items-center">
-						<div className="bg-red-main p-1 rounded-full mr-2"></div>
-						<p className="text-black text-xs mb-[-2.5px] font-coolvetica font-medium">
-							{referencias}
-						</p>
-					</div>
+					{referencias !== "no especificado" && (
+						<div className="flex flex-row  items-center">
+							<div className="bg-red-main p-1 rounded-full mr-2"></div>
+							<p className="text-black text-xs mb-[-2.5px] font-coolvetica font-medium">
+								{capitalizeFirstLetter(referencias)}
+							</p>
+						</div>
+					)}
 				</div>
 			</div>
 			<div className="flex flex-row gap-4">
@@ -85,7 +90,6 @@ export const PedidoCard = ({
          flex flex-col  h-20 w-20 rounded-xl  bg-black pt-2  justify-center items-center  text-white font-coolvetica font-medium gap-"
 				>
 					<img src={call} className="h-4" alt="" />
-
 					<p>Llamar</p>
 				</a>
 			</div>
