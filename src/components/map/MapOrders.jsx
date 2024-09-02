@@ -4,6 +4,7 @@ import {
 	Map,
 	useMap,
 	useMapsLibrary,
+	Marker,
 } from "@vis.gl/react-google-maps";
 import PropTypes from "prop-types";
 import { pedidoPropTypes } from "../../helpers/propTypes";
@@ -42,6 +43,7 @@ function Directions({ orders }) {
 	const [totalDistance, setTotalDistance] = useState(0);
 	const [totalDuration, setTotalDuration] = useState(0);
 	const [isCalculating, setIsCalculating] = useState(true);
+	const [orderedWaypoints, setOrderedWaypoints] = useState([]);
 
 	const [routes, setRoutes] = useState([]);
 	const [routeIndex, setRouteIndex] = useState(0);
@@ -124,7 +126,13 @@ function Directions({ orders }) {
 							},
 						],
 					},
+					suppressMarkers: true, // Suprimimos los marcadores por defecto
 				});
+
+				// Guardamos los waypoints ordenados
+				setOrderedWaypoints(
+					route.waypoint_order.map((index) => waypoints[index])
+				);
 
 				setRoutes(response.routes);
 				setIsCalculating(false);
@@ -142,11 +150,24 @@ function Directions({ orders }) {
 	}
 
 	return (
-		<RideComponent
-			pedidosPorEntregar={orders}
-			totalDistance={totalDistance}
-			totalDuration={totalDuration}
-		/>
+		<>
+			{orderedWaypoints.map((waypoint, index) => (
+				<Marker
+					key={index}
+					position={waypoint.location}
+					label={{
+						text: (index + 1).toString(),
+						color: "white",
+						fontWeight: "bold",
+					}}
+				/>
+			))}
+			<RideComponent
+				pedidosPorEntregar={orders}
+				totalDistance={totalDistance}
+				totalDuration={totalDuration}
+			/>
+		</>
 	);
 }
 
