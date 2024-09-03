@@ -73,22 +73,43 @@ export const AnheloRidersStats = () => {
 		fetchVueltas("HOY");
 	}, [user.uid]);
 
+	const calculateSpeed = (distance, duration) => {
+		if (duration === 0) return 0;
+		return (distance / (duration / 60)).toFixed(2);
+	};
+
 	useEffect(() => {
 		const calcularPagas = async () => {
 			const nuevasPagas = {};
 			let gananciaTotal = 0;
 			let viajesTotal = 0;
+			let velocidadTotal = 0;
+			let vueltasConVelocidad = 0;
 
 			for (const vuelta of vueltas) {
 				const pagaVuelta = await calcularPagaPorUnaVuelta(vuelta);
 				nuevasPagas[vuelta.rideId] = pagaVuelta;
 				gananciaTotal += pagaVuelta;
 				viajesTotal += vuelta.orders.length;
+
+				const speed = parseFloat(
+					calculateSpeed(vuelta.totalDistance, vuelta.totalDuration)
+				);
+				if (speed > 0) {
+					velocidadTotal += speed;
+					vueltasConVelocidad++;
+				}
 			}
 
 			setPaga(nuevasPagas);
 			setTotalGanancias(gananciaTotal);
 			setTotalViajes(viajesTotal);
+
+			if (vueltasConVelocidad > 0) {
+				setVelocidadPromedio((velocidadTotal / vueltasConVelocidad).toFixed(2));
+			} else {
+				setVelocidadPromedio(0);
+			}
 
 			if (viajesTotal > 0) {
 				setPromedioGeneralPorViaje(gananciaTotal / viajesTotal);
@@ -98,18 +119,6 @@ export const AnheloRidersStats = () => {
 		};
 
 		calcularPagas();
-	}, [vueltas]);
-
-	useEffect(() => {
-		const calcularVelocidadPromedio = () => {
-			if (vueltas.length === 0) return 0;
-			const totalVelocidad = vueltas.reduce((sum, vuelta) => {
-				return sum + (parseFloat(vuelta.kmPorHora) || 0);
-			}, 0);
-			return (totalVelocidad / vueltas.length).toFixed(2);
-		};
-
-		setVelocidadPromedio(calcularVelocidadPromedio());
 	}, [vueltas]);
 
 	const toggleEstadisticas = () =>
@@ -309,9 +318,11 @@ export const AnheloRidersStats = () => {
 										<p>Direcciones: {renderDirecciones(vuelta.orders)}</p>
 										<p>Recorrido: {vuelta.totalDistance.toFixed(2)} kms</p>
 										<p>
-											{parseFloat(vuelta.kmPorHora)
-												? parseFloat(vuelta.kmPorHora).toFixed(2)
-												: 0}{" "}
+											Velocidad:{" "}
+											{calculateSpeed(
+												vuelta.totalDistance,
+												vuelta.totalDuration
+											)}{" "}
 											km/hr
 										</p>
 										<p>
