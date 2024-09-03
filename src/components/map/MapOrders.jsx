@@ -20,7 +20,6 @@ const origen = { lat: -33.095809, lng: -64.33412 };
 const createCustomMarkerIcon = (number) => {
 	const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-      <circle cx="20" cy="20" r="18" fill="#f3f4f6" stroke="black" stroke-width="2"/>
       <circle cx="20" cy="20" r="16" fill="black"/>
       <text x="20" y="26" font-family="Arial" font-size="16" fill="white" text-anchor="middle">${number}</text>
     </svg>
