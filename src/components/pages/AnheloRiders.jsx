@@ -147,7 +147,7 @@ export const AnheloRiders = () => {
 					</div>
 					<button
 						onClick={() => toggleSection("porEntregar")}
-						className="p-4 bg-gray-100 font-black font-antonio flex items-center relative w-full flex-shrink-0"
+						className="p-4 border border-black border-opacity-20  bg-gray-100 font-black font-antonio flex items-center relative w-full flex-shrink-0"
 					>
 						<div className="absolute left-4">
 							<img src={logo} className="h-1.5" alt="" />
