@@ -168,6 +168,25 @@ const RideComponent = ({
         >
           X
         </button>
+        {pedidosPorEntregar.length === 0 && (
+          <div className="flex flex-col bg-gray-100 text-black rounded-md">
+            <div className="px-4 p-4">
+              <div className="flex flex-col items-center text-center">
+                <p className="text-xl mb-[-5px]">Vuelta casi terminada</p>
+                <p className="text-xs font-medium leading-4">
+                  Cuando regreses a Anhelo podrás apretar el siguiente botón y
+                  se te acreditará {currencyFormat(paga)}.
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={handleEndRide}
+              className="border-t border-black rounded-b-md text-xl bg-black text-gray-100 text-center py-3 font-medium cursor-pointer"
+            >
+              Llegue a Anhelo
+            </button>
+          </div>
+        )}
       </div>
     );
   }
@@ -175,8 +194,7 @@ const RideComponent = ({
   return (
     <div
       className={`absolute bg-black ${
-        (isAvailable && pedidosPorEntregar.length > 0) ||
-        (!isAvailable && pedidosPorEntregar.length === 0)
+        isAvailable && pedidosPorEntregar.length > 0
           ? 'inset-0 bg-opacity-50'
           : 'hidden'
       } flex flex-col items-center justify-center p-4 gap-4`}
@@ -204,27 +222,6 @@ const RideComponent = ({
               </p>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Mostrar botón de finalizar vuelta solo si hay una vuelta en curso y todos los pedidos en vuelta están entregados */}
-      {!isAvailable && pedidosPorEntregar.length === 0 && (
-        <div className="flex flex-col bg-gray-100 text-black rounded-md">
-          <div className="px-4 p-4">
-            <div className="flex flex-col items-center text-center">
-              <p className="text-xl mb-[-5px]">Vuelta casi terminada</p>
-              <p className="text-xs font-medium leading-4">
-                Cuando regreses a Anhelo podrás apretar el siguiente botón y se
-                te acreditará {currencyFormat(paga)}.
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={handleEndRide}
-            className="border-t border-black rounded-b-md text-xl bg-black text-gray-100 text-center py-3 font-medium cursor-pointer"
-          >
-            Llegue a Anhelo
-          </button>
         </div>
       )}
     </div>
