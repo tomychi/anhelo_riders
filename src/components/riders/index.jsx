@@ -6,6 +6,7 @@ import {
   fetchUserVueltasByUid,
   startRide,
 } from '../../firebase/users';
+import { updateCadeteForOrder } from '../../firebase/orders';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRideStatus } from '../../redux/riders/riderAction';
 import clock from '../../assets/clockIcon.png';
@@ -134,6 +135,11 @@ const RideComponent = ({
     // Si el usuario confirma, proceder con la eliminación
     if (result.isConfirmed) {
       try {
+        // Itera sobre los pedidos actualizados y actualiza el cadete en Firestore
+        for (const pedido of pedidosPorEntregar) {
+          const { id, fecha } = pedido; // Asegúrate de tener el id y la fecha del pedido
+          await updateCadeteForOrder(fecha, id, 'NO ASIGNADO');
+        }
         await deleteRide(cadeteId, rideId); // Elimina la vuelta
         dispatch(setRideStatus(null, true, [], false)); // Actualiza el estado
 

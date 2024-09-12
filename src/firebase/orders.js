@@ -3,6 +3,7 @@ import {
   doc,
   onSnapshot,
   runTransaction,
+  collection,
 } from 'firebase/firestore';
 
 export const obtenerFechaActual = () => {
@@ -108,4 +109,44 @@ export const marcarPedidoComoEntregado = async (pedidoId, fecha) => {
   } catch (error) {
     console.error('Error al marcar pedido como entregado en Firestore:', error);
   }
+};
+
+export const updateCadeteForOrder = (fechaPedido, pedidoId, nuevoCadete) => {
+  const firestore = getFirestore();
+
+  return new Promise((resolve, reject) => {
+    const [dia, mes, anio] = fechaPedido.split('/');
+    const pedidosCollectionRef = collection(firestore, 'pedidos', anio, mes);
+    const pedidoDocRef = doc(pedidosCollectionRef, dia);
+
+    runTransaction(firestore, async (transaction) => {
+      const pedidoDocSnapshot = await transaction.get(pedidoDocRef);
+      if (!pedidoDocSnapshot.exists()) {
+        reject(new Error('El pedido no existe para la fecha especificada.'));
+        return;
+      }
+
+      const existingData = pedidoDocSnapshot.data();
+      const pedidosDelDia = existingData.pedidos || [];
+
+      const pedidosActualizados = pedidosDelDia.map((pedido) => {
+        if (pedido.fecha === fechaPedido && pedido.id === pedidoId) {
+          return { ...pedido, cadete: nuevoCadete };
+        } else {
+          return pedido;
+        }
+      });
+
+      transaction.set(pedidoDocRef, {
+        ...existingData,
+        pedidos: pedidosActualizados,
+      });
+    })
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
