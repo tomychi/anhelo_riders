@@ -1,33 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { fetchUserVueltasByUid } from '../../firebase/users';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
-import { useSelector } from 'react-redux';
-import { currencyFormat } from '../../helpers/currencyFormat';
-import logo from '../../assets/anheloTMblack.png';
-import arrow from '../../assets/arrowIcon.png';
-import levelUp from '../../assets/levelUpIcon.png';
-import detail from '../../assets/detailIcon.png';
-import invite from '../../assets/personIcon.png';
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { fetchUserVueltasByUid, updateCadeteInfo } from "../../firebase/users";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { currencyFormat } from "../../helpers/currencyFormat";
+import logo from "../../assets/anheloTMblack.png";
+import arrow from "../../assets/arrowIcon.png";
+import levelUp from "../../assets/levelUpIcon.png";
+import detail from "../../assets/detailIcon.png";
+import invite from "../../assets/personIcon.png";
 import {
   calcularDesglosePaga,
   calcularPagaPorUnaVuelta,
-} from '../../helpers/desgloseGanancia';
-import { FechaSelect } from '../riders/FechaSelect';
-import { generatePDF } from '../pdf/generatePDF';
+} from "../../helpers/desgloseGanancia";
+import { FechaSelect } from "../riders/FechaSelect";
+import { generatePDF } from "../pdf/generatePDF";
+import { CloudCog } from "lucide-react";
+import NivelesComponent from "../riders/NivelesComponent";
 
 const formatearFecha = (timestamp) => {
-  if (!timestamp) return '';
+  if (!timestamp) return "";
 
   const date = new Date(
-    timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
+    timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000,
   );
 
-  const dia = date.getDate().toString().padStart(2, '0');
-  const mes = (date.getMonth() + 1).toString().padStart(2, '0');
+  const dia = date.getDate().toString().padStart(2, "0");
+  const mes = (date.getMonth() + 1).toString().padStart(2, "0");
   const año = date.getFullYear().toString().slice(-2);
-  const horas = date.getHours().toString().padStart(2, '0');
-  const minutos = date.getMinutes().toString().padStart(2, '0');
+  const horas = date.getHours().toString().padStart(2, "0");
+  const minutos = date.getMinutes().toString().padStart(2, "0");
 
   return `del ${dia}/${mes}/${año} a las ${horas}:${minutos} hs`;
 };
@@ -45,12 +47,27 @@ export const AnheloRidersStats = () => {
   const [promedioGeneralPorViaje, setPromedioGeneralPorViaje] = useState(0);
   const [totalGanancias, setTotalGanancias] = useState(0);
   const [totalViajes, setTotalViajes] = useState(0);
-  const [velocidadPromedio, setVelocidadPromedio] = useState(0);
   const user = useSelector((state) => state.auth.user);
 
   const fetchVueltas = async (periodo) => {
     if (user?.uid) {
       const fetchedVueltas = await fetchUserVueltasByUid(user.uid, periodo);
+      let totalKmPorHora = 0;
+      let validVueltas = 0;
+
+      fetchedVueltas.forEach((v) => {
+        if (v.kmPorHora && v.kmPorHora !== "0") {
+          totalKmPorHora += parseFloat(v.kmPorHora);
+          validVueltas++;
+        }
+      });
+
+      const promedioKmPorHora =
+        validVueltas > 0 ? totalKmPorHora / validVueltas : 0;
+      // Actualizar la información del cadete si el promedio es mayor a 0
+      if (promedioKmPorHora > 0) {
+        await updateCadeteInfo(user.uid, promedioKmPorHora); // Llama a updateCadeteInfo con el promedio de km/h
+      }
       setVueltas(fetchedVueltas || []);
     }
   };
@@ -58,7 +75,7 @@ export const AnheloRidersStats = () => {
   useEffect(() => {
     const fetchConstants = async () => {
       const firestore = getFirestore();
-      const constDocRef = doc(firestore, 'constantes', 'sueldos');
+      const constDocRef = doc(firestore, "constantes", "sueldos");
       const constDoc = await getDoc(constDocRef);
 
       if (constDoc.exists()) {
@@ -70,7 +87,7 @@ export const AnheloRidersStats = () => {
     };
 
     fetchConstants();
-    fetchVueltas('HOY');
+    fetchVueltas("HOY");
   }, [user.uid]);
 
   const calculateSpeed = (distance, duration) => {
@@ -83,33 +100,17 @@ export const AnheloRidersStats = () => {
       const nuevasPagas = {};
       let gananciaTotal = 0;
       let viajesTotal = 0;
-      let velocidadTotal = 0;
-      let vueltasConVelocidad = 0;
 
       for (const vuelta of vueltas) {
         const pagaVuelta = await calcularPagaPorUnaVuelta(vuelta);
         nuevasPagas[vuelta.rideId] = pagaVuelta;
         gananciaTotal += pagaVuelta;
         viajesTotal += vuelta.orders.length;
-
-        const speed = parseFloat(
-          calculateSpeed(vuelta.totalDistance, vuelta.totalDuration)
-        );
-        if (speed > 0) {
-          velocidadTotal += speed;
-          vueltasConVelocidad++;
-        }
       }
 
       setPaga(nuevasPagas);
       setTotalGanancias(gananciaTotal);
       setTotalViajes(viajesTotal);
-
-      if (vueltasConVelocidad > 0) {
-        setVelocidadPromedio((velocidadTotal / vueltasConVelocidad).toFixed(2));
-      } else {
-        setVelocidadPromedio(0);
-      }
 
       if (viajesTotal > 0) {
         setPromedioGeneralPorViaje(gananciaTotal / viajesTotal);
@@ -132,11 +133,11 @@ export const AnheloRidersStats = () => {
   };
 
   const obtenerDireccionParcial = (direccion) => {
-    return direccion.split(',')[0].trim();
+    return direccion.split(",")[0].trim();
   };
 
   const renderDirecciones = (orders) => {
-    if (orders.length === 0) return 'No hay direcciones';
+    if (orders.length === 0) return "No hay direcciones";
 
     return orders.map((order, index) => {
       const isInvalid = order.map[0] === 0 && order.map[1] === 0;
@@ -145,7 +146,7 @@ export const AnheloRidersStats = () => {
       return (
         <div
           key={index}
-          className={`direccion-item ${isInvalid ? 'bg-red-main' : ''}`}
+          className={`direccion-item ${isInvalid ? "bg-red-main" : ""}`}
         >
           <p>- {direccion}</p>
         </div>
@@ -177,7 +178,7 @@ export const AnheloRidersStats = () => {
             <img
               src={arrow}
               className="h-2"
-              style={{ filter: 'invert(100%)', transform: 'rotate(180deg)' }}
+              style={{ filter: "invert(100%)", transform: "rotate(180deg)" }}
               alt=""
             />
             <span className="text-lg font-medium text-white ">Mapa</span>
@@ -185,7 +186,7 @@ export const AnheloRidersStats = () => {
           <img
             src={logo}
             className="h-3 mt-2 invert"
-            style={{ filter: 'invert(100%)' }}
+            style={{ filter: "invert(100%)" }}
             alt=""
           />
         </div>
@@ -197,7 +198,7 @@ export const AnheloRidersStats = () => {
             {currencyFormat(totalGanancias)}
           </h1>
           <p className="text-green-500 text-sm">
-            Como cadete nivel 4 hubieses ganado extra:{' '}
+            Como cadete nivel 4 hubieses ganado extra:{" "}
             {/* {currencyFormat(promedioGeneralPorViaje)} */}
           </p>
         </div>
@@ -214,14 +215,13 @@ export const AnheloRidersStats = () => {
               <div className="flex flex-row items-center gap-2">
                 <img src={levelUp} className="h-9" alt="" />
                 <div className="flex flex-col">
-                  <p className="text-xl mb-[-8px]">Cadete nivel 3</p>
                   <p className="text-sm">Ver detalle de las estadisticas</p>
                 </div>
               </div>
               <img
                 src={arrow}
                 className={`h-2 transition-transform duration-500 ${
-                  isEstadisticasVisible ? '-rotate-90' : 'rotate-90'
+                  isEstadisticasVisible ? "-rotate-90" : "rotate-90"
                 }`}
                 alt=""
               />
@@ -230,52 +230,11 @@ export const AnheloRidersStats = () => {
             {/* Contenido de estadísticas */}
             <div
               className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                isEstadisticasVisible ? 'max-h-[1000px]' : 'max-h-0'
+                isEstadisticasVisible ? "max-h-[1000px]" : "max-h-0"
               }`}
             >
-              <div className=" border-t border-black pt-2">
-                <p className="text-xl font-bold ">
-                  Velocidad promedio: {velocidadPromedio} km/hr
-                </p>
-                <p className="mt-[-8px]">
-                  * Los cadetes nivel 4 suelen ir a una velocidad promedio de 15
-                  km/hr
-                </p>
-                {/* Aquí puedes agregar más estadísticas si lo deseas */}
-              </div>
-              <div className=" ">
-                <p className="text-xl font-bold ">Tiempo conectado: 3:20 hs</p>
-                <p className="mt-[-8px]">
-                  * Los cadetes nivel 4 suelen conectarse 3:50
-                </p>
-                {/* Aquí puedes agregar más estadísticas si lo deseas */}
-              </div>
-              {/* niveles */}
               <div className=" border border-1 mt-2 mb-2 border-black  rounded-md">
-                <p className="text-left text-black border-b border-black border-1 px-4 py-2">
-                  Los niveles se actualizan semanalmente segun tu rendimiento de
-                  la semana previa.
-                </p>
-                <div className="px-4 py-2 text-left text-black">
-                  <p className="  ">
-                    -Nivel 1: Capaz de sacar maximo 3 pedidos por vuelta sin
-                    descuidar la entrega
-                  </p>
-                  <p className=" ">
-                    -Nivel 2: Capaz de sacar maximo 4 pedidos por vuelta sin
-                    descuidar la entrega
-                  </p>
-                  <p className=" ">
-                    -Nivel 3: Capaz de sacar maximo 5 pedidos por vuelta sin
-                    descuidar la entrega
-                  </p>
-                  <p className=" ">
-                    -Nivel 4: Capaz de sacar 6 o mas pedidos por vuelta sin
-                    descuidar la entrega
-                  </p>
-                </div>
-
-                {/* Aquí puedes agregar más estadísticas si lo deseas */}
+                <NivelesComponent />
               </div>
             </div>
 
@@ -294,7 +253,7 @@ export const AnheloRidersStats = () => {
               <img
                 src={arrow}
                 className={`h-2 transition-transform duration-500 ${
-                  isDesgloseVisible ? '-rotate-90' : 'rotate-90'
+                  isDesgloseVisible ? "-rotate-90" : "rotate-90"
                 }`}
                 alt=""
               />
@@ -302,7 +261,7 @@ export const AnheloRidersStats = () => {
 
             <div
               className={`transition-all duration-500 ease-in-out ${
-                isDesgloseVisible ? 'max-h-[1000px]' : 'max-h-0'
+                isDesgloseVisible ? "max-h-[1000px]" : "max-h-0"
               }`}
             >
               <div
@@ -320,18 +279,18 @@ export const AnheloRidersStats = () => {
                     <p>Direcciones: {renderDirecciones(vuelta.orders)}</p>
                     <p>Recorrido: {vuelta.totalDistance.toFixed(2)} kms</p>
                     <p>
-                      Velocidad:{' '}
+                      Velocidad:{" "}
                       {calculateSpeed(
                         vuelta.totalDistance,
-                        vuelta.totalDuration
-                      )}{' '}
+                        vuelta.totalDuration,
+                      )}{" "}
                       km/hr
                     </p>
                     <p>
-                      Ganancia:{' '}
+                      Ganancia:{" "}
                       {paga[vuelta.rideId]
                         ? currencyFormat(paga[vuelta.rideId])
-                        : 'Calculando...'}
+                        : "Calculando..."}
                     </p>
                   </div>
                 ))}
@@ -342,7 +301,7 @@ export const AnheloRidersStats = () => {
                       totalOrders,
                       formatearFecha,
                       currencyFormat,
-                      paga
+                      paga,
                     )
                   }
                   className="bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700"
