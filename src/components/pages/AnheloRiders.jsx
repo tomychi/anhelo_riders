@@ -105,6 +105,7 @@ export const AnheloRiders = () => {
 
   // -33.120227, -64.348986 sebastian vera 160 cadete
   //  sebastian vera 338 pedido
+  // -33.108982, -64.339921 avenida marcelo t de alvear
 
   useEffect(() => {
     const watchId = navigator.geolocation.watchPosition(
@@ -116,8 +117,8 @@ export const AnheloRiders = () => {
 
         pedidosPorEntregar.forEach((pedido) => {
           const distancia = calcularDistancia(
-            -33.120227, // cadeteLatitude
-            -64.348986, // cadeteLongitude
+            -33.108982, // cadeteLatitude
+            -64.339921, // cadeteLongitude
             pedido.map[0],
             pedido.map[1],
           );
