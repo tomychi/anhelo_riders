@@ -103,37 +103,43 @@ export const AnheloRiders = () => {
     }, 500); // Esperar 500ms después de que el scroll se detenga
   };
 
-  pedidosPorEntregar.map((pedido, index) => {
-    // Obtener la ubicación actual del cadete
-    navigator.geolocation.getCurrentPosition(
+  // -33.120227, -64.348986 sebastian vera 160 cadete
+  //  sebastian vera 338 pedido
+
+  useEffect(() => {
+    const watchId = navigator.geolocation.watchPosition(
       (position) => {
         const cadeteLatitude = position.coords.latitude;
         const cadeteLongitude = position.coords.longitude;
 
         console.log(cadeteLatitude, cadeteLongitude);
-        // Calcular la distancia entre el cadete y el pedido
-        const distancia = calcularDistancia(
-          cadeteLatitude,
-          cadeteLongitude,
-          pedido.latitude,
-          pedido.longitude,
-        );
 
-        // Si la distancia es menor a cierto umbral (por ejemplo, 500 metros)
-        if (distancia < 0.5) {
-          // Notificar al cliente que el cadete está cerca
-          notificarCliente(
-            pedido.clienteId,
-            "El cadete está cerca de su ubicación",
+        pedidosPorEntregar.forEach((pedido) => {
+          const distancia = calcularDistancia(
+            -33.120227, // cadeteLatitude
+            -64.348986, // cadeteLongitude
+            pedido.map[0],
+            pedido.map[1],
           );
-        }
+
+          if (distancia < 0.5) {
+            notificarCliente(
+              pedido.clienteId,
+              "El cadete está cerca de su ubicación",
+            );
+          }
+        });
       },
       (error) => {
         console.error("Error obteniendo la ubicación del cadete:", error);
       },
       { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 },
     );
-  });
+
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
+  }, [pedidosPorEntregar]);
 
   // Función para calcular la distancia entre dos puntos geográficos
   const calcularDistancia = (lat1, lon1, lat2, lon2) => {
