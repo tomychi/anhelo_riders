@@ -1,8 +1,8 @@
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const fetchConstants = async () => {
   const firestore = getFirestore();
-  const constDocRef = doc(firestore, 'constantes', 'sueldos');
+  const constDocRef = doc(firestore, "constantes", "sueldos");
   const constDoc = await getDoc(constDocRef);
 
   if (constDoc.exists()) {
@@ -14,7 +14,13 @@ const fetchConstants = async () => {
 };
 
 export const calcularDesglosePaga = (vueltas, cadetesData) => {
+  if (!vueltas.orders || vueltas.orders.length === 0) {
+    return 0;
+  }
+
   let totalPaga = 0;
+
+  vueltas.orders;
 
   vueltas.forEach((vuelta) => {
     const puntosDeEntrega = vuelta.orders.length;
@@ -39,10 +45,17 @@ export const calcularDesglosePaga = (vueltas, cadetesData) => {
 };
 
 export const calcularPagaPorUnaVuelta = async (vuelta) => {
+  if (!vuelta) {
+    return 0;
+  }
   const cadetesData = await fetchConstants();
 
   if (!cadetesData) {
-    console.error('No se pudieron obtener los datos de sueldos');
+    console.error("No se pudieron obtener los datos de sueldos");
+    return 0;
+  }
+
+  if (!vuelta.orders || vuelta.orders.length === 0) {
     return 0;
   }
 
@@ -69,7 +82,7 @@ export const calcularPagaPorVuelta = async (orders, totalDistance) => {
   const cadetesData = await fetchConstants();
 
   if (!cadetesData) {
-    console.error('No se pudieron obtener los datos de sueldos');
+    console.error("No se pudieron obtener los datos de sueldos");
     return 0;
   }
 
