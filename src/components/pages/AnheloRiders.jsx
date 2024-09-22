@@ -5,7 +5,7 @@ import { PedidoCard } from "../orders/PedidoCard";
 import { ReadOrdersForToday } from "../../firebase/orders";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserNameByUid } from "../../firebase/users";
+import { fetchUserNameByUid, updateCercaForOrder } from "../../firebase/users";
 import { updateAvailableRide } from "../../redux/riders/riderAction";
 import arrow from "../../assets/arrowIcon.png";
 import money from "../../assets/moneyIcon.png";
@@ -117,17 +117,26 @@ export const AnheloRiders = () => {
 
         pedidosPorEntregar.forEach((pedido) => {
           const distancia = calcularDistancia(
-            -33.108982, // cadeteLatitude
-            -64.339921, // cadeteLongitude
+            cadeteLatitude,
+            cadeteLongitude,
             pedido.map[0],
             pedido.map[1],
           );
 
-          if (distancia < 0.5) {
-            notificarCliente(
-              pedido.clienteId,
-              "El cadete está cerca de su ubicación",
-            );
+          if (distancia < 0.5 && !pedido.cerca) {
+            // Si la distancia es menor a 0.5 y "cerca" es false, actualizar el pedido
+            updateCercaForOrder(pedido.fecha, pedido.id)
+              .then(() => {
+                console.log(`Pedido ${pedido.id} actualizado con cerca: true`);
+                // Opcional: Actualizar el estado local o notificar al cliente aquí
+                notificarCliente(
+                  pedido.clienteId,
+                  "El cadete está cerca de su ubicación",
+                );
+              })
+              .catch((error) => {
+                console.error("Error al actualizar el pedido:", error);
+              });
           }
         });
       },
@@ -140,7 +149,7 @@ export const AnheloRiders = () => {
     return () => {
       navigator.geolocation.clearWatch(watchId);
     };
-  }, [pedidosPorEntregar]);
+  }, [pedidosPorEntregar]); // Asegúrate de que "pedidosPorEntregar" esté en las dependencias
 
   // Función para calcular la distancia entre dos puntos geográficos
   const calcularDistancia = (lat1, lon1, lat2, lon2) => {
